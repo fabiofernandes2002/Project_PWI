@@ -1,0 +1,48 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+.color-change-5x {
+	-webkit-animation: color-change-5x 20s linear infinite alternate both;
+	        animation: color-change-5x 20s linear infinite alternate both;
+}
+
+ @-webkit-keyframes color-change-5x {
+    0% {
+      background: #9EC84E;
+    }
+    25% {
+      background: #FF8FA2;
+    }
+    50% {
+      background: #9E8963;
+    }
+    75% {
+      background: #65A9CC;
+    }
+    100% {
+      background: #FBE169;
+    }
+  }
+  @keyframes color-change-5x {
+    0% {
+      background: #9EC84E;
+    }
+    25% {
+      background: #FF8FA2;
+    }
+    50% {
+      background: #9E8963;
+    }
+    75% {
+      background: #65A9CC;
+    }
+    100% {
+      background: #FBE169;
+    }
+  }
+  
