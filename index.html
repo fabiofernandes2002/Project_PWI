@@ -3,31 +3,39 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" href="/favicon.ico">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>APLICAÇÃO DE RECICLAGEM</title>
-  <link rel="stylesheet" href="/src/assets/css/index.css">
-
+  <link rel="stylesheet" href="./src/assets/css/index.css">
 </head>
 
 <body>
+  <section id="section-1">
 
-  <!-- TÍTULO DA PÁGINA -->
-  <div class="title">
-    <h1>APLICAÇÃO DE RECICLAGEM</h1>
-  </div>
-  
-  <!-- BARRA DE PESQUISA -->
-  <div class="searchbox">
-    <div class="col-3 input-effect">
-      <input class="effect-16" type="text" placeholder="">
-      <label>Procurar Ecopontos</label>
-      <span class="focus-border"></span>
+    <!-- TÍTULO -->
+    <div class="title">
+      <h1>APLICAÇÃO DE RECICLAGEM</h1>
     </div>
-  </div>
 
-  <!-- BOTÃO DE PESQUISA -->
-  <button class="button-bounce btn-5">PESQUISAR</button>
+    <!-- BARRA DE PESQUISA -->
+    <div class="searchbox">
+      <div class="col-3 input-effect">
+        <input class="effect-16" type="text" placeholder="">
+        <label>Procurar Ecopontos</label>
+        <span class="focus-border"></span>
+      </div>
+    </div>
+
+    <!-- BOTÃO DE PESQUISA -->
+    <button class="button-bounce btn-5">PESQUISAR</button>
+
+  </section>
+
+  <section id="section-2">
+    <div class="title">
+      <h1>O QUE É A RECICLAGEM?</h1>
+    </div>
+  </section>
 
   <!-- MENU LATERAL -->
   <nav role="navigation">
@@ -39,10 +47,10 @@
       <span></span>
 
       <ul id="menu">
-        <a href="#">
+        <a href="#section-1">
           <li>Página Inicial</li>
         </a>
-        <a href="#">
+        <a href="#section-2">
           <li>O que é a reciclagem?</li>
         </a>
         <a href="#">
@@ -54,8 +62,6 @@
       </ul>
     </div>
   </nav>
-
-  <script type="module" src="/src/main.js"></script>
 
 </body>
 
