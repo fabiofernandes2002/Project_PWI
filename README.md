@@ -1,29 +1,19 @@
-# Project_PWI
 
-This template should help get you started developing with Vue 3 in Vite.
+# APLICAÇÃO DE RECICLAGEM
 
-## Recommended IDE Setup
+Este projeto tem como principal objetivo ser alusivo ao tema Eco-Escolas, sendo que visa ajudar pessoas de todas as idades a encontrar ecopontos perto da sua localização, bem como explicar de maneira simples e eficaz o que é a reciclagem e como cada ecoponto funciona.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Funcionalidades
 
-## Customize configuration
+- Localização de Ecopontos
+- Preview em tempo real
+- Estudo de Reciclagem
+- Apto para todas as idades
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-## Project Setup
+## Autores
 
-```sh
-npm install
-```
+- [@LucasSilva194](https://github.com/LucasSilva194)
+- [@Bernardo2814](https://github.com/Bernardo2814)
+- [@fabiofernandes2002](https://github.com/fabiofernandes2002)
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
