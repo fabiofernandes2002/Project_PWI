@@ -19,8 +19,41 @@ section {
 
 /* PÁGINA INICIAL */
 #section-1 {
-  -webkit-animation: color-change-3x 15s linear infinite alternate both;
-  animation: color-change-3x 15s linear infinite alternate both;
+  background: rgb(246, 36, 49);
+  background: linear-gradient(
+    0deg,
+    rgba(246, 36, 49, 1) 0%,
+    rgba(248, 187, 0, 1) 100%
+  );
+  /* -webkit-animation: color-change-3x 15s linear infinite alternate both;
+  animation: color-change-3x 15s linear infinite alternate both; */
+}
+
+#section-2 {
+  background: rgb(37, 121, 245);
+  background: linear-gradient(
+    0deg,
+    rgba(37, 121, 245, 1) 0%,
+    rgba(246, 36, 49, 1) 100%
+  );
+}
+
+#section-3 {
+  background: rgb(127, 105, 253);
+  background: linear-gradient(
+    0deg,
+    rgba(127, 105, 253, 1) 0%,
+    rgba(37, 121, 245, 1) 100%
+  );
+}
+
+#section-4 {
+  background: rgb(19, 64, 119);
+  background: linear-gradient(
+    0deg,
+    rgba(19, 64, 119, 1) 0%,
+    rgba(127, 105, 253, 1) 100%
+  );
 }
 
 @-webkit-keyframes color-change-3x {
