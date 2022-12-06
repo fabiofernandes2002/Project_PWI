@@ -7,8 +7,9 @@
   font-family: "Muli", sans-serif;
 }
 
-html {
+html,body {
   scroll-behavior: smooth;
+  overflow: hidden; /* Esconder barra de Scroll */
 }
 
 section {
@@ -118,7 +119,7 @@ section {
   display: block;
   position: fixed;
   top: 35px;
-  left: 50px;
+  left: 1300px;
 
   z-index: 1;
 
@@ -186,16 +187,17 @@ section {
 /* POSIÇÃO DO MENU */
 #menu {
   position: absolute;
-  width: 300px;
-  margin: -100px 0 0 -50px;
+  width: 350px;
+  margin: -100px 0 0 0;
   padding: 50px;
   padding-top: 125px;
-  padding-bottom: 350px;
+  padding-bottom: 400px;
+  right: -100px;
   background: #ededed;
   list-style-type: none;
   -webkit-font-smoothing: antialiased;
   transform-origin: 0% 0%;
-  transform: translate(-100%, 0);
+  transform: translate(100%, 0);
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
 }
 #menu li {
@@ -204,6 +206,7 @@ section {
 }
 #menuToggle input:checked ~ ul {
   transform: none;
+  opacity: 1;
 }
 
 /* SEARCH BOX */
@@ -214,7 +217,7 @@ section {
     both;
   position: absolute;
   top: 32.1%;
-  left: 25%;
+  left: 21%;
 }
 input[type="text"] {
   font: 15px/24px "Muli", sans-serif;
@@ -308,7 +311,7 @@ input[type="text"] {
   animation: bounce-in-top 1.1s 1.5s both;
   position: absolute;
   top: 38%;
-  left: 69%;
+  left: 65%;
   width: 130px;
   height: 40px;
   padding: 10px 25px;
