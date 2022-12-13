@@ -15,19 +15,21 @@ html,body {
 section {
   height: 100vh;
   position: relative;
-  align-items: center;
+  justify-content: center;
+}
+
+@keyframes gradient {
+  100% {
+    background-size: 4000px 1000px;
+  }
 }
 
 /* PÁGINA INICIAL */
 #section-1 {
-  background: rgb(246, 36, 49);
-  background: linear-gradient(
-    0deg,
-    rgba(246, 36, 49, 1) 0%,
-    rgba(248, 187, 0, 1) 100%
-  );
-  /* -webkit-animation: color-change-3x 15s linear infinite alternate both;
-  animation: color-change-3x 15s linear infinite alternate both; */
+  background-image: url("../imgs/mainbg.svg");
+  background-size: 2000px 1000px;
+  background-position: -500px 0;
+  animation: gradient 80s infinite alternate linear;
 }
 
 #section-2 {
@@ -433,4 +435,60 @@ input[type="text"] {
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
   }
+}
+
+/* LINHA VERTICAL DOS ECOPONTOS */
+.line {
+  position: relative;
+  top: 12%;
+  left: 50%;
+  width: 5px;
+  height: 70%;
+  background: #000;
+  z-index: 1;
+}
+
+/* CIRCULOS PARA OS ECOPONTOS */
+.circle-top {
+  display: inline-block;
+  position: relative;
+  right: 150%;
+  bottom: 3.5%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #000;
+}
+
+.circle-2 {
+  display: inline-block;
+  position: relative;
+  right: 150%;
+  top: 20.5%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #000;
+}
+
+.circle-3 {
+  display: inline-block;
+  position: relative;
+  right: 150%;
+  top: 55%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #000;
+}
+
+.circle-bottom {
+  display: inline-block;
+  position: relative;
+  right: 150%;
+  top: 95%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #000;
 }
