@@ -21,7 +21,7 @@
   </section>
 
   <section id="section-2">
-    <div class="title">
+    <div class="title2">
       <h1>O QUE É A RECICLAGEM?</h1>
     </div>
     <div class="line">
@@ -33,13 +33,13 @@
   </section>
 
   <section id="section-3">
-    <div class="title">
+    <div class="title2">
       <h1>MAPA DE ECOPONTOS</h1>
     </div>
   </section>
 
   <section id="section-4">
-    <div class="title">
+    <div class="title2">
       <h1>LEADERBOARD</h1>
     </div>
   </section>

@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Saira Condensed');
-@import url('https://fonts.cdnfonts.com/css/boldhead');
+@import url("https://fonts.googleapis.com/css?family=Saira Condensed");
+@import url("https://fonts.cdnfonts.com/css/boldhead");
 
 * {
   padding: 0;
@@ -19,7 +19,6 @@ section {
   height: 100vh;
   position: relative;
   justify-content: center;
-  font-family: "Muli", sans-serif;
 }
 
 @keyframes gradient {
@@ -59,29 +58,19 @@ section {
 
 /* TÍTULO */
 .title {
-  -webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1)
-    both;
   animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) both;
   display: flex;
   justify-content: center;
-  font-family: 'Boldhead', sans-serif;
+  font-family: "Boldhead", sans-serif;
   color: #1abc9c;
-  font-size: 3.5rem;
   padding-top: 20vh;
+  font-size: 3.5rem;
   text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
 }
-@-webkit-keyframes tracking-in-expand {
-  0% {
-    letter-spacing: -0.5em;
-    opacity: 0;
-  }
-  40% {
-    opacity: 0.6;
-  }
-  100% {
-    opacity: 1;
-  }
+.title h1{
+  font-size: 3.5rem;
 }
+
 @keyframes tracking-in-expand {
   0% {
     letter-spacing: -0.5em;
@@ -108,7 +97,7 @@ section {
 }
 
 #menuToggle a {
-  font-family: 'Saira Condensed';
+  font-family: "Saira Condensed";
   text-decoration: none;
   color: #232323;
 
@@ -139,7 +128,7 @@ section {
   height: 4px;
   margin-bottom: 5px;
   position: relative;
-  background: #1ABC9C;
+  background: #1abc9c;
   border-radius: 3px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -200,27 +189,27 @@ section {
 
 .searchTerm {
   width: 100%;
-  border: 8px solid #1ABC9C;
+  border: 8px solid #1abc9c;
   border-right: none;
   padding: 5px;
   height: 70px;
   font-size: 20px;
-  font-family: 'Saira Condensed';
+  font-family: "Saira Condensed";
   border-radius: 9px 0 0 9px;
   box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
   outline: none;
-  color: #9DBFAF;
+  color: #9dbfaf;
 }
 
-.searchTerm:focus{
-  color: #1ABC9C;
+.searchTerm:focus {
+  color: #1abc9c;
 }
 
 .searchButton {
   width: 60px;
   height: 70px;
-  border: 1px solid #1ABC9C;
-  background: #1ABC9C;
+  border: 1px solid #1abc9c;
+  background: #1abc9c;
   background-image: url("../imgs/Search-icon.svg");
   background-repeat: no-repeat;
   background-position: center;
@@ -233,7 +222,7 @@ section {
   box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
-.wrap{
+.wrap {
   width: 60%;
   position: absolute;
   top: 50%;
@@ -242,16 +231,16 @@ section {
 }
 
 .logo {
-  background-image: url("../imgs/logo_acabado.png");
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-size: 10%;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  display: flex;
-  margin-left: 2vw;
-  margin-top: -26vh;
+background-image: url("/src/assets/imgs/logo_acabado.png");
+background-repeat: no-repeat;
+background-position: center;
+background-size: contain;
+width: 10%;
+height: 15%;
+position: relative;
+display: flex;
+margin-left: 2vw;
+margin-top: -23vh;
 }
 
 /* LINHA VERTICAL DOS ECOPONTOS */
