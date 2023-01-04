@@ -2,81 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>APLICAÇÃO DE RECICLAGEM</title>
-    <link rel="stylesheet" href="./src/assets/css/index.css" />
+    <title>PHOTORECYCLE</title>
   </head>
-
   <body>
-    <section id="section-1">
-      <!-- TÍTULO -->
-      <div class="title">
-        <h1>PHOTORECYCLE</h1>
-      </div>
-
-      <!-- BARRA DE PESQUISA -->
-      <div class="searchbox">
-        <div class="col-3 input-effect">
-          <input class="effect-16" type="text" placeholder="" />
-          <label>Procurar Ecopontos</label>
-          <span class="focus-border"></span>
-        </div>
-      </div>
-
-      <!-- BOTÃO DE PESQUISA -->
-      <button class="button-bounce btn-5">PESQUISAR</button>
-    </section>
-
-    <section id="section-2">
-      <div class="title">
-        <h1>O QUE É A RECICLAGEM?</h1>
-      </div>
-      <div class="line">
-        <span class="circle-top"></span>
-        <span class="circle-bottom"></span>
-        <span class="circle-2"></span>
-        <span class="circle-3"></span>
-      </div>
-    </section>
-
-    <section id="section-3">
-      <div class="title">
-        <h1>MAPA DE ECOPONTOS</h1>
-      </div>
-    </section>
-
-    <section id="section-4">
-      <div class="title">
-        <h1>LEADERBOARD</h1>
-      </div>
-    </section>
-
-    <!-- MENU LATERAL -->
-    <nav role="navigation">
-      <div id="menuToggle">
-        <input type="checkbox" />
-        <span></span>
-        <span></span>
-        <span></span>
-
-        <ul id="menu">
-          <a href="#section-1">
-            <li>Página Inicial</li>
-          </a>
-          <a href="#section-2">
-            <li>O que é a reciclagem?</li>
-          </a>
-          <a href="#section-3">
-            <li>Mapa de Ecopontos</li>
-          </a>
-          <a href="#section-4">
-            <li>Leaderboard</li>
-          </a>
-        </ul>
-      </div>
-    </nav>
-
-    <script src="./src/assets/js/index.js"></script>
+    <div id="app"></div>
+    <script type="module" src="./src/main.js"></script>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        scroll-behavior: smooth;
+        overflow: hidden;
+      }
+    </style>
   </body>
 </html>

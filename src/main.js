@@ -1,4 +1,4 @@
-import Vue, { createApp } from '@vue/compat';
+import Vue, { createApp } from 'vue';
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
@@ -12,7 +12,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);
 
-import './assets/main.css'
 
 const app = createApp(App)
 
