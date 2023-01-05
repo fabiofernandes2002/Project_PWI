@@ -8,11 +8,9 @@
 }
 
 html,
-body,
-#app {
+body{
   height: 100vh;
   scroll-behavior: smooth;
-  overflow: hidden; /* Esconder barra de Scroll */
 }
 
 section {
@@ -23,12 +21,21 @@ section {
 
 @keyframes gradient {
   100% {
-    background-size: 4000px 1000px;
+    background-size: 3000px 4500px;
   }
 }
 
 /* PÁGINA INICIAL */
-#section-1 {
+
+.mainpage {
+  background-image: url("../imgs/mainbg.svg");
+  background-size: 2000px 3500px;
+  background-repeat: no-repeat;
+  background-position: -400px 0;
+  animation: gradient 70s infinite alternate linear;
+}
+
+/* #section-1 {
   background-image: url("../imgs/mainbg.svg");
   background-size: 2000px 1000px;
   background-position: -500px 0;
@@ -54,7 +61,7 @@ section {
   background-size: 2000px 1000px;
   background-position: -500px 0;
   animation: gradient 80s infinite alternate linear;
-}
+} */
 
 /* TÍTULO PRINCIPAL*/
 .title {
