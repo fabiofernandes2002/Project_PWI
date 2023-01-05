@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="registerPage">
     <b-container fluid>
       <b-row class="mt-5 ">
         <b-col cols="12 my-3" md="6" class="b-col border-right">
@@ -158,6 +158,14 @@ export default {
 </script>
 
 <style scoped>
+
+.registerPage{
+  background-image: url("../assets/imgs/mainbg.svg");
+  background-repeat: no-repeat;
+  background-size: 2000px 4000px;
+  height: 100vh;
+  padding: 0;
+}
 .logoImage {
   text-align: center;
 }
