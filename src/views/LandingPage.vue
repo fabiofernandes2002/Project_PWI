@@ -1,11 +1,13 @@
 <template>
 
   <section id="section-1">
+
     <!-- TÍTULO -->
     <div class="title">
       <h1>PHOTORECYCLE</h1>
     </div>
     
+    <!-- LOGO -->
     <div class="logo">
     </div>
 
@@ -18,6 +20,11 @@
       </div>
     </div>
 
+    <!-- BOTÃO DE LOCALIZAÇÃO -->
+    <div class="location">
+      <button type="submit" class="locationButton"><span>Utilizar Localização Atual</span></button>
+    </div>
+      
   </section>
 
   <section id="section-2">

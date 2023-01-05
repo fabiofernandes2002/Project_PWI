@@ -56,7 +56,7 @@ section {
   animation: gradient 80s infinite alternate linear;
 }
 
-/* TÍTULO */
+/* TÍTULO PRINCIPAL*/
 .title {
   animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) both;
   display: flex;
@@ -69,6 +69,18 @@ section {
 }
 .title h1{
   font-size: 3.5rem;
+}
+
+/* TÍTULOS SECUNDÁRIOS */
+.title2 h1{
+font-family: "Saira Condensed";
+font-weight: bold;
+font-size: 3.5rem;
+display:flex;
+justify-content: center;
+padding-top: 3vh;
+color: #1abc9c;
+text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes tracking-in-expand {
@@ -84,6 +96,55 @@ section {
   }
 }
 
+/* BOTÃO DE LOCALIZAÇÃO */
+.location{
+  display: flex;
+  justify-content: center;
+  padding-top: 40vh;
+}
+
+.locationButton {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  font-family: "Saira Condensed";
+  text-align: center;
+  font-size: 22px;
+  padding: 15px;
+  width: 300px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.locationButton span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.locationButton span:after {
+  content: '\00bb' '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.locationButton:hover span {
+  padding-right: 25px;
+}
+
+.locationButton:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
 /* MENU LATERAL */
 #menuToggle {
   display: block;
@@ -92,7 +153,6 @@ section {
   left: 96vw;
   z-index: 1;
 
-  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -118,7 +178,6 @@ section {
   cursor: pointer;
   opacity: 0;
   z-index: 2;
-  -webkit-touch-callout: none;
 }
 
 /* HAMBURGER */
@@ -166,7 +225,6 @@ section {
   right: -50px;
   background: #ededed;
   list-style-type: none;
-  -webkit-font-smoothing: antialiased;
   transform-origin: 0% 0%;
   transform: translate(100%, 0);
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
@@ -230,6 +288,7 @@ section {
   transform: translate(-50%, -50%);
 }
 
+/* LOGO */
 .logo {
 background-image: url("/src/assets/imgs/logo_acabado.png");
 background-repeat: no-repeat;
@@ -246,7 +305,7 @@ margin-top: -23vh;
 /* LINHA VERTICAL DOS ECOPONTOS */
 .line {
   position: relative;
-  top: 12%;
+  top: 9%;
   left: 50%;
   width: 5px;
   height: 70%;
