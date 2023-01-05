@@ -1,0 +1,359 @@
+@import url("https://fonts.googleapis.com/css?family=Saira Condensed");
+@import url("https://fonts.cdnfonts.com/css/boldhead");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100vh;
+  scroll-behavior: smooth;
+  overflow: hidden; /* Esconder barra de Scroll */
+}
+
+section {
+  height: 100vh;
+  position: relative;
+  justify-content: center;
+}
+
+@keyframes gradient {
+  100% {
+    background-size: 4000px 1000px;
+  }
+}
+
+/* PÁGINA INICIAL */
+#section-1 {
+  background-image: url("../imgs/mainbg.svg");
+  background-size: 2000px 1000px;
+  background-position: -500px 0;
+  animation: gradient 80s infinite alternate linear;
+}
+
+#section-2 {
+  background-image: url("../imgs/mainbg.svg");
+  background-size: 2000px 1000px;
+  background-position: -500px 0;
+  animation: gradient 80s infinite alternate linear;
+}
+
+#section-3 {
+  background-image: url("../imgs/mainbg.svg");
+  background-size: 2000px 1000px;
+  background-position: -500px 0;
+  animation: gradient 80s infinite alternate linear;
+}
+
+#section-4 {
+  background-image: url("../imgs/mainbg.svg");
+  background-size: 2000px 1000px;
+  background-position: -500px 0;
+  animation: gradient 80s infinite alternate linear;
+}
+
+/* TÍTULO PRINCIPAL*/
+.title {
+  animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+  display: flex;
+  justify-content: center;
+  font-family: "Boldhead", sans-serif;
+  color: #1abc9c;
+  padding-top: 20vh;
+  font-size: 3.5rem;
+  text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
+}
+.title h1{
+  font-size: 3.5rem;
+}
+
+/* TÍTULOS SECUNDÁRIOS */
+.title2 h1{
+font-family: "Saira Condensed";
+font-weight: bold;
+font-size: 3.5rem;
+display:flex;
+justify-content: center;
+padding-top: 3vh;
+color: #1abc9c;
+text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* BOTÃO DE LOCALIZAÇÃO */
+.location{
+  display: flex;
+  justify-content: center;
+  padding-top: 40vh;
+}
+
+.locationButton {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  font-family: "Saira Condensed";
+  text-align: center;
+  font-size: 22px;
+  padding: 15px;
+  width: 300px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.locationButton span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.locationButton span:after {
+  content: '\00bb' '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.locationButton:hover span {
+  padding-right: 25px;
+}
+
+.locationButton:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+/* MENU LATERAL */
+#menuToggle {
+  display: block;
+  position: fixed;
+  top: 6vh;
+  left: 96vw;
+  z-index: 1;
+
+  user-select: none;
+}
+
+#menuToggle a {
+  font-family: "Saira Condensed";
+  text-decoration: none;
+  color: #232323;
+
+  transition: color 0.3s ease;
+}
+
+#menuToggle a:hover {
+  color: #2ecc71;
+}
+
+#menuToggle input {
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 2;
+}
+
+/* HAMBURGER */
+#menuToggle span {
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  background: #1abc9c;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  transform-origin: 4px 0px;
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+    background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+}
+#menuToggle span:first-child {
+  transform-origin: 0% 0%;
+}
+#menuToggle span:nth-last-child(2) {
+  transform-origin: 0% 100%;
+}
+/* TRANSFORMA HAMBURGER NUMA CRUZ*/
+#menuToggle input:checked ~ span {
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #232323;
+}
+#menuToggle input:checked ~ span:nth-last-child(3) {
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+#menuToggle input:checked ~ span:nth-last-child(2) {
+  transform: rotate(-45deg) translate(0, -1px);
+}
+/* POSIÇÃO DO MENU */
+#menu {
+  position: absolute;
+  width: 350px;
+  margin: -100px 0 0 0;
+  padding: 50px;
+  padding-top: 125px;
+  padding-bottom: 520px;
+  right: -50px;
+  background: #ededed;
+  list-style-type: none;
+  transform-origin: 0% 0%;
+  transform: translate(100%, 0);
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+}
+#menu li {
+  padding: 10px 0;
+  font-size: 22px;
+}
+#menuToggle input:checked ~ ul {
+  transform: none;
+  opacity: 1;
+}
+
+/* SEARCH BOX */
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 8px solid #1abc9c;
+  border-right: none;
+  padding: 5px;
+  height: 70px;
+  font-size: 20px;
+  font-family: "Saira Condensed";
+  border-radius: 9px 0 0 9px;
+  box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
+  outline: none;
+  color: #9dbfaf;
+}
+
+.searchTerm:focus {
+  color: #1abc9c;
+}
+
+.searchButton {
+  width: 60px;
+  height: 70px;
+  border: 1px solid #1abc9c;
+  background: #1abc9c;
+  background-image: url("../imgs/Search-icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30px 30px;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+  box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.wrap {
+  width: 60%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* LOGO */
+.logo {
+background-image: url("/src/assets/imgs/logo_acabado.png");
+background-repeat: no-repeat;
+background-position: center;
+background-size: contain;
+width: 10%;
+height: 15%;
+position: relative;
+display: flex;
+margin-left: 2vw;
+margin-top: -23vh;
+}
+
+/* LINHA VERTICAL DOS ECOPONTOS */
+.line {
+  position: relative;
+  top: 9%;
+  left: 50%;
+  width: 5px;
+  height: 70%;
+  background: #000;
+  z-index: 1;
+}
+
+/* CIRCULOS PARA OS ECOPONTOS */
+.circle-top {
+  display: inline-block;
+  position: relative;
+  right: 150%;
+  bottom: 3.5%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #000;
+}
+
+.circle-2 {
+  display: inline-block;
+  position: relative;
+  right: 150%;
+  top: 20.5%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #000;
+}
+
+.circle-3 {
+  display: inline-block;
+  position: relative;
+  right: 150%;
+  top: 55%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #000;
+}
+
+.circle-bottom {
+  display: inline-block;
+  position: relative;
+  right: 150%;
+  top: 95%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #000;
+}
