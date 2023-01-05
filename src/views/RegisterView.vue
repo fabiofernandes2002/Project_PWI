@@ -161,11 +161,31 @@ export default {
 
 .registerPage{
   background-image: url("../assets/imgs/mainbg.svg");
-  background-repeat: no-repeat;
-  background-size: 2000px 4000px;
+  background-size: fill;
   height: 100vh;
   padding: 0;
 }
+
+.container-fluid {
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+}
+.mt-5{
+  margin-top: 0rem !important;
+  margin-bottom: 0rem!important;
+}
+
+.mt-3{
+  margin-top: 0rem !important;
+  margin-bottom: 0rem!important;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
 .logoImage {
   text-align: center;
 }
@@ -297,7 +317,7 @@ export default {
 
   width: 100%;
   height: 50px;
-  margin-top: 20px;
+margin-top: 20px;
   margin-bottom: 20px;
 }
 
