@@ -1,5 +1,6 @@
 <template>
 
+<div style="overflow: hidden">
   <section id="section-1">
 
     <!-- TÍTULO -->
@@ -75,9 +76,10 @@
       </ul>
     </div>
   </nav>
+</div>
 
 </template>
 
-<style scoped>
+<style>
 @import "../assets/css/index.css";
 </style>
