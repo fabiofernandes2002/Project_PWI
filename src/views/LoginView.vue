@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="backgroundFundo">
     <b-container fluid>
       <b-row class="mt-5 ">
         <b-col cols="12 my-3" md="6" class="b-col border-right">
@@ -27,7 +27,7 @@
 
         <b-col cols="12" md="6" class="logoImage">
           <!-- buscar minha imagem do logo -->
-          <b-img src="src/assets/imgs/logo_acabado.png" alt="Logo" id="logo" width="125px" height="125px"></b-img>
+          <b-img src="src/assets/imgs/logo_acabado.png" alt="Logo" id="logo"></b-img>
           <h1 class="logoName">Photo Recycle</h1>
 
           <!-- link de ainda não tiver conta -->
@@ -104,6 +104,15 @@ export default {
 </script>
 
 <style scoped>
+
+#backgroundFundo {
+  background-image: url("../imgs/mainbg.svg");
+  background-size: 2000px 1000px;
+  background-position: -500px 0;
+  animation: gradient 80s infinite alternate linear;
+
+}
+
 .logoImage {
   text-align: center;
 }
@@ -239,6 +248,11 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+#logo {
+  width: 20%;
+  height: 25%;
 }
 
 .logoName {

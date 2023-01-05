@@ -55,11 +55,11 @@
 
         <b-col cols="12" md="6" class="logoImage">
           <!-- buscar minha imagem do logo -->
-          <b-img src="src/assets/imgs/logo_acabado.png" alt="Logo" id="logo" width="125px" height="125px"></b-img>
+          <b-img src="src/assets/imgs/logo_acabado.png" alt="Logo" id="logo"></b-img>
           <h1 class="logoName">Photo Recycle</h1>
 
           <!-- link de ainda não tiver conta -->
-          <b-link href="/" id="linkCriarConta">Já tem uma conta? <span id="registerLink">Faça já login!</span></b-link>
+          <b-link href="/login" id="linkCriarConta">Já tem uma conta? <span id="registerLink">Faça já login!</span></b-link>
         </b-col>
 
       </b-row>
@@ -309,6 +309,11 @@ export default {
 .logoName {
   margin-top: 20px;
   font-family: 'Boldhead';
+}
+
+#logo {
+  width: 20%;
+  height: 15%;
 }
 
 #linkCriarConta {
