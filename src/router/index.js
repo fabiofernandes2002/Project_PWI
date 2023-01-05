@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import LandingPage from '../views/LandingPage.vue'
 import LandingPageView from '../views/LandingPageView.vue'
@@ -12,6 +13,11 @@ const router = createRouter({
       component: LandingPage
     },
     {
+      path: '/login',
+      name: 'login',
+      component: LoginView
+    },
+    {
       path: '/register',
       name: 'register',
       // route level code-splitting
@@ -19,11 +25,11 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: RegisterView
     },
-    {
-      path: '/LandingPageView',
-      name: 'LandingPageView',
+    /* {
+      path: '/landingPage',
+      name: 'landingPage',
       component: LandingPageView
-    },
+    }, */
   ]
 })
 
