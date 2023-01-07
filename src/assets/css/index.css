@@ -8,15 +8,30 @@
 }
 
 html,
-body{
+body {
   height: 100vh;
   scroll-behavior: smooth;
 }
 
 section {
-  height: 100vh;
   position: relative;
   justify-content: center;
+}
+
+#section-1 {
+  height: 100vh;
+}
+
+#section-2 {
+  height: 130vh;
+}
+
+#section-3 {
+  height: 100vh;
+}
+
+#section-4 {
+  height: 100vh;
 }
 
 @keyframes gradient {
@@ -25,19 +40,14 @@ section {
   }
 }
 
-
-
-
 /* PÁGINA INICIAL */
 .mainpage {
   background-image: url("../imgs/mainbg.svg");
   background-size: 2000px 3500px;
   background-repeat: no-repeat;
   background-position: -400px 0;
-  animation: gradient 70s infinite alternate linear;
+  /* animation: gradient 70s infinite alternate linear; */
 }
-
-
 
 /* TÍTULO PRINCIPAL*/
 .title {
@@ -50,22 +60,20 @@ section {
   font-size: 3.5rem;
   text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
 }
-.title h1{
+.title h1 {
   font-size: 3.5rem;
 }
 
-
-
 /* TÍTULOS SECUNDÁRIOS */
-.title2 h1{
-font-family: "Saira Condensed";
-font-weight: bold;
-font-size: 3.5rem;
-display:flex;
-justify-content: center;
-padding-top: 3vh;
-color: #1abc9c;
-text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
+.title2 h1 {
+  font-family: "Saira Condensed";
+  font-weight: bold;
+  font-size: 3.5rem;
+  display: flex;
+  justify-content: center;
+  padding-top: 3vh;
+  color: #1abc9c;
+  text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes tracking-in-expand {
@@ -81,10 +89,8 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
   }
 }
 
-
-
 /* BOTÃO DE LOCALIZAÇÃO */
-.location{
+.location {
   display: flex;
   justify-content: center;
   padding-top: 40vh;
@@ -93,9 +99,9 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
 .locationButton {
   display: inline-block;
   border-radius: 4px;
-  background-color: #f4511e;
+  background-color: #f39c12;
   border: none;
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: "Saira Condensed";
   text-align: center;
   font-size: 22px;
@@ -104,6 +110,7 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
   transition: all 0.5s;
   cursor: pointer;
   margin: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .locationButton span {
@@ -114,7 +121,7 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
 }
 
 .locationButton span:after {
-  content: '\00bb' '\00bb';
+  content: "\00bb""\00bb";
   position: absolute;
   opacity: 0;
   top: 0;
@@ -130,8 +137,6 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
   opacity: 1;
   right: 0;
 }
-
-
 
 /* MENU LATERAL */
 #menuToggle {
@@ -168,8 +173,6 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
   z-index: 2;
 }
 
-
-
 /* HAMBURGER */
 #menuToggle span {
   display: block;
@@ -177,7 +180,7 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
   height: 4px;
   margin-bottom: 5px;
   position: relative;
-  background: #1abc9c;
+  background: #f39c12;
   border-radius: 3px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -204,6 +207,7 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
 #menuToggle input:checked ~ span:nth-last-child(2) {
   transform: rotate(-45deg) translate(0, -1px);
 }
+
 /* POSIÇÃO DO MENU */
 #menu {
   position: absolute;
@@ -220,7 +224,6 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
 }
 
-
 #menu li {
   padding: 10px 0;
   font-size: 22px;
@@ -229,8 +232,6 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
   transform: none;
   opacity: 1;
 }
-
-
 
 /* SEARCH BOX */
 .search {
@@ -282,78 +283,209 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
   transform: translate(-50%, -50%);
 }
 
-
-
 /* LOGO */
 .logo {
-background-image: url("/src/assets/imgs/logo_acabado.png");
-background-repeat: no-repeat;
-background-position: center;
-background-size: contain;
-width: 10%;
-height: 15%;
-position: relative;
-display: flex;
-margin-left: 2vw;
-margin-top: -23vh;
+  background-image: url("/src/assets/imgs/logo_acabado.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 10%;
+  height: 15%;
+  position: relative;
+  display: flex;
+  margin-left: 2vw;
+  margin-top: -23vh;
 }
-
-
 
 /* LINHA VERTICAL DOS ECOPONTOS */
 .line {
   position: relative;
-  top: 9%;
+  top: 6%;
   left: 50%;
   width: 5px;
   height: 70%;
-  background: #000;
+  background: #f39c12;
   z-index: 1;
 }
-
-
 
 /* CIRCULOS PARA OS ECOPONTOS */
 .circle-top {
   display: inline-block;
   position: relative;
   right: 150%;
-  bottom: 3.5%;
+  bottom: 2%;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #000;
+  background: #f39c12;
 }
 
 .circle-2 {
   display: inline-block;
   position: relative;
   right: 150%;
-  top: 20.5%;
+  top: 12.5%;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #000;
+  background: #f39c12;
 }
 
 .circle-3 {
   display: inline-block;
   position: relative;
   right: 150%;
-  top: 55%;
+  top: 37%;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #000;
+  background: #f39c12;
 }
 
 .circle-bottom {
   display: inline-block;
   position: relative;
   right: 150%;
-  top: 95%;
+  top: 90%;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #000;
+  background: #f39c12;
+}
+
+/* TEXTO DOS ECOPONTOS */
+.identificacao {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 25vh;
+  right: 30vh;
+  bottom: 1.4vh;
+  font-family: "Saira Condensed";
+  font-weight: bold;
+  font-size: 3.5vh;
+  color: #f39c12;
+}
+
+.ident-text {
+  position:relative;
+  display:flex;
+  width: 60vh;
+  color: white;
+  text-align: center;
+  font-family: "Saira Condensed";
+  text-align: right;
+  font-size: 2.2vh;
+  right: 67vh;
+}
+
+#ident-img {
+  position: relative;
+  display: flex;
+  width: 20vh;
+  height: 20vh;
+  left:10vw;
+  bottom: 20vh;
+}
+
+.separacao {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 20vh;
+  left: 8vh;
+  bottom: 1.4vh;
+  font-family: "Saira Condensed";
+  font-size: 3.5vh;
+  text-align: center;
+  color: #f39c12;
+}
+
+.sep-text {
+  position:relative;
+  display:flex;
+  width: 60vh;
+  color: white;
+  text-align: center;
+  font-family: "Saira Condensed";
+  text-align: left;
+  font-size: 2.2vh;
+  left: 9.2vh;
+}
+
+#sep-img {
+  position: relative;
+  display: flex;
+  width: 20vh;
+  height: 20vh;
+  right: 20vw;
+  bottom: 20vh;
+}
+
+.descontaminacao {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 30vh;
+  right: 35.5vh;
+  bottom: 0.5vh;
+  font-family: "Saira Condensed";
+  font-size: 3.5vh;
+  text-align: center;
+  color: #f39c12;
+}
+
+.descont-text{
+  position:relative;
+  display:flex;
+  width: 60vh;
+  color: white;
+  text-align: center;
+  font-family: "Saira Condensed";
+  text-align: right;
+  font-size: 2.2vh;
+  right: 67vh;
+}
+
+#descont-img {
+  position: relative;
+  display: flex;
+  width: 20vh;
+  height: 20vh;
+  left:10vw;
+  bottom: 20vh;
+}
+
+.fornecimento {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 25vh;
+  left: 10vh;
+  bottom: 0.5vh;
+  font-family: "Saira Condensed";
+  font-size: 3.5vh;
+  text-align: center;
+  color: #f39c12;
+}
+
+.forn-text {
+  position:relative;
+  display:flex;
+  width: 60vh;
+  color: white;
+  text-align: center;
+  font-family: "Saira Condensed";
+  text-align: left;
+  font-size: 2.2vh;
+  left: 11.5vh;
+}
+
+#forn-img {
+  position: relative;
+  display: flex;
+  width: 20vh;
+  height: 20vh;
+  right: 20vw;
+  bottom: 20vh;
 }
