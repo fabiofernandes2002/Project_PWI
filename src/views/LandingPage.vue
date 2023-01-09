@@ -5,11 +5,11 @@
     <!------------------- SECTION 1 ----------------->
     <section id="section-1">
 
-      <div class="title"> 
+      <div class="title">
         <h1>PHOTORECYCLE</h1>
       </div>
 
-      <div class="logo"> 
+      <div class="logo">
       </div>
 
       <div class="wrap"> <!-- Barra de pesquisa -->
@@ -30,13 +30,13 @@
 
     <section id="section-2">
 
-      <div class="title2"> 
+      <div class="title2">
         <h1>O QUE É A RECICLAGEM?</h1>
       </div>
 
-      <div class="line"> 
+      <div class="line">
 
-        <span class="circle-top"> 
+        <span class="circle-top">
           <span class="identificacao">1. IDENTIFICAÇÃO</span>
           <span class="ident-text">A primeira etapa da reciclagem já começa antes de os resíduos serem levados para os
             locais apropriados. Além de colocar no sítio correto, é preciso identificar as diferentes características
@@ -78,12 +78,100 @@
 
     <br>
     <br>
-    
+
     <!------------------- SECTION 3 ----------------->
     <section id="section-3">
-
       <div class="title2">
         <h1>COMO RECICLAR?</h1>
+      </div>
+
+      <div class="amarelo">
+        <b-button v-b-toggle.amarelo-collapse class="btn-amarelo">Ecoponto Amarelo</b-button>
+        <b-collapse id="amarelo-collapse" class="mt-2">
+          <b-card>
+            <div style="float: left; width: 60%;">
+              <p class="amarelo-desc" style="text-align: justify;">O contentor das embalagens, onde podem ser colocadas
+                todo o tipo de embalagens
+                feitas de plástico, metal e pacotes de bebidas.
+                Como os ecopontos fazem parte de um sistema chamado SIGRE, tudo o que não seja embalagens, deve então
+                deslocar-se a um local apropriado para deixar.</p>
+            </div>
+            <div style="float: right; width: 40%; margin-top: 30px">
+              <img src="../assets/imgs/amarelo.png" alt="Descrição da imagem" style="width: 100%;">
+            </div>
+          </b-card>
+
+        </b-collapse>
+      </div>
+
+      <div class="azul">
+        <b-button v-b-toggle.azul-collapse class="btn-azul">Ecoponto Azul</b-button>
+        <b-collapse id="azul-collapse" class="mt-2">
+          <b-card>
+            <div style="float: left; width: 60%;">
+              <p class="azul-desc" style="text-align: justify;">No contentor azul do ecoponto, deve colocar-se tudo o
+                que seja de papel ou cartão, desde embalagens, jornais, revistas de papel, etc.
+                Uma boa curiosidade desde ecoponto, é que, desde que não estejam contaminadas, todos os materiais aqui
+                colocados, podem ser reciclados 7 vezes. </p>
+            </div>
+            <div style="float: right; width: 40%; margin-top: 30px">
+              <img src="../assets/imgs/azul.png" alt="Descrição da imagem" style="width: 100%;">
+            </div>
+          </b-card>
+        </b-collapse>
+      </div>
+
+      <div class="verde">
+        <b-button v-b-toggle.verde-collapse class="btn-verde">Ecoponto Verde</b-button>
+        <b-collapse id="verde-collapse" class="mt-2">
+          <b-card>
+            <div style="float: left; width: 60%;">
+              <p class="verde-desc" style="text-align: justify;">No contentor azul do ecoponto, deve colocar-se tudo o
+                que seja de papel ou cartão, desde embalagens, jornais, revistas de papel, etc.
+                Uma boa curiosidade desde ecoponto, é que, desde que não estejam contaminadas, todos os materiais aqui
+                colocados, podem ser reciclados 7 vezes. </p>
+            </div>
+            <div style="float: right; width: 40%; margin-top: 30px">
+              <img src="../assets/imgs/verde.png" alt="Descrição da imagem" style="width: 100%;">
+            </div>
+          </b-card>
+        </b-collapse>
+      </div>
+
+      <div class="castanho">
+        <b-button v-b-toggle.castanho-collapse class="btn-castanho">Ecoponto Castanho</b-button>
+        <b-collapse id="castanho-collapse" class="mt-2">
+          <b-card>
+            <div style="float: left; width: 60%;">
+              <p class="castanho-desc" style="text-align: justify;">No contentor azul do ecoponto, deve colocar-se tudo
+                o
+                que seja de papel ou cartão, desde embalagens, jornais, revistas de papel, etc.
+                Uma boa curiosidade desde ecoponto, é que, desde que não estejam contaminadas, todos os materiais aqui
+                colocados, podem ser reciclados 7 vezes. </p>
+            </div>
+            <div style="float: right; width: 40%; margin-top: 30px">
+              <img src="../assets/imgs/castanho.png" alt="Descrição da imagem" style="width: 100%;">
+            </div>
+          </b-card>
+        </b-collapse>
+      </div>
+
+      <div class="vermelho">
+        <b-button v-b-toggle.vermelho-collapse class="btn-vermelho">Ecoponto Vermelho (Pilhão)</b-button>
+        <b-collapse id="vermelho-collapse" class="mt-2">
+          <b-card>
+            <div style="float: left; width: 60%;">
+              <p class="vermelho-desc" style="text-align: justify;">No contentor azul do ecoponto, deve colocar-se tudo
+                o
+                que seja de papel ou cartão, desde embalagens, jornais, revistas de papel, etc.
+                Uma boa curiosidade desde ecoponto, é que, desde que não estejam contaminadas, todos os materiais aqui
+                colocados, podem ser reciclados 7 vezes. </p>
+            </div>
+            <div style="float: right; width: 40%; margin-top: 30px">
+              <img src="../assets/imgs/pilhao.png" alt="Descrição da imagem" style="width: 100%;">
+            </div>
+          </b-card>
+        </b-collapse>
       </div>
 
     </section>

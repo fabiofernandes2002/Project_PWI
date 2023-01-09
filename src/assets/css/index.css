@@ -18,29 +18,8 @@ section {
   justify-content: center;
 }
 
-#section-1 {
-  height: 100vh;
-}
+/*#region ----------- PRINCIPAIS ----------- */
 
-#section-2 {
-  height: 130vh;
-}
-
-#section-3 {
-  height: 100vh;
-}
-
-#section-4 {
-  height: 100vh;
-}
-
-@keyframes gradient {
-  100% {
-    background-size: 3000px 4500px;
-  }
-}
-
-/* PÁGINA INICIAL */
 .mainpage {
   background-image: url("../imgs/mainbg.svg");
   background-size: 2000px 3500px;
@@ -49,7 +28,115 @@ section {
   /* animation: gradient 70s infinite alternate linear; */
 }
 
-/* TÍTULO PRINCIPAL*/
+@keyframes gradient {
+  100% {
+    background-size: 3000px 4500px;
+  }
+}
+
+/* MENU LATERAL */
+#menuToggle {
+  display: block;
+  position: fixed;
+  top: 6vh;
+  left: 96vw;
+  z-index: 1;
+
+  user-select: none;
+}
+
+#menuToggle a {
+  font-family: "Saira Condensed";
+  text-decoration: none;
+  color: #232323;
+
+  transition: color 0.3s ease;
+}
+
+#menuToggle a:hover {
+  color: #2ecc71;
+}
+
+#menuToggle input {
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 2;
+}
+
+/* HAMBURGER */
+#menuToggle span {
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  background: #f39c12;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  transform-origin: 4px 0px;
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+    background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+}
+#menuToggle span:first-child {
+  transform-origin: 0% 0%;
+}
+#menuToggle span:nth-last-child(2) {
+  transform-origin: 0% 100%;
+}
+
+#menuToggle input:checked ~ span {
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #232323;
+}
+#menuToggle input:checked ~ span:nth-last-child(3) {
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+#menuToggle input:checked ~ span:nth-last-child(2) {
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+/* POSIÇÃO DO MENU */
+#menu {
+  position: absolute;
+  width: 350px;
+  margin: -100px 0 0 0;
+  padding: 50px;
+  padding-top: 150px;
+  padding-bottom: 520px;
+  right: -50px;
+  background: #ededed;
+  list-style-type: none;
+  transform-origin: 0% 0%;
+  transform: translate(100%, 0);
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+}
+
+#menu li {
+  padding: 10px 0;
+  font-size: 22px;
+}
+#menuToggle input:checked ~ ul {
+  transform: none;
+  opacity: 1;
+}
+
+/*#endregion*/
+
+/*#region ------------ SECTION 1 ------------ */
+
+#section-1 {
+  height: 100vh;
+}
+
 .title {
   animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) both;
   display: flex;
@@ -62,18 +149,6 @@ section {
 }
 .title h1 {
   font-size: 3.5rem;
-}
-
-/* TÍTULOS SECUNDÁRIOS */
-.title2 h1 {
-  font-family: "Saira Condensed";
-  font-weight: bold;
-  font-size: 3.5rem;
-  display: flex;
-  justify-content: center;
-  padding-top: 3vh;
-  color: #1abc9c;
-  text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes tracking-in-expand {
@@ -138,101 +213,6 @@ section {
   right: 0;
 }
 
-/* MENU LATERAL */
-#menuToggle {
-  display: block;
-  position: fixed;
-  top: 6vh;
-  left: 96vw;
-  z-index: 1;
-
-  user-select: none;
-}
-
-#menuToggle a {
-  font-family: "Saira Condensed";
-  text-decoration: none;
-  color: #232323;
-
-  transition: color 0.3s ease;
-}
-
-#menuToggle a:hover {
-  color: #2ecc71;
-}
-
-#menuToggle input {
-  display: block;
-  width: 40px;
-  height: 32px;
-  position: absolute;
-  top: -7px;
-  left: -5px;
-  cursor: pointer;
-  opacity: 0;
-  z-index: 2;
-}
-
-/* HAMBURGER */
-#menuToggle span {
-  display: block;
-  width: 33px;
-  height: 4px;
-  margin-bottom: 5px;
-  position: relative;
-  background: #f39c12;
-  border-radius: 3px;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  transform-origin: 4px 0px;
-  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
-    background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
-}
-#menuToggle span:first-child {
-  transform-origin: 0% 0%;
-}
-#menuToggle span:nth-last-child(2) {
-  transform-origin: 0% 100%;
-}
-/* TRANSFORMA HAMBURGER NUMA CRUZ*/
-#menuToggle input:checked ~ span {
-  opacity: 1;
-  transform: rotate(45deg) translate(-2px, -1px);
-  background: #232323;
-}
-#menuToggle input:checked ~ span:nth-last-child(3) {
-  opacity: 0;
-  transform: rotate(0deg) scale(0.2, 0.2);
-}
-#menuToggle input:checked ~ span:nth-last-child(2) {
-  transform: rotate(-45deg) translate(0, -1px);
-}
-
-/* POSIÇÃO DO MENU */
-#menu {
-  position: absolute;
-  width: 350px;
-  margin: -100px 0 0 0;
-  padding: 50px;
-  padding-top: 150px;
-  padding-bottom: 520px;
-  right: -50px;
-  background: #ededed;
-  list-style-type: none;
-  transform-origin: 0% 0%;
-  transform: translate(100%, 0);
-  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
-}
-
-#menu li {
-  padding: 10px 0;
-  font-size: 22px;
-}
-#menuToggle input:checked ~ ul {
-  transform: none;
-  opacity: 1;
-}
-
 /* SEARCH BOX */
 .search {
   width: 100%;
@@ -295,6 +275,26 @@ section {
   display: flex;
   margin-left: 2vw;
   margin-top: -23vh;
+}
+
+/*#endregion*/
+
+/*#region ------------ SECTION 2 ------------ */
+
+#section-2 {
+  height: 130vh;
+}
+
+/* TÍTULOS SECUNDÁRIOS */
+.title2 h1 {
+  font-family: "Saira Condensed";
+  font-weight: bold;
+  font-size: 3.5rem;
+  display: flex;
+  justify-content: center;
+  padding-top: 3vh;
+  color: #1abc9c;
+  text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
 }
 
 /* LINHA VERTICAL DOS ECOPONTOS */
@@ -368,8 +368,8 @@ section {
 }
 
 .ident-text {
-  position:relative;
-  display:flex;
+  position: relative;
+  display: flex;
   width: 60vh;
   color: white;
   text-align: center;
@@ -384,7 +384,7 @@ section {
   display: flex;
   width: 20vh;
   height: 20vh;
-  left:10vw;
+  left: 10vw;
   bottom: 20vh;
 }
 
@@ -402,8 +402,8 @@ section {
 }
 
 .sep-text {
-  position:relative;
-  display:flex;
+  position: relative;
+  display: flex;
   width: 60vh;
   color: white;
   text-align: center;
@@ -435,9 +435,9 @@ section {
   color: #f39c12;
 }
 
-.descont-text{
-  position:relative;
-  display:flex;
+.descont-text {
+  position: relative;
+  display: flex;
   width: 60vh;
   color: white;
   text-align: center;
@@ -452,7 +452,7 @@ section {
   display: flex;
   width: 20vh;
   height: 20vh;
-  left:10vw;
+  left: 10vw;
   bottom: 20vh;
 }
 
@@ -470,8 +470,8 @@ section {
 }
 
 .forn-text {
-  position:relative;
-  display:flex;
+  position: relative;
+  display: flex;
   width: 60vh;
   color: white;
   text-align: center;
@@ -489,3 +489,251 @@ section {
   right: 20vw;
   bottom: 20vh;
 }
+
+/*#endregion*/
+
+/*#region ------------ SECTION 3 ------------ */
+
+#section-3 {
+  height: 130vh;
+}
+
+.btn-amarelo {
+  position: relative;
+  display: block;
+  width: 40vw;
+  height: 7vh;
+  left: 10vw;
+  top: 8vh;
+  font-family: "Saira Condensed";
+  font-size: 3.5vh;
+  text-align: center;
+  background-color: transparent;
+  border-color: #f1c40f;
+  border-width: 2px;
+}
+
+.btn-amarelo:hover {
+  background-color: #f1c40f;
+  border-color: #f1c40f;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.btn-amarelo:focus {
+  background-color: #f1c40f;
+  border-color: #f1c40f;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+#amarelo-collapse {
+  position: relative;
+  display: block;
+  width: 40vw;
+  top: 8vh;
+  left: 10vw;
+}
+
+.amarelo-desc {
+  position: relative;
+  display: block;
+  font-family: "Saira Condensed";
+  font-size: 3vh;
+  text-align: justify;
+  color: #f1c40f;
+}
+
+.btn-azul {
+  position: relative;
+  display: block;
+  width: 40vw;
+  height: 7vh;
+  left: 50vw;
+  top: 13vh;
+  font-family: "Saira Condensed";
+  font-size: 3.5vh;
+  text-align: center;
+  background-color: transparent;
+  border-color: #00bfff;
+  border-width: 2px;
+}
+
+.btn-azul:hover {
+  background-color: #00bfff;
+  border-color: #00bfff;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.btn-azul:focus {
+  background-color: #00bfff;
+  border-color: #00bfff;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+#azul-collapse {
+  position: relative;
+  display: block;
+  width: 40vw;
+  top: 13vh;
+  left: 50vw;
+}
+
+.azul-desc {
+  position: relative;
+  display: block;
+  font-family: "Saira Condensed";
+  font-size: 3vh;
+  text-align: justify;
+  color: #00bfff;
+}
+
+.btn-verde {
+  position: relative;
+  display: block;
+  width: 40vw;
+  height: 7vh;
+  left: 10vw;
+  top: 18vh;
+  font-family: "Saira Condensed";
+  font-size: 3.5vh;
+  text-align: center;
+  background-color: transparent;
+  border-color: #1abc9c;
+  border-width: 2px;
+}
+
+.btn-verde:hover {
+  background-color: #1abc9c;
+  border-color: #1abc9c;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.btn-verde:focus {
+  background-color: #1abc9c;
+  border-color: #1abc9c;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+#verde-collapse {
+  position: relative;
+  display: block;
+  width: 40vw;
+  top: 18vh;
+  left: 10vw;
+}
+
+.verde-desc {
+  position: relative;
+  display: block;
+  font-family: "Saira Condensed";
+  font-size: 3vh;
+  text-align: justify;
+  color: #1abc9c;
+}
+
+.btn-castanho {
+  position: relative;
+  display: block;
+  width: 40vw;
+  height: 7vh;
+  left: 50vw;
+  top: 23vh;
+  font-family: "Saira Condensed";
+  font-size: 3.5vh;
+  text-align: center;
+  background-color: transparent;
+  border-color: #825a2c;
+  border-width: 2px;
+}
+
+.btn-castanho:hover {
+  background-color: #825a2c;
+  border-color: #825a2c;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.btn-castanho:focus {
+  background-color: #825a2c;
+  border-color: #825a2c;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+#castanho-collapse {
+  position: relative;
+  display: block;
+  width: 40vw;
+  top: 23vh;
+  left: 50vw;
+}
+
+.castanho-desc {
+  position: relative;
+  display: block;
+  font-family: "Saira Condensed";
+  font-size: 3vh;
+  text-align: justify;
+  color: #825a2c;
+}
+
+.btn-vermelho {
+  position: relative;
+  display: block;
+  width: 40vw;
+  height: 7vh;
+  left: 10vw;
+  top: 28vh;
+  font-family: "Saira Condensed";
+  font-size: 3.5vh;
+  text-align: center;
+  background-color: transparent;
+  border-color: #e74c3c;
+  border-width: 2px;
+}
+
+.btn-vermelho:hover {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.btn-vermelho:focus {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+#vermelho-collapse {
+  position: relative;
+  display: block;
+  width: 40vw;
+  top: 28vh;
+  left: 10vw;
+}
+
+.vermelho-desc {
+  position: relative;
+  display: block;
+  font-family: "Saira Condensed";
+  font-size: 3vh;
+  text-align: justify;
+  color: #e74c3c;
+}
+
+/*#endregion*/
+
+/*#region ------------ SECTION 4 ------------ */
+
+#section-4 {
+  height: 100vh;
+}
+
+/*#endregion*/
