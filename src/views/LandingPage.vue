@@ -1,18 +1,18 @@
 <template>
+
   <div class="mainpage">
+
+    <!------------------- SECTION 1 ----------------->
     <section id="section-1">
 
-      <!-- TÍTULO -->
       <div class="title">
         <h1>PHOTORECYCLE</h1>
       </div>
 
-      <!-- LOGO -->
       <div class="logo">
       </div>
 
-      <!-- BARRA DE PESQUISA -->
-      <div class="wrap">
+      <div class="wrap"> <!-- Barra de pesquisa -->
         <div class="search">
           <input type="text" class="searchTerm" placeholder="Insira a localização...">
           <button type="submit" class="searchButton">
@@ -20,35 +20,169 @@
         </div>
       </div>
 
-      <!-- BOTÃO DE LOCALIZAÇÃO -->
-      <div class="location">
+      <div class="location"> <!-- Botão de localização -->
         <button type="submit" class="locationButton"><span>Utilizar Localização Atual</span></button>
       </div>
 
     </section>
 
+    <!------------------- SECTION 2 ----------------->
+
     <section id="section-2">
+
       <div class="title2">
         <h1>O QUE É A RECICLAGEM?</h1>
       </div>
+
       <div class="line">
-        <span class="circle-top"></span>
-        <span class="circle-bottom"></span>
-        <span class="circle-2"></span>
-        <span class="circle-3"></span>
+
+        <span class="circle-top">
+          <span class="identificacao">1. IDENTIFICAÇÃO</span>
+          <span class="ident-text">A primeira etapa da reciclagem já começa antes de os resíduos serem levados para os
+            locais apropriados. Além de colocar no sítio correto, é preciso identificar as diferentes características
+            dentro do mesmo tipo de resíduos. É preciso ainda verificar se os materiais estão em bom estado para serem
+            reciclados.</span>
+          <img id="ident-img" src="../assets/imgs/identificacao.png" alt="Identificação">
+        </span>
+
+        <span class="circle-bottom">
+          <span class="fornecimento">4. FORNECIMENTO</span>
+          <span class="forn-text">
+            A etapa final destina-se apenas à pesquisa de potenciais compradores dos produtos transformados pós serem
+            reciclados, nomeadamente arquitetos, designers e artistas.
+          </span>
+          <img id="forn-img" src="../assets/imgs/fornecimento.png" alt="Fornecimento">
+        </span>
+
+        <span class="circle-2">
+          <span class="separacao">2. SEPARAÇÃO</span>
+          <span class="sep-text">
+            Na segunda etapa do processo da reciclagem, os catadores encarregam-se por separar os resíduos que têm
+            potencial para reciclagem. Uma tarefa árdua, principalmente pela tentativa de reaproveitamento dos materiais
+            misturados com outros.
+          </span>
+          <img id="sep-img" src="../assets/imgs/separacao.png" alt="Separação">
+        </span>
+
+        <span class="circle-3">
+          <span class="descontaminacao">3. DESCONTAMINAÇÃO</span>
+          <span class="descont-text">
+            Uma tarefa difícil realizada nas cooperativas de catadores, é talvez a mais essencial neste grande processo
+            pois determina a qualidade dos materiais recicláveis. Uma etapa desvalorizada e desajudada pois apenas as
+            universidades contribuem para o fornecimento de máquinas para esta tarefa.
+          </span>
+          <img id="descont-img" src="../assets/imgs/descontaminacao.png" alt="Descontaminação">
+        </span>
       </div>
     </section>
 
+    <br>
+    <br>
+
+    <!------------------- SECTION 3 ----------------->
     <section id="section-3">
+      <div class="title2">
+        <h1>COMO RECICLAR?</h1>
+      </div>
+
+      <div class="amarelo">
+        <b-button v-b-toggle.amarelo-collapse class="btn-amarelo">Ecoponto Amarelo</b-button>
+        <b-collapse id="amarelo-collapse" class="mt-2">
+          <b-card>
+            <div style="float: left; width: 60%;">
+              <p class="amarelo-desc" style="text-align: justify;">O contentor das embalagens, onde podem ser colocadas
+                todo o tipo de embalagens
+                feitas de plástico, metal e pacotes de bebidas.
+                Como os ecopontos fazem parte de um sistema chamado SIGRE, tudo o que não seja embalagens, deve então
+                deslocar-se a um local apropriado para deixar.</p>
+            </div>
+            <div style="float: right; width: 40%; margin-top: 30px">
+              <img src="../assets/imgs/amarelo.png" alt="Descrição da imagem" style="width: 100%;">
+            </div>
+          </b-card>
+
+        </b-collapse>
+      </div>
+
+      <div class="azul">
+        <b-button v-b-toggle.azul-collapse class="btn-azul">Ecoponto Azul</b-button>
+        <b-collapse id="azul-collapse" class="mt-2">
+          <b-card>
+            <div style="float: left; width: 60%;">
+              <p class="azul-desc" style="text-align: justify;">No contentor azul do ecoponto, deve colocar-se tudo o
+                que seja de papel ou cartão, desde embalagens, jornais, revistas de papel, etc.
+                Uma boa curiosidade desde ecoponto, é que, desde que não estejam contaminadas, todos os materiais aqui
+                colocados, podem ser reciclados 7 vezes. </p>
+            </div>
+            <div style="float: right; width: 40%; margin-top: 30px">
+              <img src="../assets/imgs/azul.png" alt="Descrição da imagem" style="width: 100%;">
+            </div>
+          </b-card>
+        </b-collapse>
+      </div>
+
+      <div class="verde">
+        <b-button v-b-toggle.verde-collapse class="btn-verde">Ecoponto Verde</b-button>
+        <b-collapse id="verde-collapse" class="mt-2">
+          <b-card>
+            <div style="float: left; width: 60%;">
+              <p class="verde-desc" style="text-align: justify;">No contentor azul do ecoponto, deve colocar-se tudo o
+                que seja de papel ou cartão, desde embalagens, jornais, revistas de papel, etc.
+                Uma boa curiosidade desde ecoponto, é que, desde que não estejam contaminadas, todos os materiais aqui
+                colocados, podem ser reciclados 7 vezes. </p>
+            </div>
+            <div style="float: right; width: 40%; margin-top: 30px">
+              <img src="../assets/imgs/verde.png" alt="Descrição da imagem" style="width: 100%;">
+            </div>
+          </b-card>
+        </b-collapse>
+      </div>
+
+      <div class="castanho">
+        <b-button v-b-toggle.castanho-collapse class="btn-castanho">Ecoponto Castanho</b-button>
+        <b-collapse id="castanho-collapse" class="mt-2">
+          <b-card>
+            <div style="float: left; width: 60%;">
+              <p class="castanho-desc" style="text-align: justify;">No contentor azul do ecoponto, deve colocar-se tudo
+                o
+                que seja de papel ou cartão, desde embalagens, jornais, revistas de papel, etc.
+                Uma boa curiosidade desde ecoponto, é que, desde que não estejam contaminadas, todos os materiais aqui
+                colocados, podem ser reciclados 7 vezes. </p>
+            </div>
+            <div style="float: right; width: 40%; margin-top: 30px">
+              <img src="../assets/imgs/castanho.png" alt="Descrição da imagem" style="width: 100%;">
+            </div>
+          </b-card>
+        </b-collapse>
+      </div>
+
+      <div class="vermelho">
+        <b-button v-b-toggle.vermelho-collapse class="btn-vermelho">Ecoponto Vermelho (Pilhão)</b-button>
+        <b-collapse id="vermelho-collapse" class="mt-2">
+          <b-card>
+            <div style="float: left; width: 60%;">
+              <p class="vermelho-desc" style="text-align: justify;">No contentor azul do ecoponto, deve colocar-se tudo
+                o
+                que seja de papel ou cartão, desde embalagens, jornais, revistas de papel, etc.
+                Uma boa curiosidade desde ecoponto, é que, desde que não estejam contaminadas, todos os materiais aqui
+                colocados, podem ser reciclados 7 vezes. </p>
+            </div>
+            <div style="float: right; width: 40%; margin-top: 30px">
+              <img src="../assets/imgs/pilhao.png" alt="Descrição da imagem" style="width: 100%;">
+            </div>
+          </b-card>
+        </b-collapse>
+      </div>
+
+    </section>
+
+    <!------------------- SECTION 4 ----------------->
+    <section id="section-4">
+
       <div class="title2">
         <h1>MAPA DE ECOPONTOS</h1>
       </div>
-    </section>
 
-    <section id="section-4">
-      <div class="title2">
-        <h1>LEADERBOARD</h1>
-      </div>
     </section>
 
     <!-- MENU LATERAL -->
@@ -60,12 +194,6 @@
         <span></span>
 
         <ul id="menu">
-          <!-- pegar no nome do utilizador logado -->
-          <a href="#section-1">
-            <h1 v-if="getUserLogged()">
-              Olá {{ getUserLogged().username }},
-            </h1>
-          </a>
           <a href="#section-1">
             <li>Página Inicial</li>
           </a>
@@ -73,14 +201,29 @@
             <li>O que é a reciclagem?</li>
           </a>
           <a href="#section-3">
-            <li>Mapa de Ecopontos</li>
+            <li>Como Reciclar?</li>
           </a>
           <a href="#section-4">
-            <li>Leaderboard</li>
+            <li>Mapa de Ecopontos</li>
           </a>
-          <!-- carregar no link e fazer logout -->
-          <a href="/login" @click="logout">
-            <li v-if="getUserLogged()">Logout</li>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <hr>
+          <a href="/login">
+            <li>Iniciar Sessão</li>
+          </a>
+          <a href="/register">
+            <li>Registar</li>
           </a>
         </ul>
       </div>
