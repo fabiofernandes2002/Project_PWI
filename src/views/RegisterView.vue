@@ -183,8 +183,7 @@ export default {
 <style scoped>
 .registerPage {
   background-image: url("../assets/imgs/mainbg.svg");
-  background-repeat: no-repeat;
-  background-size: 2000px 4000px;
+  background-size: fill;
   height: 100vh;
   padding: 0;
 }
@@ -320,7 +319,7 @@ export default {
 
   width: 100%;
   height: 50px;
-  margin-top: 20px;
+margin-top: 20px;
   margin-bottom: 20px;
 }
 

@@ -8,15 +8,24 @@
 }
 
 html,
-body{
+body {
   height: 100vh;
   scroll-behavior: smooth;
 }
 
 section {
-  height: 100vh;
   position: relative;
   justify-content: center;
+}
+
+/*#region ----------- PRINCIPAIS ----------- */
+
+.mainpage {
+  background-image: url("../imgs/mainbg.svg");
+  background-size: 2000px 3500px;
+  background-repeat: no-repeat;
+  background-position: -400px 0;
+  /* animation: gradient 70s infinite alternate linear; */
 }
 
 @keyframes gradient {
@@ -24,133 +33,6 @@ section {
     background-size: 3000px 4500px;
   }
 }
-
-/* PÁGINA INICIAL */
-
-.mainpage {
-  background-image: url("../imgs/mainbg.svg");
-  background-size: 2000px 3500px;
-  background-repeat: no-repeat;
-  background-position: -400px 0;
-  animation: gradient 70s infinite alternate linear;
-}
-
-/* #section-1 {
-  background-image: url("../imgs/mainbg.svg");
-  background-size: 2000px 1000px;
-  background-position: -500px 0;
-  animation: gradient 80s infinite alternate linear;
-}
-
-#section-2 {
-  background-image: url("../imgs/mainbg.svg");
-  background-size: 2000px 1000px;
-  background-position: -500px 0;
-  animation: gradient 80s infinite alternate linear;
-}
-
-#section-3 {
-  background-image: url("../imgs/mainbg.svg");
-  background-size: 2000px 1000px;
-  background-position: -500px 0;
-  animation: gradient 80s infinite alternate linear;
-}
-
-#section-4 {
-  background-image: url("../imgs/mainbg.svg");
-  background-size: 2000px 1000px;
-  background-position: -500px 0;
-  animation: gradient 80s infinite alternate linear;
-} */
-
-/* TÍTULO PRINCIPAL*/
-.title {
-  animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) both;
-  display: flex;
-  justify-content: center;
-  font-family: "Boldhead", sans-serif;
-  color: #1abc9c;
-  padding-top: 20vh;
-  font-size: 3.5rem;
-  text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
-}
-.title h1{
-  font-size: 3.5rem;
-}
-
-/* TÍTULOS SECUNDÁRIOS */
-.title2 h1{
-font-family: "Saira Condensed";
-font-weight: bold;
-font-size: 3.5rem;
-display:flex;
-justify-content: center;
-padding-top: 3vh;
-color: #1abc9c;
-text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
-}
-
-@keyframes tracking-in-expand {
-  0% {
-    letter-spacing: -0.5em;
-    opacity: 0;
-  }
-  40% {
-    opacity: 0.6;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-/* BOTÃO DE LOCALIZAÇÃO */
-.location{
-  display: flex;
-  justify-content: center;
-  padding-top: 40vh;
-}
-
-.locationButton {
-  display: inline-block;
-  border-radius: 4px;
-  background-color: #f4511e;
-  border: none;
-  color: #FFFFFF;
-  font-family: "Saira Condensed";
-  text-align: center;
-  font-size: 22px;
-  padding: 15px;
-  width: 300px;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
-}
-
-.locationButton span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-
-.locationButton span:after {
-  content: '\00bb' '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
-
-.locationButton:hover span {
-  padding-right: 25px;
-}
-
-.locationButton:hover span:after {
-  opacity: 1;
-  right: 0;
-}
-
 
 /* MENU LATERAL */
 #menuToggle {
@@ -194,7 +76,7 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
   height: 4px;
   margin-bottom: 5px;
   position: relative;
-  background: #1abc9c;
+  background: #f39c12;
   border-radius: 3px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -208,7 +90,7 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
 #menuToggle span:nth-last-child(2) {
   transform-origin: 0% 100%;
 }
-/* TRANSFORMA HAMBURGER NUMA CRUZ*/
+
 #menuToggle input:checked ~ span {
   opacity: 1;
   transform: rotate(45deg) translate(-2px, -1px);
@@ -221,13 +103,14 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
 #menuToggle input:checked ~ span:nth-last-child(2) {
   transform: rotate(-45deg) translate(0, -1px);
 }
+
 /* POSIÇÃO DO MENU */
 #menu {
   position: absolute;
   width: 350px;
   margin: -100px 0 0 0;
   padding: 50px;
-  padding-top: 125px;
+  padding-top: 150px;
   padding-bottom: 520px;
   right: -50px;
   background: #ededed;
@@ -236,6 +119,7 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
   transform: translate(100%, 0);
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
 }
+
 #menu li {
   padding: 10px 0;
   font-size: 22px;
@@ -243,6 +127,90 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
 #menuToggle input:checked ~ ul {
   transform: none;
   opacity: 1;
+}
+
+/*#endregion*/
+
+/*#region ------------ SECTION 1 ------------ */
+
+#section-1 {
+  height: 100vh;
+}
+
+.title {
+  animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+  display: flex;
+  justify-content: center;
+  font-family: "Boldhead", sans-serif;
+  color: #1abc9c;
+  padding-top: 20vh;
+  font-size: 3.5rem;
+  text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
+}
+.title h1 {
+  font-size: 3.5rem;
+}
+
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* BOTÃO DE LOCALIZAÇÃO */
+.location {
+  display: flex;
+  justify-content: center;
+  padding-top: 40vh;
+}
+
+.locationButton {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f39c12;
+  border: none;
+  color: #ffffff;
+  font-family: "Saira Condensed";
+  text-align: center;
+  font-size: 22px;
+  padding: 15px;
+  width: 300px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.locationButton span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.locationButton span:after {
+  content: "\00bb""\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.locationButton:hover span {
+  padding-right: 25px;
+}
+
+.locationButton:hover span:after {
+  opacity: 1;
+  right: 0;
 }
 
 /* SEARCH BOX */
@@ -297,26 +265,46 @@ text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
 
 /* LOGO */
 .logo {
-background-image: url("/src/assets/imgs/logo_acabado.png");
-background-repeat: no-repeat;
-background-position: center;
-background-size: contain;
-width: 10%;
-height: 15%;
-position: relative;
-display: flex;
-margin-left: 2vw;
-margin-top: -23vh;
+  background-image: url("/src/assets/imgs/logo_acabado.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 10%;
+  height: 15%;
+  position: relative;
+  display: flex;
+  margin-left: 2vw;
+  margin-top: -23vh;
+}
+
+/*#endregion*/
+
+/*#region ------------ SECTION 2 ------------ */
+
+#section-2 {
+  height: 130vh;
+}
+
+/* TÍTULOS SECUNDÁRIOS */
+.title2 h1 {
+  font-family: "Saira Condensed";
+  font-weight: bold;
+  font-size: 3.5rem;
+  display: flex;
+  justify-content: center;
+  padding-top: 3vh;
+  color: #1abc9c;
+  text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
 }
 
 /* LINHA VERTICAL DOS ECOPONTOS */
 .line {
   position: relative;
-  top: 9%;
+  top: 6%;
   left: 50%;
   width: 5px;
   height: 70%;
-  background: #000;
+  background: #f39c12;
   z-index: 1;
 }
 
@@ -325,42 +313,427 @@ margin-top: -23vh;
   display: inline-block;
   position: relative;
   right: 150%;
-  bottom: 3.5%;
+  bottom: 2%;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #000;
+  background: #f39c12;
 }
 
 .circle-2 {
   display: inline-block;
   position: relative;
   right: 150%;
-  top: 20.5%;
+  top: 12.5%;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #000;
+  background: #f39c12;
 }
 
 .circle-3 {
   display: inline-block;
   position: relative;
   right: 150%;
-  top: 55%;
+  top: 37%;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #000;
+  background: #f39c12;
 }
 
 .circle-bottom {
   display: inline-block;
   position: relative;
   right: 150%;
-  top: 95%;
+  top: 90%;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #000;
+  background: #f39c12;
 }
+
+/* TEXTO DOS ECOPONTOS */
+.identificacao {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 25vh;
+  right: 30vh;
+  bottom: 1.4vh;
+  font-family: "Saira Condensed";
+  font-weight: bold;
+  font-size: 3.5vh;
+  color: #f39c12;
+}
+
+.ident-text {
+  position: relative;
+  display: flex;
+  width: 60vh;
+  color: white;
+  text-align: center;
+  font-family: "Saira Condensed";
+  text-align: right;
+  font-size: 2.2vh;
+  right: 67vh;
+}
+
+#ident-img {
+  position: relative;
+  display: flex;
+  width: 20vh;
+  height: 20vh;
+  left: 10vw;
+  bottom: 20vh;
+}
+
+.separacao {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 20vh;
+  left: 8vh;
+  bottom: 1.4vh;
+  font-family: "Saira Condensed";
+  font-size: 3.5vh;
+  text-align: center;
+  color: #f39c12;
+}
+
+.sep-text {
+  position: relative;
+  display: flex;
+  width: 60vh;
+  color: white;
+  text-align: center;
+  font-family: "Saira Condensed";
+  text-align: left;
+  font-size: 2.2vh;
+  left: 9.2vh;
+}
+
+#sep-img {
+  position: relative;
+  display: flex;
+  width: 20vh;
+  height: 20vh;
+  right: 20vw;
+  bottom: 20vh;
+}
+
+.descontaminacao {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 30vh;
+  right: 35.5vh;
+  bottom: 0.5vh;
+  font-family: "Saira Condensed";
+  font-size: 3.5vh;
+  text-align: center;
+  color: #f39c12;
+}
+
+.descont-text {
+  position: relative;
+  display: flex;
+  width: 60vh;
+  color: white;
+  text-align: center;
+  font-family: "Saira Condensed";
+  text-align: right;
+  font-size: 2.2vh;
+  right: 67vh;
+}
+
+#descont-img {
+  position: relative;
+  display: flex;
+  width: 20vh;
+  height: 20vh;
+  left: 10vw;
+  bottom: 20vh;
+}
+
+.fornecimento {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 25vh;
+  left: 10vh;
+  bottom: 0.5vh;
+  font-family: "Saira Condensed";
+  font-size: 3.5vh;
+  text-align: center;
+  color: #f39c12;
+}
+
+.forn-text {
+  position: relative;
+  display: flex;
+  width: 60vh;
+  color: white;
+  text-align: center;
+  font-family: "Saira Condensed";
+  text-align: left;
+  font-size: 2.2vh;
+  left: 11.5vh;
+}
+
+#forn-img {
+  position: relative;
+  display: flex;
+  width: 20vh;
+  height: 20vh;
+  right: 20vw;
+  bottom: 20vh;
+}
+
+/*#endregion*/
+
+/*#region ------------ SECTION 3 ------------ */
+
+#section-3 {
+  height: 130vh;
+}
+
+.btn-amarelo {
+  position: relative;
+  display: block;
+  width: 40vw;
+  height: 7vh;
+  left: 10vw;
+  top: 8vh;
+  font-family: "Saira Condensed";
+  font-size: 3.5vh;
+  text-align: center;
+  background-color: transparent;
+  border-color: #f1c40f;
+  border-width: 2px;
+}
+
+.btn-amarelo:hover {
+  background-color: #f1c40f;
+  border-color: #f1c40f;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.btn-amarelo:focus {
+  background-color: #f1c40f;
+  border-color: #f1c40f;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+#amarelo-collapse {
+  position: relative;
+  display: block;
+  width: 40vw;
+  top: 8vh;
+  left: 10vw;
+}
+
+.amarelo-desc {
+  position: relative;
+  display: block;
+  font-family: "Saira Condensed";
+  font-size: 3vh;
+  text-align: justify;
+  color: #f1c40f;
+}
+
+.btn-azul {
+  position: relative;
+  display: block;
+  width: 40vw;
+  height: 7vh;
+  left: 50vw;
+  top: 13vh;
+  font-family: "Saira Condensed";
+  font-size: 3.5vh;
+  text-align: center;
+  background-color: transparent;
+  border-color: #00bfff;
+  border-width: 2px;
+}
+
+.btn-azul:hover {
+  background-color: #00bfff;
+  border-color: #00bfff;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.btn-azul:focus {
+  background-color: #00bfff;
+  border-color: #00bfff;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+#azul-collapse {
+  position: relative;
+  display: block;
+  width: 40vw;
+  top: 13vh;
+  left: 50vw;
+}
+
+.azul-desc {
+  position: relative;
+  display: block;
+  font-family: "Saira Condensed";
+  font-size: 3vh;
+  text-align: justify;
+  color: #00bfff;
+}
+
+.btn-verde {
+  position: relative;
+  display: block;
+  width: 40vw;
+  height: 7vh;
+  left: 10vw;
+  top: 18vh;
+  font-family: "Saira Condensed";
+  font-size: 3.5vh;
+  text-align: center;
+  background-color: transparent;
+  border-color: #1abc9c;
+  border-width: 2px;
+}
+
+.btn-verde:hover {
+  background-color: #1abc9c;
+  border-color: #1abc9c;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.btn-verde:focus {
+  background-color: #1abc9c;
+  border-color: #1abc9c;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+#verde-collapse {
+  position: relative;
+  display: block;
+  width: 40vw;
+  top: 18vh;
+  left: 10vw;
+}
+
+.verde-desc {
+  position: relative;
+  display: block;
+  font-family: "Saira Condensed";
+  font-size: 3vh;
+  text-align: justify;
+  color: #1abc9c;
+}
+
+.btn-castanho {
+  position: relative;
+  display: block;
+  width: 40vw;
+  height: 7vh;
+  left: 50vw;
+  top: 23vh;
+  font-family: "Saira Condensed";
+  font-size: 3.5vh;
+  text-align: center;
+  background-color: transparent;
+  border-color: #825a2c;
+  border-width: 2px;
+}
+
+.btn-castanho:hover {
+  background-color: #825a2c;
+  border-color: #825a2c;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.btn-castanho:focus {
+  background-color: #825a2c;
+  border-color: #825a2c;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+#castanho-collapse {
+  position: relative;
+  display: block;
+  width: 40vw;
+  top: 23vh;
+  left: 50vw;
+}
+
+.castanho-desc {
+  position: relative;
+  display: block;
+  font-family: "Saira Condensed";
+  font-size: 3vh;
+  text-align: justify;
+  color: #825a2c;
+}
+
+.btn-vermelho {
+  position: relative;
+  display: block;
+  width: 40vw;
+  height: 7vh;
+  left: 10vw;
+  top: 28vh;
+  font-family: "Saira Condensed";
+  font-size: 3.5vh;
+  text-align: center;
+  background-color: transparent;
+  border-color: #e74c3c;
+  border-width: 2px;
+}
+
+.btn-vermelho:hover {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.btn-vermelho:focus {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+  box-shadow: 7px 12px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+#vermelho-collapse {
+  position: relative;
+  display: block;
+  width: 40vw;
+  top: 28vh;
+  left: 10vw;
+}
+
+.vermelho-desc {
+  position: relative;
+  display: block;
+  font-family: "Saira Condensed";
+  font-size: 3vh;
+  text-align: justify;
+  color: #e74c3c;
+}
+
+/*#endregion*/
+
+/*#region ------------ SECTION 4 ------------ */
+
+#section-4 {
+  height: 100vh;
+}
+
+/*#endregion*/
