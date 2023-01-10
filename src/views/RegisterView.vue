@@ -1,7 +1,7 @@
 <template>
   <div class="registerPage">
     <b-container fluid>
-      <b-row class="mt-5 ">
+      <b-row>
         <b-col cols="12 my-3" md="6" class="b-col border-right">
           <h1 class="loginTitle">Regista-se</h1>
           <h3 class="textLogin">Regista já os teus dados pessoais para entrares <span id="textLogin2">no mundo da
@@ -13,8 +13,8 @@
               <b-form @submit="onSubmit">
                 <!-- input username -->
                 <b-form-group label-for="username-input">
-                  <b-form-input type="text" id="username-input" class="user" v-model="form.username" placeholder="Username"
-                    required></b-form-input>
+                  <b-form-input type="text" id="username-input" class="user" v-model="form.username"
+                    placeholder="Username" required></b-form-input>
                 </b-form-group>
                 <!-- input email -->
                 <b-form-group label-for="email-input">
@@ -33,8 +33,8 @@
                 </b-form-group>
                 <!-- input codigo postal number type -->
                 <b-form-group label-for="codigopostal-input">
-                  <b-form-input type="number" id="codigopostal-input" v-model="form.codigopostal" placeholder="Codigo Postal"
-                    required></b-form-input>
+                  <b-form-input type="number" id="codigopostal-input" v-model="form.codigopostal"
+                    placeholder="Codigo Postal" required></b-form-input>
                 </b-form-group>
 
                 <b-form-group label-for="password-input">
@@ -47,7 +47,7 @@
                     placeholder="Confirmar Password" required></b-form-input>
                 </b-form-group>
                 <br>
-                <b-button block variant="primary" type="submit" id="bntLogin">Registar</b-button>
+                <b-button block variant="primary" type="submit" id="bntLogin" @click="register">Registar</b-button>
               </b-form>
             </b-col>
           </div>
@@ -59,7 +59,8 @@
           <h1 class="logoName">Photo Recycle</h1>
 
           <!-- link de ainda não tiver conta -->
-          <b-link href="/login" id="linkCriarConta">Já tem uma conta? <span id="registerLink">Faça já login!</span></b-link>
+          <b-link href="/login" id="linkCriarConta">Já tem uma conta? <span id="registerLink">Faça já
+              login!</span></b-link>
         </b-col>
 
       </b-row>
@@ -68,7 +69,7 @@
 </template>
 
 <script>
-import {userStore} from '@/stores/user.js'
+import { userStore } from '@/stores/user.js'
 export default {
 
   name: "RegisterView",
@@ -86,86 +87,108 @@ export default {
         confirmarpassword: "",
       },
     };
-    
+
   },
 
   // guardar os dados do utilizador registado na local storage
   created() {
+    // Obtenha os dados do usuário a partir da store
+    const userData = this.store.users
 
-    if (!localStorage.getItem('users')) {
-        this.users = JSON.parse(localStorage.getItem('users'))
-      };
+    // Adicione os dados do usuário ao array de usuários
+    this.users.push(userData)
+
+    // Armazene o array atualizado de usuários no localStorage
+    localStorage.setItem('users', JSON.stringify(this.users))
   },
 
 
 
 
   methods: {
-      onSubmit(event) {
-        event.preventDefault()
-        
-        const data = {
-          // incrementar o id do utilizador
-          id: this.store.users.length + 1,
-          username: this.form.username,
-          email: this.form.email,
-          morada: this.form.morada,
-          localidade: this.form.localidade,
-          codigopostal: this.form.codigopostal,
-          password: this.form.password,
-          confirmarpassword: this.form.confirmarpassword,
-        }
-        
+    onSubmit(event) {
+      event.preventDefault()
 
-        // se a password for igual a confirmar password e o username não existir, guardar os dados do utilizador na local storage
-        if(this.passwordVerify(data.password, data.confirmarpassword) && this.usernameExists(data.username)) {
-          this.store.users.push(data)
-          alert("Registo efetuado com sucesso!")
-          // redirecionar para a página de login
-          this.$router.push('/login')
-          // enviar os dados para a local storage
-          localStorage.setItem('users', JSON.stringify(this.store.users))
-        }
-      },
-      
+      const data = {
+        // incrementar o id do utilizador
+        id: this.store.users.length + 1,
+        username: this.form.username,
+        email: this.form.email,
+        morada: this.form.morada,
+        localidade: this.form.localidade,
+        codigopostal: this.form.codigopostal,
+        password: this.form.password,
+        confirmarpassword: this.form.confirmarpassword,
+      }
 
-      // verificar se o username já existe de acordo com a os dados da store
-      usernameExists(username) {
-        const users = this.store.users.find(user => user.username === username)
-        if(users) {
-          alert("Username já existe!")
-          return false
-        }else {
-          return true
-        }
-      },
 
-      // verificar se a password é igual a confirmar password
-      passwordVerify(password, confirmarpassword) {
-        if(password !== confirmarpassword) {
-          alert("As passwords não são iguais!")
-          return false
-        }else {
-          return true
-        }
-      },
+      // se a password for igual a confirmar password e o username não existir, guardar os dados do utilizador na local storage
+      if (this.passwordVerify(data.password, data.confirmarpassword) && this.usernameExists(data.username)) {
+        this.store.users.push(data)
+        this.$swal({
+          title: 'Registado com sucesso!',
+          text: 'Bem vindo à Photo Recycle!',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        })
+        // redirecionar para a página de login
+        this.$router.push('/login')
+        // enviar os dados para a local storage no array users
+        localStorage.setItem('users', JSON.stringify(this.users))
+
+
+
+      }
+    },
+
+
+    // verificar se o username já existe de acordo com a os dados da store
+    usernameExists(username) {
+      const users = this.store.users.find(user => user.username === username)
+      if (users) {
+        this.$swal({
+          title: 'Username já existe!',
+          text: 'Por favor escolha outro username!',
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        })
+        return false
+      } else {
+        return true
+      }
+    },
+
+    // verificar se a password é igual a confirmar password
+    passwordVerify(password, confirmarpassword) {
+      if (password !== confirmarpassword) {
+        this.$swal({
+          title: 'Password não é igual!',
+          text: 'Por favor verifique a sua password!',
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        })
+        return false
+      } else {
+        return true
+      }
+    },
 
 
 
   },
-  
+
 }
 </script>
 
 <style scoped>
-
-.registerPage{
+.registerPage {
   background-image: url("../assets/imgs/mainbg.svg");
   background-repeat: no-repeat;
   background-size: 2000px 4000px;
   height: 100vh;
   padding: 0;
 }
+
 .logoImage {
   text-align: center;
 }

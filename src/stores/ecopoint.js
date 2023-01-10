@@ -18,5 +18,10 @@ export const ecopointStore = defineStore('ecopoint', {
     ]
 
   }),
-  
+
+  getters: {
+    getEcopoints: (state) => {
+      return state.ecopoints
+    }
+  },
 })

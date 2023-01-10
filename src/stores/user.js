@@ -26,4 +26,53 @@ export const userStore = defineStore('user', {
 
     },
 
+    actions: {
+        // login do user
+        login(email, password) {
+            const user = this.state.users.find(user => user.email === email && user.password === password);
+            if (user) {
+                alert('Login efetuado com sucesso');
+                this.$router.push('/LandingPage');
+
+                localStorage.setItem('user', JSON.stringify(user));
+                return user;
+            }else{
+                alert('Dados incorretos');
+            }
+
+            
+        },
+
+        // registar o user
+        register(username, email, password, address, location, postalCode, photo) {
+            const user = {
+                id: this.getNewId,
+                username,
+                email,
+                password,
+                address,
+                location,
+                postalCode,
+                photo
+            };
+            this.state.users.push(user);
+            localStorage.setItem('user', JSON.stringify(user));
+
+
+        },
+
+        // logout do user da aplicação e limpar da session storage
+        logout() {
+            sessionStorage.removeItem('user');
+        },
+
+        // verificar se o user está logado
+        isLoggedIn() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            return user ? true : false;
+        },
+
+
+    }
+
 })

@@ -12,14 +12,15 @@
             <b-col cols="6" md="10" class="mt-3">
               <b-form @submit="onSubmit">
                 <b-form-group label-for="email-input">
-                  <b-form-input type="email" id="email-input" v-model="form.email" placeholder="Username ou email"
+                  <b-form-input type="text" id="email-input" v-model="form.email" placeholder="Username ou email"
                     required></b-form-input>
                 </b-form-group>
                 <b-form-group label-for="password-input">
                   <b-form-input type="password" id="password-input" v-model="form.password" placeholder="Password"
                     required></b-form-input>
                 </b-form-group><br>
-                <b-button block variant="primary" type="submit" id="bntLogin">Login</b-button>
+                <b-button block variant="primary" type="submit" id="bntLogin"
+                  @click="this.store.login(form.email, form.password)">Login</b-button>
               </b-form>
             </b-col>
           </div>
@@ -57,9 +58,14 @@ export default {
   },
 
   created() {
-    this.users = JSON.parse(localStorage.getItem('users'));
-  
+    this.users = this.store.users;
+
+    // carregar o array de users na local storage
+    localStorage.setItem('users', JSON.stringify(this.users));
+
   },
+
+
 
   methods: {
     onSubmit(event) {
@@ -72,39 +78,79 @@ export default {
 
       const user = this.users.find(user => user.email === data.email && user.password === data.password);
 
+      // chamar a função loginWithUsername
+      this.loginWithUsername();
+
       if (user) {
         //this.store.login(user); // login user in store and save it in local storage
-        alert('Login efetuado com sucesso');
-        this.$router.push('/landingPage');
+        //alert('Login efetuado com sucesso');
+        // usar o SweetAlert para mostrar a mensagem de sucesso
+        this.$swal({
+          title: 'Login efetuado com sucesso!',
+          icon: 'success',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#F39C12',
+          onClose: false,
+        }).then(() => {
+          // o código aqui será executado após o usuário clicar no botão de confirmação
+          this.$router.push('/LandingPage');
+        });
 
         // guardar o utilizador na session storage para poder ser usado em outras páginas
         sessionStorage.setItem('user', JSON.stringify(user));
 
         localStorage.setItem('user', JSON.stringify(user));
       } else {
-        alert('Dados incorretos');
+        //alert('Email ou password incorretos');
+        // usar o SweetAlert para mostrar a mensagem de erro
+        this.$swal({
+          title: 'Email ou password incorretos!',
+          icon: 'error',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#F39C12',
+        });
       }
+  
     },
 
-    // 
+    loginWithUsername(){
+      const  user = this.users.find(user => user.username === this.users.username && user.password === this.users.password);
+
+      if(user){
+        this.$swal({
+          title: 'Login efetuado com sucesso!',
+          icon: 'success',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#F39C12',
+          onClose: false,
+        }).then(() => {
+          // o código aqui será executado após o usuário clicar no botão de confirmação
+          this.$router.push('/LandingPage');
+        });
+      }else{
+        this.$swal({
+          title: 'Email ou password incorretos!',
+          icon: 'error',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#F39C12',
+        });
+      }
+      
+    }
+    
 
   },
 
-
-
-
-
-
-
-
-
-
+  computed: {
+    user() {
+      return this.store.users;
+    }
+  }
 
 }
 </script>
 
 <style scoped>
-
 #backgroundFundo {
   background-image: url("../imgs/mainbg.svg");
   background-size: 2000px 1000px;

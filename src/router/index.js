@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import LandingPage from '../views/LandingPage.vue'
+import MapView from '../views/MapView.vue'
 // import LandingPageView from '../views/LandingPageView.vue'
 import Maps from '../components/Maps.vue'
 
@@ -26,16 +27,22 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: RegisterView
     },
-    /* {
-      path: '/landingPage',
+    {
+      path: '/LandingPage',
       name: 'landingPage',
-      component: LandingPageView
-    }, */
+      component: LandingPage
+    },
 
     {
       path: '/map',
       name: 'map',
       component: Maps
+    },
+
+    {
+      path: '/mapView',
+      name: 'mapView',
+      component: MapView
     }
   ]
 })

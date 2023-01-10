@@ -26,10 +26,12 @@
   
   <script>
   import { defineComponent } from "vue";
+  import Vue from "vue";
   import { GoogleMap, Marker } from "vue3-google-map";
   import { ecopointStore } from "../stores/ecopoint";
   
   export default defineComponent({
+    Vue,
     components: { GoogleMap, Marker },
     data() {
       return {
