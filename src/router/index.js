@@ -3,6 +3,7 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import LandingPage from '../views/LandingPage.vue'
 import MapView from '../views/MapView.vue'
+import addEcopoint from '../views/AddEcopoint.vue'
 // import LandingPageView from '../views/LandingPageView.vue'
 import Maps from '../components/Maps.vue'
 
@@ -43,6 +44,12 @@ const router = createRouter({
       path: '/mapView',
       name: 'mapView',
       component: MapView
+    },
+
+    {
+      path: '/addEcopoint',
+      name: 'addEcopoint',
+      component: addEcopoint
     }
   ]
 })
