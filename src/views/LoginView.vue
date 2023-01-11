@@ -1,5 +1,5 @@
 <template>
-  <div id="backgroundFundo">
+  <div class="backgroundFundo">
     <b-container fluid>
       <b-row class="mt-5 ">
         <b-col cols="12 my-3" md="6" class="b-col border-right">
@@ -151,12 +151,14 @@ export default {
 </script>
 
 <style scoped>
-#backgroundFundo {
-  background-image: url("../imgs/mainbg.svg");
-  background-size: 2000px 1000px;
-  background-position: -500px 0;
-  animation: gradient 80s infinite alternate linear;
-
+.backgroundFundo {
+  background-image: url("../assets/imgs/mainbg.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+.mt-5 {
+  margin-top: 0rem !important;
 }
 
 .logoImage {

@@ -183,9 +183,8 @@ export default {
 <style scoped>
 .registerPage {
   background-image: url("../assets/imgs/mainbg.svg");
-  background-size: fill;
-  height: 100vh;
-  padding: 0;
+  background-size: cover;
+  height: auto;
 }
 
 .logoImage {
