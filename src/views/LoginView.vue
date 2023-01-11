@@ -113,7 +113,9 @@ export default {
   
       }
 
-    },
+    }
+  }
+
 
     /* loginWithUsername() {
       const user = this.users.find(user => user.username === this.users.username && user.password === this.users.password);
@@ -139,9 +141,6 @@ export default {
       }
 
     } */
-
-
-}
 
   /* computed: {
     user() {
@@ -169,7 +168,7 @@ export default {
 
 .mt-5 {
   margin-top: 0rem !important;
-60px;
+
   line-height: 118px;
 }
 
