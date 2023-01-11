@@ -1,10 +1,10 @@
 <template>
     <div class="addEcopoint">
 
-        <div>
+        <div class="image-submit">
             <b-form @submit="onSubmit">
                 <b-form-file v-model="image" accept="image/*"></b-form-file>
-                <b-button type="submit" variant="primary">Submit</b-button>
+                <b-button type="submit" id="btn-carregar" variant="primary">Carregar</b-button>
             </b-form>
         </div>
 
