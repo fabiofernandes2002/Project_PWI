@@ -3,7 +3,7 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import LandingPage from '../views/LandingPage.vue'
 import MapView from '../views/MapView.vue'
-// import LandingPageView from '../views/LandingPageView.vue'
+import addEcopoint from '../views/AddEcopoint.vue'
 import Maps from '../components/Maps.vue'
 import PerfilView from '../views/PerfilView.vue'
 import EditPerfilView from '../views/EditPerfilView.vue'
@@ -61,6 +61,11 @@ export const router = createRouter({
       path: '/ranking',
       name: 'ranking',
       component: RankingView
+    },
+    {
+      path: '/addEcopoint',
+      name: 'addEcopoint',
+      component: addEcopoint
     }
   ]
 })

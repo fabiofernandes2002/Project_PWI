@@ -1,5 +1,5 @@
 <template>
-  <div id="backgroundFundo">
+   <div class="backgroundFundo">
     <b-container fluid>
       <b-row class="mt-5 ">
         <b-col cols="12 my-3" md="6" class="b-col border-right">
@@ -108,15 +108,17 @@ export default {
           icon: 'error',
           confirmButtonText: 'Ok',
           confirmButtonColor: '#F39C12',
-        });
+        }); <<<<<<< HEAD
       } */
   
+      }
+
     },
 
-    loginWithUsername(){
-      const  user = this.users.find(user => user.username === this.users.username && user.password === this.users.password);
+    /* loginWithUsername() {
+      const user = this.users.find(user => user.username === this.users.username && user.password === this.users.password);
 
-      if(user){
+      if (user) {
         this.$swal({
           title: 'Login efetuado com sucesso!',
           icon: 'success',
@@ -127,7 +129,7 @@ export default {
           // o código aqui será executado após o usuário clicar no botão de confirmação
           this.$router.push('/LandingPage');
         });
-      }else{
+      } else {
         this.$swal({
           title: 'Email ou password incorretos!',
           icon: 'error',
@@ -135,40 +137,39 @@ export default {
           confirmButtonColor: '#F39C12',
         });
       }
-      
-    }
-    
 
-  },
+    } */
 
-  computed: {
+
+}
+
+  /* computed: {
     user() {
       return this.store.users;
     }
-  }
+  } */
 
-}
+
 </script>
 
 <style scoped>
-#backgroundFundo {
-  background-image: url("../imgs/mainbg.svg");
-  background-size: 2000px 1000px;
-  background-position: -500px 0;
-  animation: gradient 80s infinite alternate linear;
-
+.backgroundFundo {
+  background-image: url("../assets/imgs/mainbg.svg");
+  background-repeat: no-repeat;
+  background-size: 1500px 2500px;
+  height: 100vh;
+  animation: gradient 30s infinite alternate linear;
 }
 
-.logoImage {
-  text-align: center;
+@keyframes gradient {
+  100% {
+    background-size: 2000px 3000px;
+  }
 }
 
-.loginTitle {
-  color: #000;
-  font-family: 'Saira Condensed';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 60px;
+.mt-5 {
+  margin-top: 0rem !important;
+60px;
   line-height: 118px;
 }
 

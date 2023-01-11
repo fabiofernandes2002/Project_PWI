@@ -12,10 +12,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);
 
-import Swal from 'sweetalert';
+/* import Swal from 'sweetalert';
 
 Vue.prototype.$swal = Swal;
-
+ */
 
 const app = createApp(App)
 
