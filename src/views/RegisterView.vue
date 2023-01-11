@@ -183,8 +183,15 @@ export default {
 <style scoped>
 .registerPage {
   background-image: url("../assets/imgs/mainbg.svg");
-  background-size: cover;
+  background-size: 1500px 2500px;
   height: auto;
+  animation: gradient 30s infinite alternate linear;
+}
+
+@keyframes gradient {
+  100% {
+    background-size: 2000px 3000px;
+  }
 }
 
 .logoImage {
@@ -318,7 +325,7 @@ export default {
 
   width: 100%;
   height: 50px;
-margin-top: 20px;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 

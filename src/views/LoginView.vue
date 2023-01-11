@@ -110,13 +110,13 @@ export default {
           confirmButtonColor: '#F39C12',
         });
       }
-  
+
     },
 
-    loginWithUsername(){
-      const  user = this.users.find(user => user.username === this.users.username && user.password === this.users.password);
+    loginWithUsername() {
+      const user = this.users.find(user => user.username === this.users.username && user.password === this.users.password);
 
-      if(user){
+      if (user) {
         this.$swal({
           title: 'Login efetuado com sucesso!',
           icon: 'success',
@@ -127,7 +127,7 @@ export default {
           // o código aqui será executado após o usuário clicar no botão de confirmação
           this.$router.push('/LandingPage');
         });
-      }else{
+      } else {
         this.$swal({
           title: 'Email ou password incorretos!',
           icon: 'error',
@@ -135,9 +135,9 @@ export default {
           confirmButtonColor: '#F39C12',
         });
       }
-      
+
     }
-    
+
 
   },
 
@@ -154,9 +154,17 @@ export default {
 .backgroundFundo {
   background-image: url("../assets/imgs/mainbg.svg");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 1500px 2500px;
   height: 100vh;
+  animation: gradient 30s infinite alternate linear;
 }
+
+@keyframes gradient {
+  100% {
+    background-size: 2000px 3000px;
+  }
+}
+
 .mt-5 {
   margin-top: 0rem !important;
 }
