@@ -5,8 +5,11 @@ import LandingPage from '../views/LandingPage.vue'
 import MapView from '../views/MapView.vue'
 // import LandingPageView from '../views/LandingPageView.vue'
 import Maps from '../components/Maps.vue'
+import PerfilView from '../views/PerfilView.vue'
+import EditPerfilView from '../views/EditPerfilView.vue'
+import RankingView from '../views/RankingView.vue'
 
-const router = createRouter({
+export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
@@ -43,6 +46,21 @@ const router = createRouter({
       path: '/mapView',
       name: 'mapView',
       component: MapView
+    },
+    {
+      path: '/perfil',
+      name: 'perfil',
+      component: PerfilView
+    },
+    {
+      path: '/editPerfil',
+      name: 'editPerfil',
+      component: EditPerfilView
+    },
+    {
+      path: '/ranking',
+      name: 'ranking',
+      component: RankingView
     }
   ]
 })

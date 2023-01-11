@@ -6,7 +6,7 @@
       :center="center"
       :zoom="18"
     >
-      <Marker :options="currentPosMarkerOptions" />
+      <!-- <Marker :options="currentPosMarkerOptions" />
       <Marker
         v-for="ecoponto in ecopontos"
         :key="ecoponto.id"
@@ -20,7 +20,7 @@
             scaledSize: { width: 29, height: 40 },
           },
         }"
-      />
+      /> -->
     </GoogleMap>
   </template>
   
@@ -31,7 +31,6 @@
   import { ecopointStore } from "../stores/ecopoint";
   
   export default defineComponent({
-    Vue,
     components: { GoogleMap, Marker },
     data() {
       return {

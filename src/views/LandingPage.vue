@@ -195,6 +195,11 @@
 
         <ul id="menu">
           <a href="#section-1">
+            <h1 v-if="getUserLogged()">
+              Olá {{ getUserLogged().username }},
+            </h1>
+          </a>
+          <a href="#section-1">
             <li>Página Inicial</li>
           </a>
           <a href="#section-2">
@@ -206,24 +211,30 @@
           <a href="#section-4">
             <li>Mapa de Ecopontos</li>
           </a>
+          <a href="/perfil">
+            <li v-if="getUserLogged()">Perfil</li>
+          </a>
+          <a href="/desafios">
+            <li v-if="getUserLogged()">Desafios</li>
+          </a>
+          <a href="/ranking">
+            <li v-if="getUserLogged()">Ranking</li>
+          </a>
           <br>
           <br>
           <br>
           <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
+          
+          
           <hr>
           <a href="/login">
-            <li>Iniciar Sessão</li>
+            <li v-if="!getUserLogged()">Iniciar Sessão</li>
           </a>
           <a href="/register">
-            <li>Registar</li>
+            <li v-if="!getUserLogged()">Registar</li>
+          </a>
+          <a href="/login" @click="logout">
+            <li v-if="getUserLogged()">Logout</li>
           </a>
         </ul>
       </div>
@@ -244,13 +255,16 @@ export default {
       storeUsers: userStore(),
       ecopoints: [],
       users: [],
+      loggedUser: false
     }
   },
 
   created() {
 
-    this.ecopoints = this.storeEcopoints.ecopoints;
+    this.ecopoints = this.storeEcopoints.getEcopoints;
     this.users = this.storeUsers.users;
+
+    console.log(this.ecopoints);
 
     localStorage.setItem('ecopoints', JSON.stringify(this.ecopoints));
     //localStorage.setItem('users', JSON.stringify(this.users));
@@ -267,9 +281,10 @@ export default {
     // logout do utilizador e remover os dados da session storage
     logout() {
       sessionStorage.removeItem('user');
-      //localStorage.removeItem('user');
       this.$router.push('/login');
+
     },
+    
 
   },
 }

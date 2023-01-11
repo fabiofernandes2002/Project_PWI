@@ -10,7 +10,7 @@
           <div class="formulario" id="forms">
 
             <b-col cols="6" md="10" class="mt-3">
-              <b-form @submit="onSubmit">
+              <b-form v-on:submit.prevent="onSubmit">
                 <b-form-group label-for="email-input">
                   <b-form-input type="text" id="email-input" v-model="form.email" placeholder="Username ou email"
                     required></b-form-input>
@@ -19,8 +19,7 @@
                   <b-form-input type="password" id="password-input" v-model="form.password" placeholder="Password"
                     required></b-form-input>
                 </b-form-group><br>
-                <b-button block variant="primary" type="submit" id="bntLogin"
-                  @click="this.store.login(form.email, form.password)">Login</b-button>
+                <b-button block variant="primary" type="submit" id="bntLogin">Login</b-button>
               </b-form>
             </b-col>
           </div>
@@ -57,26 +56,27 @@ export default {
     }
   },
 
-  created() {
+  /* created() {
     this.users = this.store.users;
 
     // carregar o array de users na local storage
     localStorage.setItem('users', JSON.stringify(this.users));
 
-  },
+  }, */
 
 
 
   methods: {
-    onSubmit(event) {
-      event.preventDefault();
+    onSubmit() {
+      this.store.login(this.form.email, this.form.password);
+      /* event.preventDefault();
       const data = {
         email: this.form.email,
         username: this.form.username,
         password: this.form.password
       }
-
-      const user = this.users.find(user => user.email === data.email && user.password === data.password);
+ */
+      /* const user = this.users.find(user => user.email === data.email && user.password === data.password);
 
       // chamar a função loginWithUsername
       this.loginWithUsername();
@@ -109,7 +109,7 @@ export default {
           confirmButtonText: 'Ok',
           confirmButtonColor: '#F39C12',
         });
-      }
+      } */
   
     },
 

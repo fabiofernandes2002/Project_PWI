@@ -1,14 +1,16 @@
 // import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import {router} from '../router';
 
 export const userStore = defineStore('user', {
     state: () => ({
         users: [
-            { id: 1, username: 'Admin', email: 'admin@gmail.com', password: 'admin', address: 'Avenida da Republica', location: 'Vila Nova de Gaia', postalCode: '4400-182', photo: 'https://picsum.photos/200/300'},
-            { id: 2, username: 'João', email: 'joão@gmail.com', password: 'joão', address: 'Avenida da Republica', location: 'Vila Nova de Gaia', postalCode: '4400-182', photo: 'https://picsum.photos/200/300'},
-            { id: 3, username: 'Damião', email: 'damião@gmail.com', password: 'damião', address: 'Avenida da Republica', location: 'Vila Nova de Gaia', postalCode: '4400-182', photo: 'https://picsum.photos/200/300'},
-            { id: 4, username: 'Daniel', email: 'daniel@gmail.com', password: 'daniel', address: 'Avenida da Republica', location: 'Vila Nova de Gaia', postalCode: '4400-182', photo: 'https://picsum.photos/200/300'},
-            { id: 5, username: 'Tiago', email: 'tiago@gmail.com', password: 'tiago', address: 'Avenida da Republica', location: 'Vila Nova de Gaia', postalCode: '4400-182', photo: 'https://picsum.photos/200/300'},
+            { id: 1, username: 'Admin', email: 'admin@gmail.com', datanascimento: '12-01-2002', password: 'admin', morada: 'Avenida da Republica', localidade: 'Vila Nova de Gaia', postalCode: '4400-182', photo: 'https://picsum.photos/200/300', pontos: 10, medals: [], nºUtilizaçao: 2, desafios: [], ranking: 1, diaSemana: 'Segunda-Feira'},
+            { id: 2, username: 'João', email: 'joão@gmail.com', datanascimento: '12-01-2002', password: 'joão', morada: 'Avenida da Republica', localidade: 'Vila Nova de Gaia', postalCode: '4400-182', photo: 'https://picsum.photos/200/300', pontos: 15, medals: [], nºUtilizaçao: 2, desafios: [], ranking: 2, diaSemana: 'Segunda-Feira'},
+            { id: 3, username: 'Damião', email: 'damião@gmail.com', datanascimento: '12-01-2002', password: 'damião', morada: 'Avenida da Republica', localidade: 'Vila Nova de Gaia', postalCode: '4400-182', photo: 'https://picsum.photos/200/300', pontos: 20, medals: [], nºUtilizaçao: 2, desafios: [], ranking: 3, diaSemana: 'Segunda-Feira'},
+            { id: 4, username: 'Daniel', email: 'daniel@gmail.com', datanascimento: '12-01-2002', password: 'daniel', morada: 'Avenida da Republica', localidade: 'Vila Nova de Gaia', postalCode: '4400-182', photo: 'https://picsum.photos/200/300' , pontos: 50, medals: [], nºUtilizaçao: 2, desafios: [], ranking: 4, diaSemana: 'Segunda-Feira'},
+            { id: 5, username: 'Tiago', email: 'tiago@gmail.com', datanascimento: '12-01-2002', password: 'tiago', morada: 'Avenida da Republica', localidade: 'Vila Nova de Gaia', postalCode: '4400-182', photo: 'https://picsum.photos/200/300' , pontos: 35, medals: [1,2], nºUtilizaçao: 2, desafios: [], ranking: 5, diaSemana: 'Segunda-Feira'},
+            { id: 6, username: 'Rui', email: 'rui@gmail.com', datanascimento: '12-01-2002', password: 'tiago', morada: 'Avenida da Republica', localidade: 'Vila Nova de Gaia', postalCode: '4400-182', photo: 'https://picsum.photos/200/300' , pontos: 35, medals: [1,2], nºUtilizaçao: 2, desafios: [], ranking: 5, diaSemana: 'Segunda-Feira'},
         ]
     }),
 
@@ -29,12 +31,12 @@ export const userStore = defineStore('user', {
     actions: {
         // login do user
         login(email, password) {
-            const user = this.state.users.find(user => user.email === email && user.password === password);
+            const user = this.users.find(user => user.email === email && user.password === password);
             if (user) {
                 alert('Login efetuado com sucesso');
-                this.$router.push('/LandingPage');
+                router.push('/landingPage');
 
-                localStorage.setItem('user', JSON.stringify(user));
+                sessionStorage.setItem('user', JSON.stringify(user));
                 return user;
             }else{
                 alert('Dados incorretos');
@@ -44,19 +46,31 @@ export const userStore = defineStore('user', {
         },
 
         // registar o user
-        register(username, email, password, address, location, postalCode, photo) {
-            const user = {
+        register(username, email, password, confirmarpassword, datanascimento, morada, localidade, postalCode) {
+            this.users.push({
                 id: this.getNewId,
-                username,
-                email,
-                password,
-                address,
-                location,
-                postalCode,
-                photo
-            };
-            this.state.users.push(user);
-            localStorage.setItem('user', JSON.stringify(user));
+                username: username,
+                email: email,
+                password: password,
+                confirmarpassword: confirmarpassword,
+                datanascimento: datanascimento,
+                morada: morada,
+                localidade: localidade,
+                postalCode: postalCode,
+                photo: '',
+                pontos: 0,
+                medals: [],
+                nºUtilizaçao: 0,
+                desafios: [],
+                diaSemana: '',
+                ranking: 0,
+
+            });
+            localStorage.setItem('users', JSON.stringify(this.users));
+            alert('Registo efetuado com sucesso');
+            router.push('/login');
+            
+            
 
 
         },
