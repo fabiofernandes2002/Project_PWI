@@ -8,6 +8,19 @@
     height:100vh;
 }
 
+.add-title {
+    display:flex;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    justify-content: center;    
+}
+.add-title h1 {
+    font-size: 3.5em;
+    color: #fff;
+    font-family: "Saira Condensed";
+    font-weight: bold;
+}
+
 .image-submit {
     display: block;
     margin-left: auto;

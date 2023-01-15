@@ -1,6 +1,10 @@
 <template>
     <div class="addEcopoint">
 
+        <div class="add-title">
+            <h1>Adicionar Ecoponto</h1>
+        </div>
+        
         <div class="image-submit">
             <b-form @submit="onSubmit">
                 <b-form-file v-model="image" accept="image/*"></b-form-file>
