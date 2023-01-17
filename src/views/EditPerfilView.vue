@@ -10,30 +10,30 @@
 
 
                 <b-col cols="10" md="6" sm="12" class="mt-3 ">
-                    <b-form @submit="onSubmit" @reset="onReset" v-if="store.users">
+                    <b-form @submit="onSubmit" @reset="onReset">
                         <b-form-group id="input-group-1" label-for="input-1">
-                            <b-form-input type="text" id="usernameUpdate" placeholder="Username" v-model="store.users.username"
-                                required></b-form-input>
+                            <b-form-input type="text" id="usernameUpdate" placeholder="Username"
+                                v-model="form.usernameChange" required></b-form-input>
                         </b-form-group>
 
                         <b-form-group id="input-group-2" label-for="input-2">
-                            <b-form-input type="email" id="emailUpdate" placeholder="Email" v-model="store.users.email"
+                            <b-form-input type="email" id="emailUpdate" placeholder="Email" v-model="form.emailChange"
                                 required></b-form-input>
                         </b-form-group>
 
                         <b-form-group id="input-group-3" label-for="input-3">
-                            <b-form-input type="password" id="passwordUpdate" placeholder="Password" v-model="store.users.password"
-                                required></b-form-input>
+                            <b-form-input type="password" id="passwordUpdate" placeholder="Password"
+                                v-model="form.passwordChange" required></b-form-input>
                         </b-form-group>
 
                         <b-form-group id="input-group-4" label-for="input-4">
                             <b-form-input type="password" id="confirmPasswordUpdate" placeholder="Confirmar password"
-                                v-model="store.users.password" required></b-form-input>
+                                v-model="form.confirmPasswordChange" required></b-form-input>
                         </b-form-group>
 
                         <!-- <b-button type="submit" variant="primary">Submit</b-button>
                         <b-button type="reset" variant="danger">Reset</b-button> -->
-                    
+
 
                         <!-- Foto de utilizador -->
                         <div class="foto mt-5">
@@ -49,7 +49,7 @@
                                         <h3 id="fotoAtual">Foto Atual</h3>
                                     </div>
                                 </b-col>
-                                <b-col >
+                                <b-col>
                                     <b-avatar src="https://placekitten.com/300/300" left size="6rem"></b-avatar>
                                 </b-col>
                             </b-row>
@@ -61,7 +61,8 @@
                                     </div>
                                 </b-col>
                                 <b-col>
-                                    <b-form-file placeholder="Escolha uma foto" drop-placeholder="Escolher ficheiro"></b-form-file>
+                                    <b-form-file placeholder="Escolha uma foto"
+                                        drop-placeholder="Escolher ficheiro"></b-form-file>
                                 </b-col>
                             </b-row>
                         </div>
@@ -69,10 +70,11 @@
                         <!-- Botões de atualizar perfil e cancelar -->
                         <b-row class="mt-5 mb-5">
                             <b-col>
-                                <b-button type="submit" pill class="mx-1" id="atualizarPerfil">Atualizar Perfil</b-button>
+                                <b-button type="submit" pill class="mx-1" id="atualizarPerfil">Atualizar
+                                    Perfil</b-button>
                             </b-col>
                             <b-col class="text-right">
-                                <b-button type="reset" pill id="cancelar">Cancelar</b-button>
+                                <b-button type="reset" pill id="cancelar" @click="onReset">Cancelar</b-button>
                             </b-col>
                         </b-row>
                     </b-form>
@@ -90,22 +92,157 @@ export default {
     data() {
         return {
             store: userStore(),
-            users: [],
+            usersS: [],
             form: {
-                email: '',
-                username: '',
-                password: ''
+                emailChange: '',
+                usernameChange: '',
+                passwordChange: '',
+                confirmPasswordChange: '',
             }
         }
     },
 
-    created() {
-        this.users = this.store.users;
+    /* created() {
+        this.usersS = this.store.users;
 
         // carregar o array de users na local storage
-        localStorage.setItem('users', JSON.stringify(this.users));
+        //localStorage.setItem('users', JSON.stringify(this.users));
 
+    }, */
+
+
+    methods: {
+        onSubmit(evt) {
+            evt.preventDefault()
+
+            const data = {
+                emailChange: this.form.emailChange,
+                usernameChange: this.form.usernameChange,
+                passwordChange: this.form.passwordChange,
+                confirmPasswordChange: this.form.confirmPasswordChange,
+            }
+
+
+
+            // fazer atualização dos dados do utilizador
+
+
+            try {
+                const user = this.store.users.find(user => user.username === data.usernameChange || user.email === data.emailChange);
+
+                if (user) {
+                    this.$swal({
+                        title: 'Username ou email já existe!',
+                        icon: 'error',
+                        confirmButtonText: 'Ok',
+                    })
+                } else if (data.passwordChange !== data.confirmPasswordChange) {
+                    this.$swal({
+                        title: 'Password não corresponde!',
+                        icon: 'error',
+                        confirmButtonText: 'Ok',
+                    })
+                } else {
+                    this.updateUserData(
+                        this.usersS.username = data.usernameChange,
+                        this.usersS.email = data.emailChange,
+                        this.usersS.password = data.passwordChange
+                    );
+                    this.$swal({
+                        title: 'Dados atualizados com sucesso!',
+                        icon: 'success',
+                        confirmButtonText: 'Ok',
+                    })
+                    this.$router.push('/perfil');
+                }
+            } catch (error) {
+                console.error('Erro ao atualizar dados do utilizador: , error');
+            }
+
+
+
+
+
+
+
+        },
+
+        updateUserData(onlyLocalStorage = 0, newUserData) {
+            // atualizar os dados do utilizador na store, e depois atualizar os dados na local storage e na session storage
+            if(!onlyLocalStorage && newUserData.id === this.getUserLogged.id ){
+                sessionStorage.setItem('userLogged', JSON.stringify(newUserData));
+            }
+
+            // atualizar os dados do utilizador na local storage
+            const newUserList = this.store.users.map(user => {
+                if(user.id === newUserData.id){
+                    return newUserData;
+                }
+                return user;
+            });
+            localStorage.setItem('users', JSON.stringify(newUserList));
+        },
+
+        getUserLogged() {
+            return JSON.parse(sessionStorage.getItem('user'));
+        },
+
+        // verificar se o username já existe de acordo com a os dados da store
+        /* usernameExists(username) {
+            const users = this.store.users.find(user => user.username === username)
+            if (users) {
+                this.$swal({
+                    title: 'Username já existe!',
+                    text: 'Por favor escolha outro username!',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                })
+                //alert('Username já existe! Por favor escolha outro username!')
+                return false
+            } else {
+                return true
+            }
+        }, 
+        
+        passwordVerify(password, confirmarpassword) {
+            if (password !== confirmarpassword) {
+                this.$swal({
+                    title: 'Password não é igual!',
+                    text: 'Por favor verifique a sua password!',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                })
+                //alert('Password não é igual! Por favor verifique a sua password!')
+                return false
+            } else {
+                return true
+            } */
+        //},
+
+
+
+        onReset(evt) {
+            evt.preventDefault()
+            // Reset our form values
+            this.form.emailChange = ''
+            this.form.usernameChange = ''
+            this.form.passwordChange = ''
+            this.form.confirmPasswordChange = ''
+            // Trick to reset/clear native browser form validation state
+            this.show = false
+            this.$nextTick(() => {
+                this.show = true
+            })
+        }
     },
+
+    computed: {
+        user() {
+            if (!this.store || !this.store.users) return;
+            return this.store.users.find(user => user.username === this.form.usernameChange || user.email === this.form.emailChange);
+        }
+    },
+
 }
 </script>
 
@@ -155,15 +292,15 @@ export default {
     line-height: 20px;
 }
 
-.foto{
+.foto {
     border: 5px solid #134077;
     border-radius: 25px;
     padding: 20px;
     margin: 20px;
-    
+
 }
 
-#atualizarPerfil{
+#atualizarPerfil {
     background-color: #134077;
     font-family: 'Saira Condensed';
     font-style: normal;
@@ -177,7 +314,7 @@ export default {
     border: none;
 }
 
-#cancelar{
+#cancelar {
     background-color: #E74C3C;
     font-family: 'Saira Condensed';
     font-style: normal;
@@ -191,7 +328,8 @@ export default {
     border: none;
 }
 
-#fotoAtual, #novaFoto{
+#fotoAtual,
+#novaFoto {
     font-family: 'Saira Condensed';
     font-style: normal;
     font-weight: 800;
@@ -199,6 +337,4 @@ export default {
     line-height: 47px;
     color: #F39C12;
 }
-
-
 </style>

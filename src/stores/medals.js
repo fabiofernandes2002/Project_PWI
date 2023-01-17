@@ -23,4 +23,11 @@ export const medalsStore = defineStore('medals', {
             return state.medals
         },
     },
+
+    actions: {
+        setMedals(medals) {
+            this.medals = medals;
+        }
+
+    }
 })

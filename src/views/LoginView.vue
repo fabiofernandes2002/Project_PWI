@@ -10,7 +10,7 @@
           <div class="formulario" id="forms">
 
             <b-col cols="6" md="10" class="mt-3">
-              <b-form v-on:submit.prevent="onSubmit">
+              <b-form @submit="onSubmit">
                 <b-form-group label-for="email-input">
                   <b-form-input type="text" id="email-input" v-model="form.email" placeholder="Username ou email"
                     required></b-form-input>
@@ -19,7 +19,7 @@
                   <b-form-input type="password" id="password-input" v-model="form.password" placeholder="Password"
                     required></b-form-input>
                 </b-form-group><br>
-                <b-button block variant="primary" type="submit" id="bntLogin">Login</b-button>
+                <b-button block variant="primary" type="submit" id="bntLogin" @click="login">Login</b-button>
               </b-form>
             </b-col>
           </div>
@@ -31,7 +31,7 @@
           <h1 class="logoName">Photo Recycle</h1>
 
           <!-- link de ainda não tiver conta -->
-          <b-link href="/register" id="linkCriarConta">Ainda não tens conta? <span id="registerLink">Crie
+          <b-link href="/register" id="linkCriarConta" style="color: #fff;">Ainda não tens conta? <span id="registerLink">Crie
               conta!</span></b-link>
         </b-col>
 
@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       store: userStore(),
-      users: [],
+      usersS: [],
       form: {
         email: '',
         username: '',
@@ -56,30 +56,27 @@ export default {
     }
   },
 
-  /* created() {
-    this.users = this.store.users;
+  created() {
+    this.usersS = this.store.users;
 
-    // carregar o array de users na local storage
-    localStorage.setItem('users', JSON.stringify(this.users));
-
-  }, */
+  },
 
 
 
   methods: {
-    onSubmit() {
-      this.store.login(this.form.email, this.form.password);
-      /* event.preventDefault();
+    onSubmit(event) {
+      
+      event.preventDefault();
       const data = {
         email: this.form.email,
         username: this.form.username,
         password: this.form.password
       }
- */
-      /* const user = this.users.find(user => user.email === data.email && user.password === data.password);
+
+      const user = this.usersS.find(user => user.email === data.email && user.password === data.password);
 
       // chamar a função loginWithUsername
-      this.loginWithUsername();
+      //this.loginWithUsername();
 
       if (user) {
         //this.store.login(user); // login user in store and save it in local storage
@@ -95,11 +92,12 @@ export default {
           // o código aqui será executado após o usuário clicar no botão de confirmação
           this.$router.push('/LandingPage');
         });
+        //this.$router.push('/LandingPage');
 
         // guardar o utilizador na session storage para poder ser usado em outras páginas
         sessionStorage.setItem('user', JSON.stringify(user));
 
-        localStorage.setItem('user', JSON.stringify(user));
+        //localStorage.setItem('user', JSON.stringify(user));
       } else {
         //alert('Email ou password incorretos');
         // usar o SweetAlert para mostrar a mensagem de erro
@@ -108,8 +106,8 @@ export default {
           icon: 'error',
           confirmButtonText: 'Ok',
           confirmButtonColor: '#F39C12',
-        }); <<<<<<< HEAD
-      } */
+        });
+      }
   
       }
 
@@ -142,12 +140,6 @@ export default {
 
     } */
 
-  /* computed: {
-    user() {
-      return this.store.users;
-    }
-  } */
-
 
 </script>
 
@@ -179,6 +171,7 @@ export default {
   font-size: 30px;
   line-height: 55px;
   text-align: center;
+  color: #fff;
 }
 
 
@@ -186,7 +179,7 @@ export default {
 .logoName {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #000;
+  color: #fff;
 
   /* boldhead font para o logo */
   font-family: 'Bebas Neue', cursive;
@@ -206,9 +199,19 @@ export default {
   text-align: center;
 }
 
+.loginTitle {
+  color: #FFFFFF;
+  font-family: 'Saira Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 118px;
+}
+
 /* centrar o loginTitle */
 .loginTitle {
   text-align: center;
+  color:#fff
 }
 
 /* centrar o botão login */

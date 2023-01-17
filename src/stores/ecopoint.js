@@ -7,14 +7,14 @@ export const ecopointStore = defineStore('ecopoint', {
   state: () => ({
 
     ecopoints: [
-      {
-        id: 1, ecopointName: 'Ecopoint Blue', userCreate: '1', ecopointLocation: 'Vila Nova de Gaia', ecopointAddress: 'Avenida da Republica', ecopointCreationDate: '2021-01-01', ecopointStatus: 'active', ecopointType: 'paper', 
-        id: 2, ecopointName: 'Ecopoint Green', userCreate: '2', ecopointLocation: 'Vila Nova de Gaia', ecopointAddress: 'Avenida da Republica', ecopointCreationDate: '2021-01-01', ecopointStatus: 'active', ecopointType: 'battery',
-        id: 3, ecopointName: 'Ecopoint Yellow', userCreate: '3', ecopointLocation: 'Vila Nova de Gaia', ecopointAddress: 'Avenida da Republica', ecopointCreationDate: '2021-01-01', ecopointStatus: 'active', ecopointType: 'plastic',
-        id: 4, ecopointName: 'Ecopoint Brown', userCreate: '4', ecopointLocation: 'Vila Nova de Gaia', ecopointAddress: 'Avenida da Republica', ecopointCreationDate: '2021-01-01', ecopointStatus: 'active', ecopointType: 'organic',
-        id: 5, ecopointName: 'Ecopoint Black', userCreate: '5', ecopointLocation: 'Vila Nova de Gaia', ecopointAddress: 'Avenida da Republica', ecopointCreationDate: '2021-01-01', ecopointStatus: 'active', ecopointType: 'glass',
+      
+        {id: 1, ecopointName: 'Ecopoint Blue', userCreate: '1', ecopointLocation: 'Vila Nova de Gaia', ecopointAddress: 'Avenida da Republica', ecopointCreationDate: '2021-01-01', ecopointStatus: 'active', ecopointType: 'Paper', latitude: 41.133333, longitude: -8.616667} ,
+        {id: 2, ecopointName: 'Ecopoint Green', userCreate: '2', ecopointLocation: 'Vila Nova de Gaia', ecopointAddress: 'Avenida da Republica', ecopointCreationDate: '2021-01-01', ecopointStatus: 'active', ecopointType: 'Battery', latitude: 41.362774699560454, longitude: -8.740214109420776},
+        {id: 3, ecopointName: 'Ecopoint Yellow', userCreate: '3', ecopointLocation: 'Vila Nova de Gaia', ecopointAddress: 'Avenida da Republica', ecopointCreationDate: '2021-01-01', ecopointStatus: 'active', ecopointType: 'Plastic', latitude: 41.31776, longitude: -8.67931},
+        {id: 4, ecopointName: 'Ecopoint Brown', userCreate: '4', ecopointLocation: 'Vila Nova de Gaia', ecopointAddress: 'Avenida da Republica', ecopointCreationDate: '2021-01-01', ecopointStatus: 'active', ecopointType: 'Organic', latitude: 41.36581039362086, longitude: -8.74010682106018 },
+        {id: 5, ecopointName: 'Ecopoint Black', userCreate: '5', ecopointLocation: 'Vila Nova de Gaia', ecopointAddress: 'Avenida da Republica', ecopointCreationDate: '2021-01-01', ecopointStatus: 'active', ecopointType: 'Glass', latitude: 41.351730, longitude: -8.747862},
 
-      },
+      
     ]
 
   }),
@@ -24,4 +24,10 @@ export const ecopointStore = defineStore('ecopoint', {
       return state.ecopoints
     }
   },
+
+  actions: {
+    setEcopoints(ecopoints) {
+      this.ecopoints = ecopoints
+    }
+  }
 })

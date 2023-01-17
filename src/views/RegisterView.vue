@@ -10,7 +10,7 @@
           <div class="formulario mx-auto " id="forms" style="border-color: red;">
 
             <b-col cols="6" md="10" class="mt-3">
-              <b-form v-on:submit.prevent="onSubmit">
+              <b-form @submit="onSubmit">
                 <!-- input username -->
                 <b-form-group label-for="username-input">
                   <b-form-input type="text" id="username-input" class="user" v-model="form.username"
@@ -52,7 +52,7 @@
                     placeholder="Confirmar Password" required></b-form-input>
                 </b-form-group>
                 <br>
-                <b-button block variant="primary" type="submit" id="bntLogin">Registar</b-button>
+                <b-button block variant="primary" type="submit" id="bntLogin" @click="register">Registar</b-button>
               </b-form>
             </b-col>
           </div>
@@ -64,7 +64,7 @@
           <h1 class="logoName">Photo Recycle</h1>
 
           <!-- link de ainda não tiver conta -->
-          <b-link href="/login" id="linkCriarConta">Já tem uma conta? <span id="registerLink">Faça já
+          <b-link href="/login" id="linkCriarConta" style="color: #fff;">Já tem uma conta? <span id="registerLink">Faça já
               login!</span></b-link>
         </b-col>
 
@@ -81,7 +81,7 @@ export default {
   data() {
     return {
       store: userStore(),
-      users: [],
+      usersS: [],
       form: {
         username: "",
         email: "",
@@ -96,33 +96,36 @@ export default {
 
   },
 
-  methods: {
+  /* methods: {
     onSubmit() {
       this.store.register(this.form.username, this.form.email, this.form.password, this.form.confirmarpassword, this.form.datanascimento, this.form.morada, this.form.localidade, this.form.postalCode)
       //this.router.push('/login')
     }
-  },
-
-  // guardar os dados do utilizador registado na local storage
-  /* created() {
-    // Obtenha os dados do usuário a partir da store
-    const userData = this.store.users
-
-    // Adicione os dados do usuário ao array de usuários
-    this.users.push(userData)
-
-    // Armazene o array atualizado de usuários no localStorage
-    localStorage.setItem('users', JSON.stringify(this.users))
   }, */
 
+  // guardar os dados do utilizador registado na local storage
+  created() {
+    this.usersS = this.store.users;  
+
+    // carregar o array de users na local storage
+    
+    if (!localStorage.getItem('usersS')) {
+      localStorage.setItem('usersS', JSON.stringify([]));
+    }else{
+      this.usersS = JSON.parse(localStorage.getItem('usersS'));
+      this.store.setUsers(this.usersS);
+    }
+
+  },
 
 
 
-  //methods: {
-    //onSubmit(event) {
-      //event.preventDefault()
 
-      /* const data = {
+  methods: {
+    onSubmit(event) {
+      event.preventDefault()
+
+      const data = {
         // incrementar o id do utilizador
         id: this.store.users.length + 1,
         username: this.form.username,
@@ -133,11 +136,19 @@ export default {
         codigopostal: this.form.codigopostal,
         password: this.form.password,
         confirmarpassword: this.form.confirmarpassword,
-      } */
+        photo: '',
+        tipo: 'userNormal',
+        pontos: 0,
+        medals: [],
+        nºUtilizaçao: 0,
+        desafios: [],
+        diaSemana: '',
+        ranking: 0,
+      }
 
 
       // se a password for igual a confirmar password e o username não existir, guardar os dados do utilizador na local storage
-      /* if (this.passwordVerify(data.password, data.confirmarpassword) && this.usernameExists(data.username)) {
+      if (this.passwordVerify(data.password, data.confirmarpassword) && this.usernameExists(data.username)) {
         this.store.users.push(data)
         this.$swal({
           title: 'Registado com sucesso!',
@@ -145,19 +156,20 @@ export default {
           icon: 'success',
           confirmButtonText: 'Ok'
         })
+        //alert('Registado com sucesso! Bem vindo à Photo Recycle!')
         // redirecionar para a página de login
         this.$router.push('/login')
         // enviar os dados para a local storage no array users
-        localStorage.setItem('users', JSON.stringify(this.users))
+        localStorage.setItem('usersS', JSON.stringify(this.usersS))
 
 
 
-      } */
-    //},
+      }
+    },
 
 
     // verificar se o username já existe de acordo com a os dados da store
-    /* usernameExists(username) {
+    usernameExists(username) {
       const users = this.store.users.find(user => user.username === username)
       if (users) {
         this.$swal({
@@ -166,14 +178,17 @@ export default {
           icon: 'error',
           confirmButtonText: 'Ok'
         })
+        //alert('Username já existe! Por favor escolha outro username!')
         return false
       } else {
         return true
       }
-    }, */
+    },
+
+
 
     // verificar se a password é igual a confirmar password
-    /* passwordVerify(password, confirmarpassword) {
+    passwordVerify(password, confirmarpassword) {
       if (password !== confirmarpassword) {
         this.$swal({
           title: 'Password não é igual!',
@@ -181,17 +196,20 @@ export default {
           icon: 'error',
           confirmButtonText: 'Ok'
         })
+        //alert('Password não é igual! Por favor verifique a sua password!')
         return false
       } else {
         return true
       }
-    }, */
+    },
 
 
 
-  //},
 
+
+  },
 }
+
 </script>
 
 <style scoped>
@@ -213,7 +231,7 @@ export default {
 }
 
 .loginTitle {
-  color: #000;
+  color: #FFFFFF;
   font-family: 'Saira Condensed';
   font-style: normal;
   font-weight: 700;
@@ -228,6 +246,7 @@ export default {
   font-size: 30px;
   line-height: 55px;
   text-align: center;
+  color: #FFFFFF;
 }
 
 
@@ -262,6 +281,7 @@ export default {
 /* centrar o link */
 #linkCriarConta {
   text-align: center;
+  color: #fff;
 }
 
 /* fazer a quebra de linha do registarLink e centrar */
@@ -360,6 +380,7 @@ export default {
 .logoName {
   margin-top: 20px;
   font-family: 'Boldhead';
+  color: #fff;
 }
 
 #logo {

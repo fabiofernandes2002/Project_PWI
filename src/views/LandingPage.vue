@@ -252,23 +252,34 @@ export default {
   data() {
     return {
       storeEcopoints: ecopointStore(),
-      storeUsers: userStore(),
-      ecopoints: [],
-      users: [],
+      store: userStore(),
+      ecopointsS: [],
+      usersS: [],
       loggedUser: false
     }
   },
 
-  created() {
+  /* created() {
 
-    this.ecopoints = this.storeEcopoints.getEcopoints;
-    this.users = this.storeUsers.users;
+    //this.ecopointsS = this.storeEcopoints.ecopoints;
+    //this.users = this.store.users;
 
-    console.log(this.ecopoints);
-
-    localStorage.setItem('ecopoints', JSON.stringify(this.ecopoints));
+    //localStorage.setItem('ecopoints', JSON.stringify(this.ecopoints));
     //localStorage.setItem('users', JSON.stringify(this.users));
-  },
+    /* if(localStorage.getItem('ecopointsS')){
+      localStorage.setItem('ecopointsS', JSON.stringify([]))
+    }else{
+      this.ecopointsS = JSON.parse(localStorage.getItem('ecopointsS'));
+      this.storeEcopoints.setEcopoints(this.ecopointsS);
+    } */
+
+    /* if (!localStorage.getItem('users')) {
+      localStorage.setItem('users', JSON.stringify([]));
+    }else{
+      this.users = JSON.parse(localStorage.getItem('users'));
+      this.store.setUsers(this.users);
+    } */
+  
 
   methods: {
     getUserLogged() {
