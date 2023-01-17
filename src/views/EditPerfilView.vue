@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="edit-profile">
         <b-container fluid>
             <b-row class="mt-5" id="forms">
                 <b-col cols="12 my-3" md="12" class="mt-5">
@@ -247,6 +247,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.edit-profile {
+    background-image: url('../assets/imgs/mainbg.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: auto;
+}
+
 #forms {
     display: flex;
     align-items: center;
