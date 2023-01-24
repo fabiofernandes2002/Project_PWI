@@ -196,8 +196,11 @@
         <ul id="menu">
           <a href="#section-1">
             <h1 v-if="getUserLogged()">
-              Olá {{ getUserLogged().username }},
+              Olá, {{ getUserLogged().username }}
             </h1>
+            <br>
+            <hr>
+            <br>
           </a>
           <a href="#section-1">
             <li>Página Inicial</li>
@@ -211,6 +214,9 @@
           <a href="#section-4">
             <li>Mapa de Ecopontos</li>
           </a>
+          <a href="/addEcopoint">
+            <li v-if="getUserLogged()">Adicionar Ecoponto</li>
+          </a>
           <a href="/perfil">
             <li v-if="getUserLogged()">Perfil</li>
           </a>
@@ -221,12 +227,8 @@
             <li v-if="getUserLogged()">Ranking</li>
           </a>
           <br>
-          <br>
-          <br>
-          <br>
-          
-          
           <hr>
+          <br>
           <a href="/login">
             <li v-if="!getUserLogged()">Iniciar Sessão</li>
           </a>

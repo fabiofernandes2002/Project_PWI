@@ -16,6 +16,7 @@ export const userStore = defineStore('user', {
             { id: 9, username: 'Miguel', tipo:'userNormal', email: 'miguel@gmail.com', datanascimento: '12-01-2002', password: 'miguel', morada: 'Avenida da Republica', localidade: 'Vila Nova de Gaia', postalCode: '4400-182', photo: 'https://picsum.photos/200/300' , pontos: 45, medals: [1,2], nºUtilizaçao: 2, desafios: [], ranking: 5, diaSemana: 'Segunda-Feira'},
             { id: 10, username: 'Ped', tipo:'userNormal', email: 'ped@gmail.com', datanascimento: '12-01-2002', password: 'ped', morada: 'Avenida da Republica', localidade: 'Vila Nova de Gaia', postalCode: '4400-182', photo: 'https://picsum.photos/200/300' , pontos: 200, medals: [1,2], nºUtilizaçao: 2, desafios: [], ranking: 5, diaSemana: 'Segunda-Feira'},
             { id: 11, username: 'Pedro', tipo:'userNormal', email: 'pedro@gmail.com', datanascimento: '12-01-2002', password: 'pedro', morada: 'Avenida da Republica', localidade: 'Vila Nova de Gaia', postalCode: '4400-182', photo: 'https://picsum.photos/200/300' , pontos: 500, medals: [1,2], nºUtilizaçao: 2, desafios: [], ranking: 5, diaSemana: 'Segunda-Feira'},
+            { id: 12, username: 'Lucas', tipo: 'admin', email: 'lucas@gmail.com', datanascimento: '03-03-1998', password: 'lucas', morada: 'Avenida da Republica', localidade: 'Vila Nova de Gaia', postalCode: '4400-182', photo: 'https://picsum.photos/200/300', pontos: 10, medals: [], nºUtilizaçao: 2, desafios: [], ranking: 1, diaSemana: 'Segunda-Feira'},
         ]
     }),
 
