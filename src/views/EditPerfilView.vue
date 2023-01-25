@@ -1,5 +1,5 @@
 <template>
-    <div class="edit-profile">
+    <div class="backgroundFundo">
         <b-container fluid>
             <b-row class="mt-5" id="forms">
                 <b-col cols="12 my-3" md="12" class="mt-5">
@@ -50,7 +50,8 @@
                                     </div>
                                 </b-col>
                                 <b-col>
-                                    <b-avatar src="https://placekitten.com/300/300" left size="6rem"></b-avatar>
+                                    <b-avatar :src="this.store.getUserLogged().photo" left size="6rem"></b-avatar>
+
                                 </b-col>
                             </b-row>
 
@@ -62,7 +63,7 @@
                                 </b-col>
                                 <b-col>
                                     <b-form-file placeholder="Escolha uma foto"
-                                        drop-placeholder="Escolher ficheiro"></b-form-file>
+                                        drop-placeholder="Escolher ficheiro" v-model="form.newPhoto"></b-form-file>
                                 </b-col>
                             </b-row>
                         </div>
@@ -98,17 +99,18 @@ export default {
                 usernameChange: '',
                 passwordChange: '',
                 confirmPasswordChange: '',
+                newPhoto: '',
             }
         }
     },
 
-    /* created() {
+    created() {
         this.usersS = this.store.users;
 
         // carregar o array de users na local storage
         //localStorage.setItem('users', JSON.stringify(this.users));
 
-    }, */
+    },
 
 
     methods: {
@@ -116,10 +118,12 @@ export default {
             evt.preventDefault()
 
             const data = {
-                emailChange: this.form.emailChange,
-                usernameChange: this.form.usernameChange,
-                passwordChange: this.form.passwordChange,
-                confirmPasswordChange: this.form.confirmPasswordChange,
+                id: this.store.getUserLogged().id,
+                email: this.form.emailChange,
+                username: this.form.usernameChange,
+                password: this.form.passwordChange,
+                confirmPassword: this.form.confirmPasswordChange,
+                photo: this.form.newPhoto,
             }
 
 
@@ -128,7 +132,7 @@ export default {
 
 
             try {
-                const user = this.store.users.find(user => user.username === data.usernameChange || user.email === data.emailChange);
+                const user = this.store.users.find(user => user.username === data.username || user.email === data.email);
 
                 if (user) {
                     this.$swal({
@@ -136,18 +140,22 @@ export default {
                         icon: 'error',
                         confirmButtonText: 'Ok',
                     })
-                } else if (data.passwordChange !== data.confirmPasswordChange) {
+                } else if (data.password !== data.confirmPassword) {
                     this.$swal({
                         title: 'Password não corresponde!',
                         icon: 'error',
                         confirmButtonText: 'Ok',
                     })
                 } else {
-                    this.updateUserData(
-                        this.usersS.username = data.usernameChange,
-                        this.usersS.email = data.emailChange,
-                        this.usersS.password = data.passwordChange
-                    );
+                    // substituir os novos dados do utilizador
+                    // atualizar os dados do utilizador na store, e depois atualizar os dados na local storage e na session storage só os dados editados e manter os outros
+
+
+                    this.store.updateUser(data);
+                    //sessionStorage.setItem('user', updateUser(data));
+                    // atualizar os dados do utilizador na session storage só os dados editados e manter os outros
+                    //sessionStorage.setItem('user', JSON.stringify(data));
+
                     this.$swal({
                         title: 'Dados atualizados com sucesso!',
                         icon: 'success',
@@ -156,7 +164,8 @@ export default {
                     this.$router.push('/perfil');
                 }
             } catch (error) {
-                console.error('Erro ao atualizar dados do utilizador: , error');
+                console.error('Erro ao atualizar dados do utilizador: ', error);
+
             }
 
 
@@ -167,57 +176,12 @@ export default {
 
         },
 
-        updateUserData(onlyLocalStorage = 0, newUserData) {
+        /* updateUserData() {
             // atualizar os dados do utilizador na store, e depois atualizar os dados na local storage e na session storage
-            if(!onlyLocalStorage && newUserData.id === this.getUserLogged.id ){
-                sessionStorage.setItem('userLogged', JSON.stringify(newUserData));
-            }
-
-            // atualizar os dados do utilizador na local storage
-            const newUserList = this.store.users.map(user => {
-                if(user.id === newUserData.id){
-                    return newUserData;
-                }
-                return user;
-            });
-            localStorage.setItem('users', JSON.stringify(newUserList));
-        },
-
-        getUserLogged() {
-            return JSON.parse(sessionStorage.getItem('user'));
-        },
-
-        // verificar se o username já existe de acordo com a os dados da store
-        /* usernameExists(username) {
-            const users = this.store.users.find(user => user.username === username)
-            if (users) {
-                this.$swal({
-                    title: 'Username já existe!',
-                    text: 'Por favor escolha outro username!',
-                    icon: 'error',
-                    confirmButtonText: 'Ok'
-                })
-                //alert('Username já existe! Por favor escolha outro username!')
-                return false
-            } else {
-                return true
-            }
-        }, 
-        
-        passwordVerify(password, confirmarpassword) {
-            if (password !== confirmarpassword) {
-                this.$swal({
-                    title: 'Password não é igual!',
-                    text: 'Por favor verifique a sua password!',
-                    icon: 'error',
-                    confirmButtonText: 'Ok'
-                })
-                //alert('Password não é igual! Por favor verifique a sua password!')
-                return false
-            } else {
-                return true
-            } */
-        //},
+            this.store.updateUser(this.usersS);
+            //localStorage.setItem('users', JSON.stringify(this.store.users));
+            //sessionStorage.setItem('users', JSON.stringify(this.store.users));
+        }, */
 
 
 
@@ -233,14 +197,9 @@ export default {
             this.$nextTick(() => {
                 this.show = true
             })
-        }
-    },
+        },
 
-    computed: {
-        user() {
-            if (!this.store || !this.store.users) return;
-            return this.store.users.find(user => user.username === this.form.usernameChange || user.email === this.form.emailChange);
-        }
+        
     },
 
 }
@@ -248,11 +207,23 @@ export default {
 
 <style lang="scss" scoped>
 
-.edit-profile {
-    background-image: url('../assets/imgs/mainbg.svg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: auto;
+.backgroundFundo {
+  background-image: url("../assets/imgs/mainbg.svg");
+  background-size: 1500px 2500px;
+  height: auto;
+  animation: gradient 30s infinite alternate linear;
+}
+
+@keyframes gradient {
+  100% {
+    background-size: 2000px 3000px;
+  }
+}
+
+.mt-5 {
+  margin-top: 0rem !important;
+
+  line-height: 118px;
 }
 
 #forms {

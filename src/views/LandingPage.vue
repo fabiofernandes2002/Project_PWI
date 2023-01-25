@@ -14,14 +14,15 @@
 
       <div class="wrap"> <!-- Barra de pesquisa -->
         <div class="search">
-          <input type="text" class="searchTerm" placeholder="Insira a localização...">
-          <button type="submit" class="searchButton">
+          <input type="text" class="searchTerm" placeholder="Insira a localização..." v-model="location">
+          <button type="submit" class="searchButton" @click="searchLocation()">
           </button>
         </div>
       </div>
 
       <div class="location"> <!-- Botão de localização -->
-        <button type="submit" class="locationButton"><span>Utilizar Localização Atual</span></button>
+        <button type="submit" class="locationButton" @click="getCurrentLocation()"><span>Utilizar Localização
+            Atual</span></button>
       </div>
 
     </section>
@@ -211,32 +212,40 @@
           <a href="#section-3">
             <li>Como Reciclar?</li>
           </a>
-          <a href="#section-4">
+          <a href="/mapView">
             <li>Mapa de Ecopontos</li>
           </a>
           <a href="/addEcopoint">
             <li v-if="getUserLogged()">Adicionar Ecoponto</li>
           </a>
           <a href="/perfil">
-            <li v-if="getUserLogged()">Perfil</li>
+            <li v-if="this.store.getUserLogged()">Perfil</li>
           </a>
           <a href="/desafios">
-            <li v-if="getUserLogged()">Desafios</li>
+            <li v-if="this.store.getUserLogged()">Desafios</li>
           </a>
           <a href="/ranking">
-            <li v-if="getUserLogged()">Ranking</li>
+            <li v-if="this.store.getUserLogged()">Ranking</li>
           </a>
           <br>
+<<<<<<< HEAD
+          <br>
+          <br>
+          <br>
+
+
+=======
+>>>>>>> b2bf20126207e406f14d95e7b94d1869fd2c4fd9
           <hr>
           <br>
           <a href="/login">
-            <li v-if="!getUserLogged()">Iniciar Sessão</li>
+            <li v-if="!this.store.getUserLogged()">Iniciar Sessão</li>
           </a>
           <a href="/register">
-            <li v-if="!getUserLogged()">Registar</li>
+            <li v-if="!this.store.getUserLogged()">Registar</li>
           </a>
           <a href="/login" @click="logout">
-            <li v-if="getUserLogged()">Logout</li>
+            <li v-if="this.store.getUserLogged()">Logout</li>
           </a>
         </ul>
       </div>
@@ -247,6 +256,7 @@
 <script>
 import { ecopointStore } from '../stores/ecopoint';
 import { userStore } from '../stores/user';
+import { medalsStore } from '../stores/medals';
 
 
 export default {
@@ -255,49 +265,72 @@ export default {
     return {
       storeEcopoints: ecopointStore(),
       store: userStore(),
+      storeMedals: medalsStore(),
       ecopointsS: [],
       usersS: [],
-      loggedUser: false
+      loggedUser: false,
+      location: ''
     }
   },
 
-  /* created() {
+  created() {
 
-    //this.ecopointsS = this.storeEcopoints.ecopoints;
-    //this.users = this.store.users;
+    localStorage.setItem('ecopoints', JSON.stringify(this.storeEcopoints.ecopoints));
+    localStorage.setItem('users', JSON.stringify(this.store.users));
+    localStorage.setItem('medals', JSON.stringify(this.storeMedals.medals));
+  },
 
-    //localStorage.setItem('ecopoints', JSON.stringify(this.ecopoints));
-    //localStorage.setItem('users', JSON.stringify(this.users));
-    /* if(localStorage.getItem('ecopointsS')){
-      localStorage.setItem('ecopointsS', JSON.stringify([]))
-    }else{
-      this.ecopointsS = JSON.parse(localStorage.getItem('ecopointsS'));
-      this.storeEcopoints.setEcopoints(this.ecopointsS);
-    } */
-
-    /* if (!localStorage.getItem('users')) {
-      localStorage.setItem('users', JSON.stringify([]));
-    }else{
-      this.users = JSON.parse(localStorage.getItem('users'));
-      this.store.setUsers(this.users);
-    } */
-  
 
   methods: {
-    getUserLogged() {
+    /* getUserLogged() {
       const user = JSON.parse(sessionStorage.getItem('user'));
       return user;
-      
 
-    },
+
+    }, */
 
     // logout do utilizador e remover os dados da session storage
     logout() {
-      sessionStorage.removeItem('user');
+      localStorage.removeItem('user');
       this.$router.push('/login');
 
     },
-    
+
+    // funçao que pega a localização do utilizador ao clicar no botão utilizar localização atual e mostra no input de pesquisa a localização do utilizador e depois ao pesuisar mostra os ecopontos mais proximos
+    getCurrentLocation() {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.location = position.coords.latitude + ', ' + position.coords.longitude;
+      });
+      console.log(this.location);
+
+      
+    },
+
+    searchLocation() {
+
+      if (this.location == '') {
+        // sweet alert
+        this.$swal({
+          title: 'Erro!',
+          text: 'Por favor, utilize a localização atual para pesquisar os ecopontos mais próximos',
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        })
+        return;
+      }
+
+      this.getCurrentLocation();
+      
+      this.$router.push('/mapView');
+
+
+
+    },
+
+
+
+    // funçao que calcula a distancia entre o ecoponto e o utilizador
+
 
   },
 }

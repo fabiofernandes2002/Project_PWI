@@ -28,6 +28,30 @@ export const ecopointStore = defineStore('ecopoint', {
   actions: {
     setEcopoints(ecopoints) {
       this.ecopoints = ecopoints
-    }
+    },
+
+    addEcopoint(ecopointName, userCreate, ecopointLocation, ecopointAddress, ecopointCreationDate, ecopointType, latitude, longitude) {
+      const ecopoint = {
+        id: this.ecopoints.length + 1,
+        ecopointName: ecopointName,
+        userCreate: userCreate,
+        ecopointLocation: ecopointLocation,
+        ecopointAddress: ecopointAddress,
+        ecopointCreationDate: ecopointCreationDate,
+        ecopointType: ecopointType,
+        latitude: latitude,
+        longitude: longitude,
+      }
+      this.ecopoints.push(ecopoint)
+      localStorage.setItem('ecopoints', JSON.stringify(this.ecopoints))
+    },
+
+    deleteEcopoint(id) {
+      const index = this.ecopoints.findIndex((ecopoint) => ecopoint.id === id)
+      this.ecopoints.splice(index, 1)
+      localStorage.setItem('ecopoints', JSON.stringify(this.ecopoints))
+    },
+
+    
   }
 })

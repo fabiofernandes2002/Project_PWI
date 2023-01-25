@@ -6,6 +6,8 @@
                     <h1>Mapa dos ecopontos</h1>
                     <div id="map">
                     </div>
+
+
                 </b-col>
             </b-row>
             <!-- MENU LATERAL -->
@@ -94,37 +96,9 @@ export default {
             anchor: new google.maps.Point(0, 20),
         };
 
-
-        /* this.ecopoints.forEach(ecopoint => {
-            const marker = new google.maps.Marker({
-                position: { lat: ecopoint.latitude, lng: ecopoint.longitude },
-                map: map,
-                title: ecopoint.ecopointName
-            });
-
-            const infoWindow = new google.maps.InfoWindow({
-                content: `
-                <div>
-                    <h3>${ecopoint.ecopointName}</h3>
-                    <h3>Tipo de lixo:</h3>
-                    <p>${ecopoint.ecopointType}</p>
-                    <h3>Morada:</h3>
-                    <p>${ecopoint.address}</p>
-                    <button class="btn btn-primary">Direções</button>
-                    <button class="btn btn-primary">Comentar</button>
-                </div>
-                `
-            });
-
-            marker.addListener("click", () => {
-                infoWindow.open(map, marker);
-            });
-
-        }); */
-        console.log(this.store.getEcopoints);
         // for of para iterar sobre o array de ecopoints e criar um marker para cada um
         for (const ecopoint of this.ecopoints) {
-            console.log(ecopoint.latitude);
+            //console.log(ecopoint.latitude);
             const marker = new google.maps.Marker({
                 position: { lat: ecopoint.latitude, lng: ecopoint.longitude },
                 map: map,
@@ -135,14 +109,14 @@ export default {
 
             const infoWindow = new google.maps.InfoWindow({
                 content: `
-                <div>
+                <div class="infoWindowMapa">
                     <h3>${ecopoint.ecopointName}</h3>
                     <h3>Tipo de lixo:</h3>
                     <p>${ecopoint.ecopointType}</p>
                     <h3>Morada:</h3>
-                    <p>${ecopoint.address}</p>
-                    <button class="btn btn-primary">Direções</button>
-                    <button class="btn btn-primary">Comentar</button>
+                    <p>${ecopoint.ecopointAddress}</p>
+                   <button class="btn btn-primary" @click="goToForm" id= 'bntUtilizarEcoponto'>Utilizar ecoponto</button>
+                   
                 </div>
                 `
             });
@@ -150,7 +124,58 @@ export default {
             marker.addListener("click", () => {
                 infoWindow.open(map, marker);
             });
+    
         }
+
+        
+
+        // pegar na localização atual do utilizador e mostrar no mapa os ecopontos mais próximos
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+
+                const marker = new google.maps.Marker({
+                    position: pos,
+                    map: map,
+                    title: "Localização atual",
+                    icon: {
+                        path: "M-1.547 12l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM0 0q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
+                        fillColor: "red",
+                        fillOpacity: 1,
+                        strokeWeight: 0,
+                        rotation: 0,
+                        scale: 2,
+                        anchor: new google.maps.Point(0, 20),
+                    },
+                });
+
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `
+                    <div>
+                        <h3>Localização atual</h3>
+                    </div>
+                    `
+                });
+
+                marker.addListener("click", () => {
+                    infoWindow.open(map, marker);
+                });
+
+                map.setCenter(pos);
+            }, () => {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+
+
+
 
 
 
@@ -172,7 +197,13 @@ export default {
             sessionStorage.removeItem('user');
             this.$router.push('/login');
         },
-    }
+    },
+
+    methods: {
+        goToForm() {
+            document.querySelector('#form').scrollIntoView({ behavior: 'smooth' });
+        }
+    },
 
 }
 </script>
@@ -202,105 +233,7 @@ h1 {
 
 #map {
     /* mapa largura e altura da window */
-    width: auto;
-    height: 80vh;
-    margin-bottom: 3rem;
-    border-radius: 10px;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 100vh;
 }
-
-/* MENU LATERAL */
-#menuToggle {
-    display: block;
-    position: fixed;
-    top: 6vh;
-    left: 96vw;
-    z-index: 1;
-  
-    user-select: none;
-  }
-  
-  #menuToggle a {
-    font-family: "Saira Condensed";
-    text-decoration: none;
-    color: #232323;
-  
-    transition: color 0.3s ease;
-  }
-  
-  #menuToggle a:hover {
-    color: #2ecc71;
-  }
-  
-  #menuToggle input {
-    display: block;
-    width: 40px;
-    height: 32px;
-    position: absolute;
-    top: -7px;
-    left: -5px;
-    cursor: pointer;
-    opacity: 0;
-    z-index: 2;
-  }
-  
-  /* HAMBURGER */
-  #menuToggle span {
-    display: block;
-    width: 33px;
-    height: 4px;
-    margin-bottom: 5px;
-    position: relative;
-    background: #f39c12;
-    border-radius: 3px;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    transform-origin: 4px 0px;
-    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
-      background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
-  }
-  #menuToggle span:first-child {
-    transform-origin: 0% 0%;
-  }
-  #menuToggle span:nth-last-child(2) {
-    transform-origin: 0% 100%;
-  }
-  
-  #menuToggle input:checked ~ span {
-    opacity: 1;
-    transform: rotate(45deg) translate(-2px, -1px);
-    background: #232323;
-  }
-  #menuToggle input:checked ~ span:nth-last-child(3) {
-    opacity: 0;
-    transform: rotate(0deg) scale(0.2, 0.2);
-  }
-  #menuToggle input:checked ~ span:nth-last-child(2) {
-    transform: rotate(-45deg) translate(0, -1px);
-  }
-  
-  /* POSIÇÃO DO MENU */
-  #menu {
-    position: absolute;
-    width: 350px;
-    margin: -100px 0 0 0;
-    padding: 50px;
-    padding-top: 150px;
-    padding-bottom: 520px;
-    right: -50px;
-    background: #ededed;
-    list-style-type: none;
-    transform-origin: 0% 0%;
-    transform: translate(100%, 0);
-    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
-  }
-  
-  #menu li {
-    padding: 10px 0;
-    font-size: 22px;
-  }
-  #menuToggle input:checked ~ ul {
-    transform: none;
-    opacity: 1;
-  }
 </style>

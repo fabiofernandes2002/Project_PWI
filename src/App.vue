@@ -6,9 +6,9 @@ import { ecopointStore } from './stores/ecopoint';
 
 const store = userStore();
 
-if (localStorage.getItem('usersS')) {
-      let usersS = JSON.parse(localStorage.getItem('usersS'));
-      store.setUsers(usersS);
+if (localStorage.getItem('users')) {
+      let users = JSON.parse(localStorage.getItem('users'));
+      store.setUsers(users);
 }
 
 const storemedals = medalsStore();
@@ -18,9 +18,9 @@ if (localStorage.getItem('medals')) {
 }
 
 const storeecopoint = ecopointStore();
-if (localStorage.getItem('ecopointsS')) {
-      let ecopointsS = JSON.parse(localStorage.getItem('ecopointsS'));
-      storeecopoint.getEcopoints(ecopointsS);
+if (localStorage.getItem('ecopoints')) {
+      let ecopoints = JSON.parse(localStorage.getItem('ecopoints'));
+      storeecopoint.setEcopoints(ecopoints);
 }
 
 
