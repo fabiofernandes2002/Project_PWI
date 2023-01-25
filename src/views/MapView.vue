@@ -27,6 +27,7 @@
 
                 </b-col>
             </b-row>
+            
             <!-- MENU LATERAL -->
             <nav role="navigation">
                 <div id="menuToggle">
