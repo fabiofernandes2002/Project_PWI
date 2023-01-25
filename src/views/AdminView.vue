@@ -49,6 +49,7 @@
                     </b-col>
                 </b-row>
             </div>
+            
             <!-- MENU LATERAL -->
             <nav role="navigation">
                 <div id="menuToggle">
@@ -177,7 +178,7 @@ transform: translateY(50%);
 .logoName {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #fff;
+    color: #f39c12;
 
     /* boldhead font para o logo */
     margin-top: 20px;
