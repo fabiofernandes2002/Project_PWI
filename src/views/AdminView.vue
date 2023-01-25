@@ -1,51 +1,96 @@
 <template>
     <div class="backgroundFundo">
         <b-container fluid>
-            <b-row class="mt-5 ">
-                <b-col cols="12 my-3" md="6" class="b-col border-right text-center">
+            <div class="adminMain">
 
-                    <div class="buttons mt-5">
-                        <b-col cols="10" md="6" class="text-center mt-3">
-                            <!-- Button de gerir ecopontos -->
-                            <div class="mt-3">
-                                <a href="/gerirEcopontos">
-                                    <b-button class="bntEditarPerfil">Gerir Ecopontos</b-button>
-                                </a>
-                            </div>
+                <b-row class="mt-5 ">
+                    <b-col cols="12 my-3" md="6" class="b-col border-right text-center">
 
-                            <!-- Button geris desafios -->
-                            <div class="mt-3">
-                                <a href="/gerirDesafios">
-                                    <b-button class="bntEditarPerfil">Gerir Desafios</b-button>
-                                </a>
-                            </div>
+                        <div class="buttons mt-5">
+                            <b-col cols="10" md="6" class="text-center mt-3">
+                                <!-- Button de gerir ecopontos -->
+                                <div class="mt-3">
+                                    <a href="/gerirEcopontos">
+                                        <b-button class="bntEditarPerfil">Gerir Ecopontos</b-button>
+                                    </a>
+                                </div>
 
-                            <!-- Button gerir recompensas -->
-                            <div class="mt-3">
-                                <a href="/gerirRecompensas">
-                                    <b-button class="bntEditarPerfil">Gerir Recompensas</b-button>
-                                </a>
-                            </div>
+                                <!-- Button geris desafios -->
+                                <div class="mt-3">
+                                    <a href="/gerirDesafios">
+                                        <b-button class="bntEditarPerfil">Gerir Desafios</b-button>
+                                    </a>
+                                </div>
 
-                            <!-- Button gerir utilizadores -->
-                            <div class="mt-3">
-                                <a href="/gerirUtilizadores">
-                                    <b-button class="bntEditarPerfil">Gerir Utilizadores</b-button>
-                                </a>
-                            </div>
+                                <!-- Button gerir recompensas -->
+                                <div class="mt-3">
+                                    <a href="/gerirRecompensas">
+                                        <b-button class="bntEditarPerfil">Gerir Recompensas</b-button>
+                                    </a>
+                                </div>
 
-                        </b-col>
-                    </div>
+                                <!-- Button gerir utilizadores -->
+                                <div class="mt-3">
+                                    <a href="/gerirUtilizadores">
+                                        <b-button class="bntEditarPerfil">Gerir Utilizadores</b-button>
+                                    </a>
+                                </div>
 
-                </b-col>
+                            </b-col>
+                        </div>
 
-                <b-col cols="12" md="6" class="logoImage mt-5">
-                    <!-- buscar minha imagem do logo -->
-                    <b-img src="src/assets/imgs/logo_acabado.png" alt="Logo" id="logo"></b-img>
-                    <h1 class="logoName">Photo Recycle</h1>
-                    <h3 id="nameAdmin">Administrador</h3>
-                </b-col>
-            </b-row>
+                    </b-col>
+
+                    <b-col cols="12" md="6" class="logoImage mt-5">
+                        <!-- buscar minha imagem do logo -->
+                        <b-img src="src/assets/imgs/logo_acabado.png" alt="Logo" id="logo"></b-img>
+                        <h1 class="logoName">Photo Recycle</h1>
+                        <h3 id="nameAdmin">Administrador</h3>
+                    </b-col>
+                </b-row>
+            </div>
+            <!-- MENU LATERAL -->
+            <nav role="navigation">
+                <div id="menuToggle">
+                    <input type="checkbox" />
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                    <ul id="menu">
+                        <a href="/perfil">
+                            <h1 v-if="!this.store.getUserLogged">
+                                Olá, {{ this.store.getUserLogged.username }}
+                            </h1>
+                        </a>
+                        <br>
+                        <hr>
+                        <br>
+                        <a href="/">
+                            <li>Página Inicial</li>
+                        </a>
+                        <a href="/addEcopoint">
+                            <li>Adicionar Ecoponto</li>
+                        </a>
+                        <a href="/perfil">
+                            <li v-if="!this.store.getUserLogged">Perfil</li>
+                        </a>
+                        <a href="/desafios">
+                            <li v-if="!this.store.getUserLogged">Desafios</li>
+                        </a>
+                        <a href="/ranking">
+                            <li v-if="!this.store.getUserLogged">Ranking</li>
+                        </a>
+                        <br>
+                        <hr>
+                        <br>
+                        <a href="/login" @click="logout">
+                            <li v-if="!this.store.getUserLogged">Logout</li>
+                        </a>
+                    </ul>
+                </div>
+            </nav>
+
         </b-container>
     </div>
 </template>
@@ -62,27 +107,46 @@ export default {
 </script>
 
 <style scoped>
-
 .backgroundFundo {
-  background-image: url("../assets/imgs/mainbg.svg");
-  background-repeat: no-repeat;
-  background-size: 1500px 2500px;
-  height: 100vh;
-  animation: gradient 30s infinite alternate linear;
+    background-image: url("../assets/imgs/adminBG.svg");
+    background-repeat: no-repeat;
+    background-size: 1920px 1080px;
+    height: 100vh;
+    animation: gradient 50s infinite alternate linear;
 }
 
 @keyframes gradient {
-  100% {
-    background-size: 2000px 3000px;
-  }
+    100% {
+        background-size: 4000px 3000px;
+    }
 }
 
+.adminMain {
+transform: translateY(50%);
+}
 .mt-5 {
-  margin-top: 0rem !important;
+    margin-top: 0rem !important;
 
-  line-height: 118px;
+    line-height: 118px;
 }
+
 .bntEditarPerfil {
+    background-color: #E74C3C;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Saira Condensed';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.btn {
     background-color: #E74C3C;
     color: white;
     border: none;
@@ -97,11 +161,17 @@ export default {
     align-items: center;
 }
 
+.btn:hover {
+    background-color: #f39c12;
+    transition: all 0.3s ease;
+    transform: scale(1.1);
+}
 
 .buttons {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 20px;
 }
 
 .logoName {
@@ -111,6 +181,7 @@ export default {
 
     /* boldhead font para o logo */
     margin-top: 20px;
+    padding: 20px;
     font-family: 'Boldhead';
 }
 
@@ -139,8 +210,8 @@ export default {
 }
 
 #logo {
-    width: 25%;
-    height: 35%;
+    width: 30%;
+    height: 40%;
 }
 
 .b-col.border-right {
@@ -163,8 +234,108 @@ export default {
     color: #FFFFFF;
 }
 
-a{
+a:hover{
     text-decoration: none;
-
 }
+
+/* MENU LATERAL */
+#menuToggle {
+    display: block;
+    position: fixed;
+    top: 6vh;
+    left: 96vw;
+    z-index: 1;
+
+    user-select: none;
+}
+
+#menuToggle a {
+    font-family: "Saira Condensed";
+    text-decoration: none;
+    color: #232323;
+
+    transition: color 0.3s ease;
+}
+
+#menuToggle a:hover {
+    color: #2ecc71;
+}
+
+#menuToggle input {
+    display: block;
+    width: 40px;
+    height: 32px;
+    position: absolute;
+    top: -7px;
+    left: -5px;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 2;
+}
+
+/* HAMBURGER */
+#menuToggle span {
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+    background: #f39c12;
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    transform-origin: 4px 0px;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+        background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+}
+
+#menuToggle span:first-child {
+    transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2) {
+    transform-origin: 0% 100%;
+}
+
+#menuToggle input:checked~span {
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+    background: #232323;
+}
+
+#menuToggle input:checked~span:nth-last-child(3) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+#menuToggle input:checked~span:nth-last-child(2) {
+    transform: rotate(-45deg) translate(0, -1px);
+}
+
+/* POSIÇÃO DO MENU */
+#menu {
+    position: absolute;
+    width: 350px;
+    margin: -100px 0 0 0;
+    padding: 50px;
+    padding-top: 150px;
+    padding-bottom: 520px;
+    right: -50px;
+    background: #ededed;
+    list-style-type: none;
+    transform-origin: 0% 0%;
+    transform: translate(100%, 0);
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+}
+
+#menu li {
+    padding: 10px 0;
+    font-size: 22px;
+}
+
+#menuToggle input:checked~ul {
+    transform: none;
+    opacity: 1;
+}
+
 </style>
