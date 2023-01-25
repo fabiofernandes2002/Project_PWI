@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="background">
         <b-container fluid>
-
-            <b-col cols="10" class="mt-5">
+            <div class="gerirEcopontos">
+                <b-col cols="10" class="mt-5">
                 <h1 class="text-center mb-5">Gerir Ecopontos</h1>
                 <!-- formulário para adicionar novo ecoponto -->
                 <b-form @submit.prevent="addEcopoint" id="form">
@@ -88,7 +88,7 @@
                     </template>
                 </b-table>
             </b-col>
-
+            </div>
         </b-container>
     </div>
 </template>
@@ -169,22 +169,42 @@ export default {
 </script>
 
 <style scoped>
+.background{
+background-image: url(../assets/imgs/adminBG.svg);
+background-repeat: no-repeat;
+background-size: cover;
+background-position: center;
+height: 100vh;
+}
+
+.gerirEcopontos {
+    font-family: 'Saira Condensed';
+    font-size: 40px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
 #form {
-    font-family: 'Saira Condensed ExtraBold';
+    font-family: 'Saira Condensed';
     font-style: normal;
     font-weight: 800;
     font-size: 20px;
     line-height: 31px;
 }
 
+.mt-5 {
+    margin-top: 0rem !important;
+}
+
+.col-10 {
+    max-width: 100%;
+}
 .b-table {
     font-family: 'Saira Condensed';
     font-style: normal;
     font-weight: 800;
     font-size: 20px;
     line-height: 31px;
-
-
 }
 
 #delete {
