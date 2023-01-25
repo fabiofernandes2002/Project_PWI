@@ -1,5 +1,5 @@
 <template>
-   <div class="backgroundFundo">
+  <div class="backgroundFundo">
     <b-container fluid>
       <b-row class="mt-5 ">
         <b-col cols="12 my-3" md="6" class="b-col border-right">
@@ -31,8 +31,8 @@
           <h1 class="logoName">Photo Recycle</h1>
 
           <!-- link de ainda não tiver conta -->
-          <b-link href="/register" id="linkCriarConta" style="color: #fff;">Ainda não tens conta? <span id="registerLink">Crie
-              conta!</span></b-link>
+          <b-link href="/register" id="linkCriarConta" style="color: #fff;">Ainda não tens conta? <span
+              id="registerLink">Cria uma agora!</span></b-link>
         </b-col>
 
       </b-row>
@@ -65,7 +65,7 @@ export default {
 
   methods: {
     onSubmit(event) {
-      
+
       event.preventDefault();
       const data = {
         email: this.form.email,
@@ -108,37 +108,37 @@ export default {
           confirmButtonColor: '#F39C12',
         });
       }
-  
-      }
 
     }
+
+  }
+}
+
+
+/* loginWithUsername() {
+  const user = this.users.find(user => user.username === this.users.username && user.password === this.users.password);
+
+  if (user) {
+    this.$swal({
+      title: 'Login efetuado com sucesso!',
+      icon: 'success',
+      confirmButtonText: 'Ok',
+      confirmButtonColor: '#F39C12',
+      onClose: false,
+    }).then(() => {
+      // o código aqui será executado após o usuário clicar no botão de confirmação
+      this.$router.push('/LandingPage');
+    });
+  } else {
+    this.$swal({
+      title: 'Email ou password incorretos!',
+      icon: 'error',
+      confirmButtonText: 'Ok',
+      confirmButtonColor: '#F39C12',
+    });
   }
 
-
-    /* loginWithUsername() {
-      const user = this.users.find(user => user.username === this.users.username && user.password === this.users.password);
-
-      if (user) {
-        this.$swal({
-          title: 'Login efetuado com sucesso!',
-          icon: 'success',
-          confirmButtonText: 'Ok',
-          confirmButtonColor: '#F39C12',
-          onClose: false,
-        }).then(() => {
-          // o código aqui será executado após o usuário clicar no botão de confirmação
-          this.$router.push('/LandingPage');
-        });
-      } else {
-        this.$swal({
-          title: 'Email ou password incorretos!',
-          icon: 'error',
-          confirmButtonText: 'Ok',
-          confirmButtonColor: '#F39C12',
-        });
-      }
-
-    } */
+} */
 
 
 </script>
@@ -211,7 +211,7 @@ export default {
 /* centrar o loginTitle */
 .loginTitle {
   text-align: center;
-  color:#fff
+  color: #fff
 }
 
 /* centrar o botão login */

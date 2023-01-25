@@ -1,17 +1,54 @@
 <template>
-    <div>
+    <div class="mapView">
         <b-container>
             <b-row>
                 <b-col class="mt-5">
                     <h1>Mapa dos ecopontos</h1>
                     <div id="map">
-
                     </div>
-
-
                 </b-col>
-
             </b-row>
+            <!-- MENU LATERAL -->
+        <nav role="navigation">
+            <div id="menuToggle">
+                <input type="checkbox" />
+                <span></span>
+                <span></span>
+                <span></span>
+
+                <ul id="menu">
+                    <a href="/perfil">
+                        <h1 v-if="getUserLogged()">
+                            Olá, {{ getUserLogged().username }}
+                        </h1>
+                    </a>
+                    <br>
+                    <hr>
+                    <br>
+                    <a href="/">
+                        <li>Página Inicial</li>
+                    </a>
+                    <a href="/addEcopoint">
+                        <li>Adicionar Ecoponto</li>
+                    </a>
+                    <a href="/perfil">
+                        <li v-if="getUserLogged()">Perfil</li>
+                    </a>
+                    <a href="/desafios">
+                        <li v-if="getUserLogged()">Desafios</li>
+                    </a>
+                    <a href="/ranking">
+                        <li v-if="getUserLogged()">Ranking</li>
+                    </a>
+                    <br>
+                    <hr>
+                    <br>
+                    <a href="/login" @click="logout">
+                        <li v-if="getUserLogged()">Logout</li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
         </b-container>
     </div>
 </template>
@@ -19,6 +56,8 @@
 <script>
 import { ecopointStore } from '../stores/ecopoint';
 import { userStore } from '../stores/user';
+
+
 export default {
     data() {
         return {
@@ -123,14 +162,145 @@ export default {
 
 
     },
+    methods: {
+        getUserLogged() {
+            const user = JSON.parse(sessionStorage.getItem('user'));
+            return user;
+        },
+
+        logout() {
+            sessionStorage.removeItem('user');
+            this.$router.push('/login');
+        },
+    }
 
 }
 </script>
 
 <style lang="scss" scoped>
+
+@import url("https://fonts.googleapis.com/css?family=Saira Condensed");
+@import url("https://fonts.cdnfonts.com/css/boldhead");
+
+.mapView {
+    background-image: url("../assets/imgs/mainbg.svg");
+    height: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #f39c12;
+    text-shadow: 0 0 10px #000;
+    font-family: "Saira Condensed";
+    text-align: center;
+    padding-bottom: 3rem;
+}
+
 #map {
     /* mapa largura e altura da window */
-    width: 100%;
-    height: 100vh;
+    width: auto;
+    height: 80vh;
+    margin-bottom: 3rem;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
 }
+
+/* MENU LATERAL */
+#menuToggle {
+    display: block;
+    position: fixed;
+    top: 6vh;
+    left: 96vw;
+    z-index: 1;
+  
+    user-select: none;
+  }
+  
+  #menuToggle a {
+    font-family: "Saira Condensed";
+    text-decoration: none;
+    color: #232323;
+  
+    transition: color 0.3s ease;
+  }
+  
+  #menuToggle a:hover {
+    color: #2ecc71;
+  }
+  
+  #menuToggle input {
+    display: block;
+    width: 40px;
+    height: 32px;
+    position: absolute;
+    top: -7px;
+    left: -5px;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 2;
+  }
+  
+  /* HAMBURGER */
+  #menuToggle span {
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+    background: #f39c12;
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    transform-origin: 4px 0px;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+      background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+  }
+  #menuToggle span:first-child {
+    transform-origin: 0% 0%;
+  }
+  #menuToggle span:nth-last-child(2) {
+    transform-origin: 0% 100%;
+  }
+  
+  #menuToggle input:checked ~ span {
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+    background: #232323;
+  }
+  #menuToggle input:checked ~ span:nth-last-child(3) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+  }
+  #menuToggle input:checked ~ span:nth-last-child(2) {
+    transform: rotate(-45deg) translate(0, -1px);
+  }
+  
+  /* POSIÇÃO DO MENU */
+  #menu {
+    position: absolute;
+    width: 350px;
+    margin: -100px 0 0 0;
+    padding: 50px;
+    padding-top: 150px;
+    padding-bottom: 520px;
+    right: -50px;
+    background: #ededed;
+    list-style-type: none;
+    transform-origin: 0% 0%;
+    transform: translate(100%, 0);
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+  }
+  
+  #menu li {
+    padding: 10px 0;
+    font-size: 22px;
+  }
+  #menuToggle input:checked ~ ul {
+    transform: none;
+    opacity: 1;
+  }
 </style>
