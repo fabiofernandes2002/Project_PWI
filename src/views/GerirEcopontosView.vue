@@ -88,8 +88,8 @@
                     </b-table>
                 </b-col>
             </div>
-            <!-- MENU LATERAL -->
-            <nav role="navigation">
+           <!-- MENU LATERAL DE ADMINISTRADOR -->
+           <nav role="navigation">
                 <div id="menuToggle">
                     <input type="checkbox" />
                     <span></span>
@@ -105,24 +105,27 @@
                         <br>
                         <hr>
                         <br>
-                        <a href="/">
-                            <li>Página Inicial</li>
+                        <a href="/admin">
+                            <li>Página Principal Admin</li>
                         </a>
                         <a href="/addEcopoint">
-                            <li>Adicionar Ecoponto</li>
+                            <li>Gerir Ecopontos</li>
                         </a>
-                        <a href="/perfil">
-                            <li v-if="!this.storeUser.getUserLogged">Perfil</li>
+                        <a href="/gerirUtilizadores">
+                            <li>Gerir Desafios</li>
                         </a>
                         <a href="/desafios">
-                            <li v-if="!this.storeUser.getUserLogged">Desafios</li>
+                            <li>Gerir Recompensas</li>
                         </a>
                         <a href="/ranking">
-                            <li v-if="!this.storeUser.getUserLogged">Ranking</li>
+                            <li>Gerir Utilizadores</li>
                         </a>
                         <br>
                         <hr>
                         <br>
+                        <a href="/">
+                            <li>Página Inicial da App</li>
+                        </a>
                         <a href="/login" @click="logout">
                             <li v-if="!this.storeUser.getUserLogged">Logout</li>
                         </a>
