@@ -8,6 +8,10 @@ import Maps from '../components/Maps.vue'
 import PerfilView from '../views/PerfilView.vue'
 import EditPerfilView from '../views/EditPerfilView.vue'
 import RankingView from '../views/RankingView.vue'
+import AdminView from '../views/AdminView.vue'
+import GerirUtilizadoresView from '../views/GerirUtilizadoresView.vue'
+import userView from '../views/userView.vue'
+import GerirEcopontosView from '../views/GerirEcopontosView.vue'
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -66,7 +70,29 @@ export const router = createRouter({
       path: '/addEcopoint',
       name: 'addEcopoint',
       component: addEcopoint
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: AdminView
+    },
+    {
+      path: '/gerirUtilizadores',
+      name: 'gerirUtilizadores',
+      component: GerirUtilizadoresView
+    },
+    /* abrir o user especifico pelo seu id */
+    {
+      path: '/user/:id',
+      name: 'User',
+      component: userView
+    },
+    {
+      path: '/gerirEcopontos',
+      name: 'gerirEcopontos',
+      component: GerirEcopontosView
     }
+
   ]
 })
 

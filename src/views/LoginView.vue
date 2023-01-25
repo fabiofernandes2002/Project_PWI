@@ -73,15 +73,11 @@ export default {
         password: this.form.password
       }
 
+
       const user = this.usersS.find(user => user.email === data.email && user.password === data.password);
 
-      // chamar a função loginWithUsername
-      //this.loginWithUsername();
 
       if (user) {
-        //this.store.login(user); // login user in store and save it in local storage
-        //alert('Login efetuado com sucesso');
-        // usar o SweetAlert para mostrar a mensagem de sucesso
         this.$swal({
           title: 'Login efetuado com sucesso!',
           icon: 'success',
@@ -89,18 +85,23 @@ export default {
           confirmButtonColor: '#F39C12',
           onClose: false,
         }).then(() => {
-          // o código aqui será executado após o usuário clicar no botão de confirmação
-          this.$router.push('/LandingPage');
+          // verificar se o utilizador é admin ou não
+          if (user.tipo === 'admin') {
+            
+            this.$router.push('/admin')
+          } else {
+            this.$router.push('/LandingPage')
+          }
+          
         });
-        //this.$router.push('/LandingPage');
+        
 
         // guardar o utilizador na session storage para poder ser usado em outras páginas
-        sessionStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify(user));
 
-        //localStorage.setItem('user', JSON.stringify(user));
+        
       } else {
-        //alert('Email ou password incorretos');
-        // usar o SweetAlert para mostrar a mensagem de erro
+        
         this.$swal({
           title: 'Email ou password incorretos!',
           icon: 'error',
@@ -113,32 +114,6 @@ export default {
 
     }
   }
-
-
-    /* loginWithUsername() {
-      const user = this.users.find(user => user.username === this.users.username && user.password === this.users.password);
-
-      if (user) {
-        this.$swal({
-          title: 'Login efetuado com sucesso!',
-          icon: 'success',
-          confirmButtonText: 'Ok',
-          confirmButtonColor: '#F39C12',
-          onClose: false,
-        }).then(() => {
-          // o código aqui será executado após o usuário clicar no botão de confirmação
-          this.$router.push('/LandingPage');
-        });
-      } else {
-        this.$swal({
-          title: 'Email ou password incorretos!',
-          icon: 'error',
-          confirmButtonText: 'Ok',
-          confirmButtonColor: '#F39C12',
-        });
-      }
-
-    } */
 
 
 </script>

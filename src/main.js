@@ -16,6 +16,9 @@ import Swal from 'sweetalert';
 
 Vue.prototype.$swal = Swal;
 
+import VueMask from 'v-mask'
+Vue.use(VueMask);
+
 
 const app = createApp(App)
 

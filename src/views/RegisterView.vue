@@ -38,7 +38,7 @@
                 </b-form-group>
                 <!-- input codigo postal number type -->
                 <b-form-group label-for="codigopostal-input">
-                  <b-form-input type="number" id="codigopostal-input" v-model="form.codigopostal"
+                  <b-form-input type="text" id="codigopostal-input" v-model="form.codigopostal"
                     placeholder="Codigo Postal" required></b-form-input>
                 </b-form-group>
 
@@ -91,6 +91,7 @@ export default {
         codigopostal: "",
         password: "",
         confirmarpassword: "",
+        ecopontosRegistados: 0,
       },
     };
 
@@ -105,15 +106,14 @@ export default {
 
   // guardar os dados do utilizador registado na local storage
   created() {
-    this.usersS = this.store.users;  
+    //this.usersS = this.store.users;  
 
     // carregar o array de users na local storage
     
-    if (!localStorage.getItem('usersS')) {
-      localStorage.setItem('usersS', JSON.stringify([]));
-    }else{
-      this.usersS = JSON.parse(localStorage.getItem('usersS'));
-      this.store.setUsers(this.usersS);
+    if (localStorage.getItem('users') == null) {
+      localStorage.setItem('users', JSON.stringify(this.store.users));
+    } else {
+      this.store.users = JSON.parse(localStorage.getItem('users'));
     }
 
   },
@@ -144,6 +144,7 @@ export default {
         desafios: [],
         diaSemana: '',
         ranking: 0,
+        ecopontosRegistados: 0,
       }
 
 
@@ -160,7 +161,8 @@ export default {
         // redirecionar para a página de login
         this.$router.push('/login')
         // enviar os dados para a local storage no array users
-        localStorage.setItem('usersS', JSON.stringify(this.usersS))
+        //localStorage.setItem('usersS', JSON.stringify(this.usersS))
+        localStorage.setItem('users', JSON.stringify(this.store.users))
 
 
 
