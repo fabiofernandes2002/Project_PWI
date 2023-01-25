@@ -7,6 +7,23 @@
                     <div id="map">
                     </div>
 
+                    <div id="divImagem" v-if="mostrarDivImagem"> <!-- v-if="mostrarDivImagem" -->
+                        <div class="display-img">
+                            <img v-if="imageUrl === null" src="https://dummyimage.com/640x360/fff/aaa" />
+                            <img v-if="imageUrl" :src="imageUrl" />
+                        </div>
+
+                        <div class="image-submit">
+                            <input type="file" ref="fileInput" @change="uploadImage" />
+                        </div>
+
+                        <!-- botão de submeter imagem -->
+                        <div class="mb-5 mt-3 text-center">
+                            <b-button @click="submitImage" class="submitButton" variant="primary">Submeter
+                                Imagem</b-button>
+                        </div>
+                    </div>
+
 
                 </b-col>
             </b-row>
@@ -20,8 +37,8 @@
 
                     <ul id="menu">
                         <a href="/perfil">
-                            <h1 v-if="!this.storeUser.getUserLogged">
-                                Olá, {{ this.storeUser.getUserLogged.username }}
+                            <h1 v-if="this.storeUser.getUserLogged()">
+                                Olá, {{ this.storeUser.getUserLogged().username }}
                             </h1>
                         </a>
                         <br>
@@ -34,19 +51,19 @@
                             <li>Adicionar Ecoponto</li>
                         </a>
                         <a href="/perfil">
-                            <li v-if="!this.storeUser.getUserLogged">Perfil</li>
+                            <li v-if="this.storeUser.getUserLogged()">Perfil</li>
                         </a>
                         <a href="/desafios">
-                            <li v-if="!this.storeUser.getUserLogged">Desafios</li>
+                            <li v-if="this.storeUser.getUserLogged()">Desafios</li>
                         </a>
                         <a href="/ranking">
-                            <li v-if="!this.storeUser.getUserLogged">Ranking</li>
+                            <li v-if="this.storeUser.getUserLogged()">Ranking</li>
                         </a>
                         <br>
                         <hr>
                         <br>
-                        <a href="/login" @click="logout">
-                            <li v-if="!this.storeUser.getUserLogged">Logout</li>
+                        <a href="/login" @click="this.storeUser.logout()">
+                            <li v-if="this.storeUser.getUserLogged()">Logout</li>
                         </a>
                     </ul>
                 </div>
@@ -63,10 +80,12 @@ import { userStore } from '../stores/user';
 export default {
     data() {
         return {
+            mostrarDivImagem: false,
             store: ecopointStore(),
             storeUser: userStore(),
             ecopoints: [],
             users: [],
+            imageUrl: null,
 
         }
     },
@@ -115,7 +134,7 @@ export default {
                     <p>${ecopoint.ecopointType}</p>
                     <h3>Morada:</h3>
                     <p>${ecopoint.ecopointAddress}</p>
-                   <button class="btn btn-primary" @click="goToForm" id= 'bntUtilizarEcoponto'>Utilizar ecoponto</button>
+                   <button class="btn btn-primary" id="btn-utilizar-ecoponto" >Utilizar ecoponto</button>
                    
                 </div>
                 `
@@ -123,6 +142,15 @@ export default {
 
             marker.addListener("click", () => {
                 infoWindow.open(map, marker);
+                this.$nextTick(() => {
+                    google.maps.event.addDomListener(document.getElementById('btn-utilizar-ecoponto'), 'click', this.mostrarDiv);
+                });
+                
+
+                // desapaercer a mostarDiv da imagem ao carregar no botão de fechar a infoWindow
+                google.maps.event.addListener(infoWindow, 'closeclick', () => {
+                    this.mostrarDivImagem = false;
+                });
             });
 
         }
@@ -193,11 +221,21 @@ export default {
             localStorage.removeItem('user');
             this.$router.push('/login');
         },
-    },
 
-    methods: {
-        goToForm() {
-            document.querySelector('#form').scrollIntoView({ behavior: 'smooth' });
+        uploadImage(event) {
+            let file = event.target.files[0];
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                this.imageUrl = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        },
+
+        /* ao clicar no botão "bntUtilizarEcoponto", a div, que contem a imagem do lugar do ecoponto, o botão "Escolher o ficheiro" e o botão "Submeter Imagem, aparece" */
+        mostrarDiv() {
+            console.log("ok")
+            // fazer com que o v-show do elemento "divImagem" seja true
+            this.mostrarDivImagem = true;
         }
     },
 
@@ -207,11 +245,11 @@ export default {
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css?family=Saira Condensed");
 @import url("https://fonts.cdnfonts.com/css/boldhead");
+@import "../assets/css/addEcopoint.css";
 
 .mapView {
     background-image: url("../assets/imgs/mainbg.svg");
-    height: 100vh;
-    background-repeat: no-repeat;
+    height: auto;
     background-size: cover;
     background-position: center;
 }

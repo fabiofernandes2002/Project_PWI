@@ -168,3 +168,19 @@
     transform: scale(1.1);
     transition: all 0.2s ease;
 }
+
+.submitButton {
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    padding-top: 2vh;
+    font-family: "Saira Condensed ExtraBold";
+    background-color: #f39c12;
+    border-radius: 10px;
+    border: none;
+    padding: 15px;
+    
+
+}

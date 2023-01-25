@@ -108,6 +108,11 @@ export const userStore = defineStore('user', {
             
         },
 
+        logout(){
+            localStorage.removeItem('user');
+            this.$router.push('/login');
+        },
+
 
     }
 

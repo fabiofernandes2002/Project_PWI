@@ -24,34 +24,48 @@
                 <span></span>
 
                 <ul id="menu">
-                    <a href="/perfil">
-                        <h1 v-if="getUserLogged()">
-                            Olá, {{ getUserLogged().username }}
+                    <a href="#section-1">
+                        <h1 v-if="this.store.getUserLogged()">
+                            Olá, {{ this.store.getUserLogged().username }}
                         </h1>
+                        <br>
+                        <hr>
+                        <br>
                     </a>
-                    <br>
-                    <hr>
-                    <br>
-                    <a href="/">
+                    <a href="#section-1">
                         <li>Página Inicial</li>
                     </a>
+                    <a href="#section-2">
+                        <li>O que é a reciclagem?</li>
+                    </a>
+                    <a href="#section-3">
+                        <li>Como Reciclar?</li>
+                    </a>
+                    <a href="/mapView">
+                        <li>Mapa de Ecopontos</li>
+                    </a>
                     <a href="/addEcopoint">
-                        <li>Adicionar Ecoponto</li>
+                        <li v-if="this.store.getUserLogged()">Adicionar Ecoponto</li>
                     </a>
                     <a href="/perfil">
-                        <li v-if="getUserLogged()">Perfil</li>
+                        <li v-if="this.store.getUserLogged()">Perfil</li>
                     </a>
                     <a href="/desafios">
-                        <li v-if="getUserLogged()">Desafios</li>
+                        <li v-if="this.store.getUserLogged()">Desafios</li>
                     </a>
                     <a href="/ranking">
-                        <li v-if="getUserLogged()">Ranking</li>
+                        <li v-if="this.store.getUserLogged()">Ranking</li>
                     </a>
-                    <br>
                     <hr>
                     <br>
-                    <a href="/login" @click="logout">
-                        <li v-if="getUserLogged()">Logout</li>
+                    <a href="/login">
+                        <li v-if="!this.store.getUserLogged()">Iniciar Sessão</li>
+                    </a>
+                    <a href="/register">
+                        <li v-if="!this.store.getUserLogged()">Registar</li>
+                    </a>
+                    <a href="/login" @click="this.store.logout()">
+                        <li v-if="this.store.getUserLogged()">Logout</li>
                     </a>
                 </ul>
             </div>

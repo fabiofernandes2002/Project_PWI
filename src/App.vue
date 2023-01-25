@@ -3,6 +3,7 @@ import { RouterView } from 'vue-router'
 import { userStore } from './stores/user';
 import { medalsStore } from './stores/medals'
 import { ecopointStore } from './stores/ecopoint';
+import { occurenceStore } from './stores/occurence';
 
 const store = userStore();
 
@@ -21,6 +22,12 @@ const storeecopoint = ecopointStore();
 if (localStorage.getItem('ecopoints')) {
       let ecopoints = JSON.parse(localStorage.getItem('ecopoints'));
       storeecopoint.setEcopoints(ecopoints);
+}
+
+const storeoccurence = occurenceStore();
+if (localStorage.getItem('occurences')) {
+      let occurences = JSON.parse(localStorage.getItem('occurences'));
+      storeoccurence.setOccurences(occurences);
 }
 
 

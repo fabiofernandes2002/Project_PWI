@@ -61,7 +61,7 @@
 
             <!-- tabela com os ecopontos -->
             <b-col cols="10" class="mt-5">
-                <b-table striped hover :items="this.storeEcopoint.ecopoints" :fields="fields" :per-page="perPage"
+                <b-table striped hover :items="storeEcopoint.ecopoints" :fields="fields" :per-page="perPage"
                     :current-page="currentPage" @filtered="onFiltered" @row-clicked="rowClicked">
                     <template #cell(ecopointName)="row">
                         <b>{{ row.item.ecopointName }}</b>
@@ -106,6 +106,10 @@ export default {
                 latitude: '',
                 longitude: '',
                 ecopointType: '',
+                userCreate:'',
+                // userCreate: this.storeUser.getUserLogged().id,
+                ecopointCreationDate: new Date().toLocaleDateString('pt-PT'),
+                
             },
             options: [
                 { value: null, text: 'Selecione o tipo de ecoponto' },
@@ -133,9 +137,9 @@ export default {
 
     methods: {
         addEcopoint() {
-            this.storeEcopoint.addEcopoint(this.form);
-            this.form = {
-                ecopointName: this.form.ecopointName    ,
+            this.storeEcopoint.addEcopoint(this.form.ecopointName,this.form.ecopointLocation,this.form.ecopointAddress, this.form.latitude, this.form.longitude, this.form.ecopointType, this.form.userCreate, this.form.ecopointCreationDate);
+            /* this.form = {
+                ecopointName: this.form.ecopointName,
                 // pegar no user que está logado id, de quem está a adicionar o ecoponto
                 userCreate: this.storeUser.getUserLogged().id,
                 ecopointLocation: this.form.ecopointLocation,
@@ -147,11 +151,7 @@ export default {
                 longitude: this.form.longitude,
                 
 
-            }
-
-            //localStorage.setItem('ecopoints', JSON.stringify(this.storeEcopoint.ecopoints));
-            // adicionar ecoponto a lista de ecopontos e na tabela
-            //this.storeEcopoint.ecopoints.push(this.form);
+            }; */
         },
 
         deleteEcopoint(id) {

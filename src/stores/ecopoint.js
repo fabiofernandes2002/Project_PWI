@@ -30,7 +30,7 @@ export const ecopointStore = defineStore('ecopoint', {
       this.ecopoints = ecopoints
     },
 
-    addEcopoint(ecopointName, userCreate, ecopointLocation, ecopointAddress, ecopointCreationDate, ecopointType, latitude, longitude) {
+    addEcopoint(ecopointName, ecopointLocation, ecopointAddress, latitude, longitude, ecopointType, userCreate, ecopointCreationDate) {
       const ecopoint = {
         id: this.ecopoints.length + 1,
         ecopointName: ecopointName,

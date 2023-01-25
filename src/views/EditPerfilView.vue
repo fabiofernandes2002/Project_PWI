@@ -50,7 +50,8 @@
                                     </div>
                                 </b-col>
                                 <b-col>
-                                    <b-avatar :src="this.store.getUserLogged().photo" left size="6rem"></b-avatar>
+                                    <b-avatar v-if="form.imageUrl == null" :src="this.store.getUserLogged().photo" left size="6rem"></b-avatar>
+                                    <b-avatar v-if="form.imageUrl" :src="this.form.imageUrl" left size="6rem"></b-avatar>
 
                                 </b-col>
                             </b-row>
@@ -63,7 +64,7 @@
                                 </b-col>
                                 <b-col>
                                     <b-form-file placeholder="Escolha uma foto"
-                                        drop-placeholder="Escolher ficheiro" v-model="form.newPhoto"></b-form-file>
+                                        drop-placeholder="Escolher ficheiro" v-model="form.imageUrl" @change="uploadImage"></b-form-file>
                                 </b-col>
                             </b-row>
                         </div>
@@ -99,8 +100,9 @@ export default {
                 usernameChange: '',
                 passwordChange: '',
                 confirmPasswordChange: '',
-                newPhoto: '',
-            }
+                imageUrl: null,
+            },
+            
         }
     },
 
@@ -123,7 +125,7 @@ export default {
                 username: this.form.usernameChange,
                 password: this.form.passwordChange,
                 confirmPassword: this.form.confirmPasswordChange,
-                photo: this.form.newPhoto,
+                photo: this.form.imageUrl,
             }
 
 
@@ -176,15 +178,6 @@ export default {
 
         },
 
-        /* updateUserData() {
-            // atualizar os dados do utilizador na store, e depois atualizar os dados na local storage e na session storage
-            this.store.updateUser(this.usersS);
-            //localStorage.setItem('users', JSON.stringify(this.store.users));
-            //sessionStorage.setItem('users', JSON.stringify(this.store.users));
-        }, */
-
-
-
         onReset(evt) {
             evt.preventDefault()
             // Reset our form values
@@ -197,6 +190,19 @@ export default {
             this.$nextTick(() => {
                 this.show = true
             })
+        },
+
+        uploadImage(event) {
+            let file = event.target.files[0];
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                this.imageUrl = e.target.result;
+            };
+            reader.readAsDataURL(file);
+
+            if(this.store.getUserLogged()){
+                this.store.getUserLogged().photo = this.imageUrl;
+            }
         },
 
         
