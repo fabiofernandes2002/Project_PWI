@@ -112,12 +112,12 @@ export default {
     background-repeat: no-repeat;
     background-size: 1920px 1080px;
     height: 100vh;
-    animation: gradient 50s infinite alternate linear;
+    animation: gradient 80s infinite alternate linear;
 }
 
 @keyframes gradient {
     100% {
-        background-size: 4000px 3000px;
+        background-size: 3000px 2000px;
     }
 }
 
