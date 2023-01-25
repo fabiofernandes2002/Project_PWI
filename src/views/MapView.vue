@@ -1,38 +1,56 @@
 <template>
-    <div>
+    <div class="mapView">
         <b-container>
             <b-row>
                 <b-col class="mt-5">
                     <h1>Mapa dos ecopontos</h1>
                     <div id="map">
-
                     </div>
-
-                    <!-- utilização do ecoponto -->
-                    <div class="mt-5 mb-5" cols="6" md="10">
-                        <b-form @submit="onSubmit" id="form">
-                            <!-- input para tirar fotografia -->
-                            <div>
-                                <b-form-group label="Tirar fotografia do ecoponto">
-                                    <b-form-file v-model="file" placeholder="Escolha uma fotografia"
-                                        drop-placeholder="Arraste a fotografia aqui"></b-form-file>
-                                </b-form-group>
-                            </div>
-
-                            <b-button block variant="primary" type="submit" id="bntSubmeterUtilizacao">Submeter
-                                utilização</b-button>
-
-
-                        </b-form>
-                    </div>
-
-
-
 
 
                 </b-col>
-
             </b-row>
+            <!-- MENU LATERAL -->
+        <nav role="navigation">
+            <div id="menuToggle">
+                <input type="checkbox" />
+                <span></span>
+                <span></span>
+                <span></span>
+
+                <ul id="menu">
+                    <a href="/perfil">
+                        <h1 v-if="getUserLogged()">
+                            Olá, {{ getUserLogged().username }}
+                        </h1>
+                    </a>
+                    <br>
+                    <hr>
+                    <br>
+                    <a href="/">
+                        <li>Página Inicial</li>
+                    </a>
+                    <a href="/addEcopoint">
+                        <li>Adicionar Ecoponto</li>
+                    </a>
+                    <a href="/perfil">
+                        <li v-if="getUserLogged()">Perfil</li>
+                    </a>
+                    <a href="/desafios">
+                        <li v-if="getUserLogged()">Desafios</li>
+                    </a>
+                    <a href="/ranking">
+                        <li v-if="getUserLogged()">Ranking</li>
+                    </a>
+                    <br>
+                    <hr>
+                    <br>
+                    <a href="/login" @click="logout">
+                        <li v-if="getUserLogged()">Logout</li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
         </b-container>
     </div>
 </template>
@@ -40,6 +58,8 @@
 <script>
 import { ecopointStore } from '../stores/ecopoint';
 import { userStore } from '../stores/user';
+
+
 export default {
     data() {
         return {
@@ -167,6 +187,17 @@ export default {
 
 
     },
+    methods: {
+        getUserLogged() {
+            const user = JSON.parse(sessionStorage.getItem('user'));
+            return user;
+        },
+
+        logout() {
+            sessionStorage.removeItem('user');
+            this.$router.push('/login');
+        },
+    },
 
     methods: {
         goToForm() {
@@ -178,23 +209,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+@import url("https://fonts.googleapis.com/css?family=Saira Condensed");
+@import url("https://fonts.cdnfonts.com/css/boldhead");
+
+.mapView {
+    background-image: url("../assets/imgs/mainbg.svg");
+    height: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #f39c12;
+    text-shadow: 0 0 10px #000;
+    font-family: "Saira Condensed";
+    text-align: center;
+    padding-bottom: 3rem;
+}
+
 #map {
     /* mapa largura e altura da window */
     width: 100%;
     height: 100vh;
-}
-
-// botão de utilizar ecoponto dentro do infoWindow ficar no centro da janela do infoWindow
-#bntUtilizarEcoponto {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-
-// mudar a cor da janela do infoWindow
-.infoWindowMapa {
-    background: #FFEE58;
-    border: 3px solid #DAA520;
 }
 </style>

@@ -3,7 +3,7 @@
     <b-container fluid>
       <b-row>
         <b-col cols="12 my-3" md="6" class="b-col border-right">
-          <h1 class="loginTitle">Regista-se</h1>
+          <h1 class="loginTitle">Regista-te</h1>
           <h3 class="textLogin">Regista já os teus dados pessoais para entrares <span id="textLogin2">no mundo da
               reciclagem!</span></h3>
 
@@ -64,7 +64,8 @@
           <h1 class="logoName">Photo Recycle</h1>
 
           <!-- link de ainda não tiver conta -->
-          <b-link href="/login" id="linkCriarConta" style="color: #fff;">Já tem uma conta? <span id="registerLink">Faça já
+          <b-link href="/login" id="linkCriarConta" style="color: #fff;">Já tens uma conta? <span id="registerLink">Faz
+              já
               login!</span></b-link>
         </b-col>
 
@@ -109,10 +110,10 @@ export default {
     //this.usersS = this.store.users;  
 
     // carregar o array de users na local storage
-    
+
     if (localStorage.getItem('users') == null) {
       localStorage.setItem('users', JSON.stringify(this.store.users));
-    } else {
+    }  else  {
       this.store.users = JSON.parse(localStorage.getItem('users'));
     }
 
