@@ -1,0 +1,228 @@
+<template>
+    <div class="desafios">
+        <b-container fluid>
+
+            <div class="logo">
+                <img class="logo-img" src="../assets/imgs/logo_acabado.png" alt="">
+                <h1>Photo Recycle</h1>
+            </div>
+
+            <div class="title">
+                <h1>Desafios</h1>
+            </div>
+                
+
+            <!-- MENU LATERAL -->
+            <nav role="navigation">
+                <div id="menuToggle">
+                    <input type="checkbox" />
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                    <ul id="menu">
+                        <a href="#section-1">
+                            <h1 v-if="this.store.getUserLogged()">
+                                Olá, {{ this.store.getUserLogged().username }}
+                            </h1>
+                            <br>
+                            <hr>
+                            <br>
+                        </a>
+                        <a href="#section-1">
+                            <li>Página Inicial</li>
+                        </a>
+                        <a href="#section-2">
+                            <li>O que é a reciclagem?</li>
+                        </a>
+                        <a href="#section-3">
+                            <li>Como Reciclar?</li>
+                        </a>
+                        <a href="/mapView">
+                            <li>Mapa de Ecopontos</li>
+                        </a>
+                        <a href="/addEcopoint">
+                            <li v-if="this.store.getUserLogged()">Adicionar Ecoponto</li>
+                        </a>
+                        <a href="/perfil">
+                            <li v-if="this.store.getUserLogged()">Perfil</li>
+                        </a>
+                        <a href="/desafios">
+                            <li v-if="this.store.getUserLogged()">Desafios</li>
+                        </a>
+                        <a href="/ranking">
+                            <li v-if="this.store.getUserLogged()">Ranking</li>
+                        </a>
+                        <hr>
+                        <br>
+                        <a href="/login">
+                            <li v-if="!this.store.getUserLogged()">Iniciar Sessão</li>
+                        </a>
+                        <a href="/register">
+                            <li v-if="!this.store.getUserLogged()">Registar</li>
+                        </a>
+                        <a href="/login" @click="this.store.logout()">
+                            <li v-if="this.store.getUserLogged()">Logout</li>
+                        </a>
+                    </ul>
+                </div>
+            </nav>
+        </b-container>
+    </div>
+</template>
+
+<script>
+import { userStore } from '../stores/user';
+export default {
+
+    data() {
+        return {
+            store: userStore(),
+        }
+    }
+}
+</script>
+
+<style scoped>
+.desafios {
+    background-image: url("../assets/imgs/mainbg.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.logo h1{
+    font-family: "Saira Condensed";
+    font-size: 2.5em;
+    color: #f39c12;
+    position: absolute;
+    top: 6vh;
+    left: 12vw;
+}
+
+.logo-img {
+    width: 8%;
+    height: 10%;
+    position: absolute;
+    top: 4vh;
+    left: 2vw;
+}
+
+.title {
+    position: absolute;
+    top: 15vh;
+    left: 0;
+    width: 100%;
+}
+
+.title h1 {
+    font-family: "Saira Condensed";
+    font-size: 3.5em;
+    color: #f39c12;
+    font-weight: bold;
+    display:flex;
+    justify-content: center;
+    text-transform: uppercase;
+}
+
+
+/* MENU LATERAL */
+#menuToggle {
+    display: block;
+    position: fixed;
+    top: 6vh;
+    left: 96vw;
+    z-index: 1;
+
+    user-select: none;
+}
+
+#menuToggle a {
+    font-family: "Saira Condensed";
+    text-decoration: none;
+    color: #232323;
+
+    transition: color 0.3s ease;
+}
+
+#menuToggle a:hover {
+    color: #2ecc71;
+}
+
+#menuToggle input {
+    display: block;
+    width: 40px;
+    height: 32px;
+    position: absolute;
+    top: -7px;
+    left: -5px;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 2;
+}
+
+/* HAMBURGER */
+#menuToggle span {
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+    background: #f39c12;
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    transform-origin: 4px 0px;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+        background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+}
+
+#menuToggle span:first-child {
+    transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2) {
+    transform-origin: 0% 100%;
+}
+
+#menuToggle input:checked~span {
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+    background: #232323;
+}
+
+#menuToggle input:checked~span:nth-last-child(3) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+#menuToggle input:checked~span:nth-last-child(2) {
+    transform: rotate(-45deg) translate(0, -1px);
+}
+
+/* POSIÇÃO DO MENU */
+#menu {
+    position: absolute;
+    width: 350px;
+    margin: -100px 0 0 0;
+    padding: 50px;
+    padding-top: 150px;
+    padding-bottom: 520px;
+    right: -50px;
+    background: #ededed;
+    list-style-type: none;
+    transform-origin: 0% 0%;
+    transform: translate(100%, 0);
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+}
+
+#menu li {
+    padding: 10px 0;
+    font-size: 22px;
+}
+
+#menuToggle input:checked~ul {
+    transform: none;
+    opacity: 1;
+}
+</style>
