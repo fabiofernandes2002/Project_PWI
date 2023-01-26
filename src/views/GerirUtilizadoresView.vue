@@ -169,7 +169,7 @@ export default {
 .backgroundFundo {
     background-image: url("../assets/imgs/adminBG.svg");
     background-size: 1500px 2500px;
-    height: 100vh;
+    height: 120vh;
     animation: gradient 30s infinite alternate linear;
 }
 
