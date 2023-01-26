@@ -13,7 +13,8 @@
                 <b-col cols="12 my-3" md="6" class="mt-5">
                     <div class="ml-5">
                         <!-- Apresentar foto do user e se não tiver mostrar só o avatar -->
-                        <b-avatar v-if="this.store.getUserLogged().photo" :src="this.store.getUserLogged().photo" size="150px"></b-avatar>
+                        <b-avatar v-if="this.store.getUserLogged().photo" :src="this.store.getUserLogged().photo"
+                            size="150px"></b-avatar>
                         <!-- else mostrar só o avatar -->
                         <b-avatar v-else size="150px"></b-avatar>
                     </div>
@@ -32,7 +33,9 @@
 
                     <!-- Email -->
                     <div>
-                        <h3 id="EmailUser">Email: <span id="userLoggedEmail">{{ this.store.getUserLogged().email }}</span></h3>
+                        <h3 id="EmailUser">Email: <span id="userLoggedEmail">{{
+                            this.store.getUserLogged().email
+                        }}</span></h3>
                     </div>
 
                     <!-- Data de Nascimento -->
@@ -44,7 +47,9 @@
 
                     <!-- Morada -->
                     <div>
-                        <h3 id="MoradaUser">Morada: <span id="userLoggedMorada">{{ this.store.getUserLogged().morada }}</span></h3>
+                        <h3 id="MoradaUser">Morada: <span id="userLoggedMorada">{{
+                            this.store.getUserLogged().morada
+                        }}</span></h3>
                     </div>
 
                     <!-- Localidade -->
@@ -66,7 +71,9 @@
                                     classificado</span></h3>
                         </div>
                         <div>
-                            <h3 id="semana">Dia de semana mais frequente: <span>{{ this.store.getUserLogged().diaSemana }}</span>
+                            <h3 id="semana">Dia de semana mais frequente: <span>{{
+                                this.store.getUserLogged().diaSemana
+                            }}</span>
                             </h3>
                         </div>
                     </div>
@@ -76,15 +83,15 @@
                             <h1 id="medalTitle">Medalhas</h1>
                         </div>
                         <div>
+                            <!-- mostrar um paragrafo a dizer nã tens medalha o v-else -->
+                            <p class="text-center" v-if="medals.length === 0">Não tens medalhas</p>
                             <!-- Apresentar as medalhas a partir da minha storemedals -->
                             <b-row class="text-center">
-                                <b-col cols="12" md="6" class="mt-5" v-for="medal in medals"
-                                    :key="medal.idMedal" v-if="medals.length > 0">
+                                <b-col cols="12" md="6" class="mt-5" v-for="medal in medals" :key="medal.idMedal"
+                                    v-if="medals.length > 0">
                                     <div>
                                         <b-img rounded="circle" v-bind:src="medal.urlMedal" width="150px"
                                             alt="Circle image"></b-img>
-                                        <!-- mostrar um paragrafo a dizer nã tens medalha o v-else -->
-                                        <p class="text-center" v-if="medals.length === 0">Não tens medalha</p>
                                     </div>
                                 </b-col>
                             </b-row>
@@ -125,18 +132,18 @@ export default {
     },
 
     created() {
-        console.log(this.store.getUserLogged());
 
         const allUsers = this.store.users.filter(user => user.tipo == 'userNormal')
         this.store.orderUsers(allUsers)
 
         this.position = allUsers.findIndex(user => user.username == this.store.getUserLogged().username)
-        
+
         this.position += 1
     },
 
-    mounted () {
+    mounted() {
         this.medals = this.mostrarMedalha();
+        console.log(this.medals.length)
     },
 
     methods: {

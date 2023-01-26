@@ -134,7 +134,7 @@ export default {
             });
 
             localStorage.setItem('users', JSON.stringify(this.store.users));
-
+            
         },
 
         /* selectUser(user) {

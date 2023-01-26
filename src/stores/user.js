@@ -28,25 +28,19 @@ export const userStore = defineStore('user', {
 
         getUserById: (state) => (id) => state.users.find(user => user.id == id),
 
-        // auto increment id quando registar um novo user
-        /* getNewId() {
-            const lastUser = this.state.users[this.state.users.length - 1];
-            return lastUser ? lastUser.id + 1 : 1;
-        }, */
-
-        login(email, password) {
-            const user = this.state.users.find(user => user.email == email && user.password == password);
-            if (user) {
-                this.state.loggedUser = user.id;
-                return true;
-            }
-            return false;
-            
-        }
-
     },
 
     actions: {
+
+        addPoints(id){
+            console.log(id);
+            let user = this.users.find(user => user.id == id);
+            user.pontos += 10;
+            //substituir o user antigo pelo novo
+            this.users.splice(this.users.indexOf(user), 1, user);
+            // salvar na locastorage o user na lista users
+            localStorage.setItem('users', JSON.stringify(this.users));
+        },
 
         setUsers(users) {
             this.users = users;

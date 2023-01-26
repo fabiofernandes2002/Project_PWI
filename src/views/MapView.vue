@@ -76,6 +76,7 @@
 <script>
 import { ecopointStore } from '../stores/ecopoint';
 import { userStore } from '../stores/user';
+import{occurenceStore} from '../stores/occurence';
 
 
 export default {
@@ -84,10 +85,11 @@ export default {
             mostrarDivImagem: false,
             store: ecopointStore(),
             storeUser: userStore(),
+            storeOccurence: occurenceStore(),
             ecopoints: [],
             users: [],
             imageUrl: null,
-
+            idSelectedEcopoint: null,
         }
     },
 
@@ -136,7 +138,6 @@ export default {
                     <h3>Morada:</h3>
                     <p>${ecopoint.ecopointAddress}</p>
                    <button class="btn btn-primary" id="btn-utilizar-ecoponto" >Utilizar ecoponto</button>
-                   
                 </div>
                 `
             });
@@ -145,6 +146,7 @@ export default {
                 infoWindow.open(map, marker);
                 this.$nextTick(() => {
                     google.maps.event.addDomListener(document.getElementById('btn-utilizar-ecoponto'), 'click', this.mostrarDiv);
+                    this.idSelectedEcopoint = ecopoint.id;
                 });
                 
 
@@ -190,7 +192,7 @@ export default {
                 });
 
                 marker.addListener("click", () => {
-                    infoWindow.open(map, marker);
+                    infoWindow.open(map, marker); 
                 });
 
                 map.setCenter(pos);
@@ -234,10 +236,35 @@ export default {
 
         /* ao clicar no botão "bntUtilizarEcoponto", a div, que contem a imagem do lugar do ecoponto, o botão "Escolher o ficheiro" e o botão "Submeter Imagem, aparece" */
         mostrarDiv() {
-            console.log("ok")
             // fazer com que o v-show do elemento "divImagem" seja true
             this.mostrarDivImagem = true;
-        }
+        },
+        submitImage() {
+            // verificar se imageUrl não é null
+
+            if (this.imageUrl != null) {
+                console.log(this.idSelectedEcopoint, this.storeUser.getUserLogged().id);
+                this.storeOccurence.addOccurrence(this.idSelectedEcopoint, this.storeUser.getUserLogged().id, this.imageUrl);
+
+                // sweet alert para mostrar que a imagem foi submetida com sucesso
+                this.$swal({
+                    title: 'Imagem submetida com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#f39c12',
+                });
+            }
+            else {
+                // sweet alert para mostrar que a imagem não foi submetida
+                this.$swal({
+                    title: 'Imagem não submetida!',
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#f39c12',
+                });
+            }
+            this.mostrarDivImagem = false;
+        },
     },
 
 }

@@ -52,7 +52,7 @@
                         </b-col>
                     </b-row>
                     <b-row>
-                        <b-col>
+                        <b-col class="mb-5">
                             <b-button type="submit" variant="primary">Adicionar ecoponto</b-button>
                         </b-col>
                     </b-row>
@@ -171,10 +171,10 @@ export default {
 <style scoped>
 .background{
 background-image: url(../assets/imgs/adminBG.svg);
-background-repeat: no-repeat;
+
 background-size: cover;
 background-position: center;
-height: 100vh;
+
 }
 
 .gerirEcopontos {

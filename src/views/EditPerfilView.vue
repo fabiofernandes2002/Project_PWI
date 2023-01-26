@@ -64,7 +64,7 @@
                                 </b-col>
                                 <b-col>
                                     <b-form-file placeholder="Escolha uma foto"
-                                        drop-placeholder="Escolher ficheiro" v-model="form.imageUrl" @change="uploadImage"></b-form-file>
+                                        drop-placeholder="Escolher ficheiro" @change="uploadImage"></b-form-file>
                                 </b-col>
                             </b-row>
                         </div>
