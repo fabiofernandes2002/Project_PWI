@@ -152,8 +152,15 @@ export default {
 .addEcopoint {
     background-image: url("../assets/imgs/mainbg.svg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 1920px 1080px;
     height:auto;
+    animation: gradient 70s ease infinite;
+}
+
+@keyframes gradient {
+    100% {
+        background-size: 3000px 2000px;
+    }
 }
 
 /* MENU LATERAL */

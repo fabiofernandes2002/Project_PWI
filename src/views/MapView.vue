@@ -258,9 +258,16 @@ export default {
 
 .mapView {
     background-image: url("../assets/imgs/mainbg.svg");
-    height: auto;
-    background-size: cover;
+    height: 100vh;
+    background-size: 1920px 1080px;
     background-position: center;
+    animation: gradient 70s ease infinite;
+}
+
+@keyframes gradient {
+    100% {
+        background-size: 3000px 2000px;
+    }
 }
 
 .mt-5 h1 {
