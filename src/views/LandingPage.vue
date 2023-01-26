@@ -177,15 +177,6 @@
 
     </section>
 
-    <!------------------- SECTION 4 ----------------->
-    <section id="section-4">
-
-      <div class="title2">
-        <h1>MAPA DE ECOPONTOS</h1>
-      </div>
-
-    </section>
-
     <!-- MENU LATERAL -->
     <nav role="navigation">
       <div id="menuToggle">
