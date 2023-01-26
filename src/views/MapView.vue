@@ -28,8 +28,8 @@
                 </b-col>
             </b-row>
             
-            <!-- MENU LATERAL -->
-            <nav role="navigation">
+             <!-- MENU LATERAL -->
+             <nav role="navigation">
                 <div id="menuToggle">
                     <input type="checkbox" />
                     <span></span>
@@ -41,15 +41,18 @@
                             <h1 v-if="this.storeUser.getUserLogged()">
                                 Olá, {{ this.storeUser.getUserLogged().username }}
                             </h1>
+                            <br>
+                            <hr>
+                        
                         </a>
-                        <br>
-                        <hr>
-                        <br>
                         <a href="/">
                             <li>Página Inicial</li>
                         </a>
+                        <a href="/mapView">
+                            <li>Mapa de Ecopontos</li>
+                        </a>
                         <a href="/addEcopoint">
-                            <li>Adicionar Ecoponto</li>
+                            <li v-if="this.storeUser.getUserLogged()">Adicionar Ecoponto</li>
                         </a>
                         <a href="/perfil">
                             <li v-if="this.storeUser.getUserLogged()">Perfil</li>
@@ -60,9 +63,14 @@
                         <a href="/ranking">
                             <li v-if="this.storeUser.getUserLogged()">Ranking</li>
                         </a>
-                        <br>
                         <hr>
                         <br>
+                        <a href="/login">
+                            <li v-if="!this.storeUser.getUserLogged()">Iniciar Sessão</li>
+                        </a>
+                        <a href="/register">
+                            <li v-if="!this.storeUser.getUserLogged()">Registar</li>
+                        </a>
                         <a href="/login" @click="this.storeUser.logout()">
                             <li v-if="this.storeUser.getUserLogged()">Logout</li>
                         </a>
@@ -255,7 +263,7 @@ export default {
     background-position: center;
 }
 
-h1 {
+.mt-5 h1 {
     font-size: 3rem;
     font-weight: 700;
     color: #f39c12;

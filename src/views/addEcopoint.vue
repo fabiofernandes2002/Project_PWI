@@ -15,61 +15,55 @@
         </div>
 
 
-        <!-- MENU LATERAL -->
-        <nav role="navigation">
-            <div id="menuToggle">
-                <input type="checkbox" />
-                <span></span>
-                <span></span>
-                <span></span>
+         <!-- MENU LATERAL -->
+         <nav role="navigation">
+                <div id="menuToggle">
+                    <input type="checkbox" />
+                    <span></span>
+                    <span></span>
+                    <span></span>
 
-                <ul id="menu">
-                    <a href="#section-1">
-                        <h1 v-if="this.store.getUserLogged()">
-                            Olá, {{ this.store.getUserLogged().username }}
-                        </h1>
-                        <br>
+                    <ul id="menu">
+                        <a href="/perfil">
+                            <h1 v-if="this.store.getUserLogged()">
+                                Olá, {{ this.store.getUserLogged().username }}
+                            </h1>
+                            <br>
+                            <hr>
+                        
+                        </a>
+                        <a href="/">
+                            <li>Página Inicial</li>
+                        </a>
+                        <a href="/mapView">
+                            <li>Mapa de Ecopontos</li>
+                        </a>
+                        <a href="/addEcopoint">
+                            <li v-if="this.store.getUserLogged()">Adicionar Ecoponto</li>
+                        </a>
+                        <a href="/perfil">
+                            <li v-if="this.store.getUserLogged()">Perfil</li>
+                        </a>
+                        <a href="/desafios">
+                            <li v-if="this.store.getUserLogged()">Desafios</li>
+                        </a>
+                        <a href="/ranking">
+                            <li v-if="this.store.getUserLogged()">Ranking</li>
+                        </a>
                         <hr>
                         <br>
-                    </a>
-                    <a href="#section-1">
-                        <li>Página Inicial</li>
-                    </a>
-                    <a href="#section-2">
-                        <li>O que é a reciclagem?</li>
-                    </a>
-                    <a href="#section-3">
-                        <li>Como Reciclar?</li>
-                    </a>
-                    <a href="/mapView">
-                        <li>Mapa de Ecopontos</li>
-                    </a>
-                    <a href="/addEcopoint">
-                        <li v-if="this.store.getUserLogged()">Adicionar Ecoponto</li>
-                    </a>
-                    <a href="/perfil">
-                        <li v-if="this.store.getUserLogged()">Perfil</li>
-                    </a>
-                    <a href="/desafios">
-                        <li v-if="this.store.getUserLogged()">Desafios</li>
-                    </a>
-                    <a href="/ranking">
-                        <li v-if="this.store.getUserLogged()">Ranking</li>
-                    </a>
-                    <hr>
-                    <br>
-                    <a href="/login">
-                        <li v-if="!this.store.getUserLogged()">Iniciar Sessão</li>
-                    </a>
-                    <a href="/register">
-                        <li v-if="!this.store.getUserLogged()">Registar</li>
-                    </a>
-                    <a href="/login" @click="this.store.logout()">
-                        <li v-if="this.store.getUserLogged()">Logout</li>
-                    </a>
-                </ul>
-            </div>
-        </nav>
+                        <a href="/login">
+                            <li v-if="!this.store.getUserLogged()">Iniciar Sessão</li>
+                        </a>
+                        <a href="/register">
+                            <li v-if="!this.store.getUserLogged()">Registar</li>
+                        </a>
+                        <a href="/login" @click="this.store.logout()">
+                            <li v-if="this.store.getUserLogged()">Logout</li>
+                        </a>
+                    </ul>
+                </div>
+            </nav>
 
     </div>
 </template>

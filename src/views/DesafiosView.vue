@@ -2,16 +2,30 @@
     <div class="desafios">
         <b-container fluid>
 
-            <div class="logo">
-                <img class="logo-img" src="../assets/imgs/logo_acabado.png" alt="">
-                <h1>Photo Recycle</h1>
-            </div>
-
             <div class="title">
                 <h1>Desafios</h1>
             </div>
-                
 
+            <div class="desafios-list">
+                <b-row>
+                <b-col cols="12">
+                    <div class="tabela-desafios">
+                        <b-table striped :items="desafios.desafios" :fields="fields">
+                            <!-- adiciona o nome do desafio -->
+                            <template #cell(name)="row" >
+                                <span>{{ row.item.name }}</span>
+                            </template>
+                            <!-- adiciona a descrição do desafio -->
+                            <template #cell(description)="row" >
+                                <span>{{ row.item.description }}</span>
+                            </template>
+                        </b-table>
+                        
+                    </div>
+                </b-col>
+            </b-row>
+            </div>
+    
             <!-- MENU LATERAL -->
             <nav role="navigation">
                 <div id="menuToggle">
@@ -21,22 +35,16 @@
                     <span></span>
 
                     <ul id="menu">
-                        <a href="#section-1">
+                        <a href="/perfil">
                             <h1 v-if="this.store.getUserLogged()">
                                 Olá, {{ this.store.getUserLogged().username }}
                             </h1>
                             <br>
                             <hr>
-                            <br>
+                        
                         </a>
-                        <a href="#section-1">
+                        <a href="/">
                             <li>Página Inicial</li>
-                        </a>
-                        <a href="#section-2">
-                            <li>O que é a reciclagem?</li>
-                        </a>
-                        <a href="#section-3">
-                            <li>Como Reciclar?</li>
                         </a>
                         <a href="/mapView">
                             <li>Mapa de Ecopontos</li>
@@ -73,13 +81,21 @@
 
 <script>
 import { userStore } from '../stores/user';
+import { desafiosStore } from '../stores/desafios';
+
 export default {
 
     data() {
         return {
             store: userStore(),
+            desafios: desafiosStore(),
+            fields: [
+                    { key: 'name', label: 'Nome' },
+                    { key: 'description', label: 'Descrição' },
+                ],
         }
     }
+
 }
 </script>
 
@@ -87,8 +103,15 @@ export default {
 .desafios {
     background-image: url("../assets/imgs/mainbg.svg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 1920px 1080px;
     height: 100vh;
+    animation: gradient 70s linear infinite;
+}
+
+@keyframes gradient {
+    100% {
+        background-size: 3000px 2000px;
+    }
 }
 
 .logo h1{
@@ -110,7 +133,7 @@ export default {
 
 .title {
     position: absolute;
-    top: 15vh;
+    top: 5vh;
     left: 0;
     width: 100%;
 }
@@ -225,4 +248,18 @@ export default {
     transform: none;
     opacity: 1;
 }
+
+.tabela-desafios {
+    display:flex;
+    position: relative;
+    margin: 0 auto;
+    top: 30vh;
+    width: 85%;
+}
+.table {
+    font-family: "Saira Condensed";
+    font-size: 1.3em;
+    color: white;
+    text-transform: uppercase;
+}   
 </style>
