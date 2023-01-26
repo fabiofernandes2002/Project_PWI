@@ -181,20 +181,22 @@ export default {
     methods: {
         addEcopoint() {
             this.storeEcopoint.addEcopoint(this.form.ecopointName, this.form.ecopointLocation, this.form.ecopointAddress, this.form.latitude, this.form.longitude, this.form.ecopointType, this.form.userCreate, this.form.ecopointCreationDate);
-            /* this.form = {
-                ecopointName: this.form.ecopointName,
-                // pegar no user que está logado id, de quem está a adicionar o ecoponto
-                userCreate: this.storeUser.getUserLogged().id,
-                ecopointLocation: this.form.ecopointLocation,
-                ecopointAddress: this.form.ecopointAddress,
-                // pegar a data atual e converter para o formato dd/mm/yyyy
-                ecopointDate: new Date().toLocaleDateString('pt-PT'),
-                ecopointType: this.form.ecopointType,
-                latitude: this.form.latitude,
-                longitude: this.form.longitude,
-                
-
-            }; */
+            // sweat alert para confirmar que o ecoponto foi adicionado só quando carregar no botão de confirmar do sweet alert e atualizar a página
+            this.$swal({
+                title: 'Ecoponto adicionado com sucesso!',
+                icon: 'success',
+                confirmButtonText: 'Confirmar',
+                confirmButtonColor: '#2D9CDB',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                stopKeydownPropagation: false,
+            }).then(() => {
+                this.$router.push('/gerirEcopontos');
+                this.$router.go();
+            });
+            
+            
         },
 
         deleteEcopoint(id) {

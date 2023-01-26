@@ -274,7 +274,7 @@ export default {
     // logout do utilizador e remover os dados da session storage
     logout() {
       localStorage.removeItem('user');
-      this.$router.push('/login');
+      this.$router.push('/landingPage');
 
     },
 
