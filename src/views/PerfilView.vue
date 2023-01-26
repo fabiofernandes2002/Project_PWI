@@ -10,7 +10,7 @@
             </b-row>
 
             <b-row class="mt-5">
-                <b-col cols="12 my-3" md="6" class="mt-5">
+                <b-col cols="12 my-3" md="6" class="mt-5" style="text-align:center; padding-top: 5vh;">
                     <div class="ml-5">
                         <!-- Apresentar foto do user e se não tiver mostrar só o avatar -->
                         <b-avatar v-if="this.store.getUserLogged().photo" :src="this.store.getUserLogged().photo"
@@ -61,7 +61,7 @@
 
                 </b-col>
 
-                <b-col cols="12" md="6" class="mt-5">
+                <b-col cols="12" md="6" class="mt-5" style="right: 7vw; text-align: center;">
                     <div class="divdata">
                         <div>
                             <h3 id="pontos">Pontos: <span>{{ this.store.getUserLogged().pontos }} xp</span></h3>
@@ -102,7 +102,7 @@
 
                 <!-- botão de ver ranking que fica a direita -->
 
-                <b-col cols="12" class="btn">
+                <b-col cols="12" class="btn" style="right: 8vw;">
                     <div class="mt-5 mb-5">
                         <a href="/ranking">
                             <b-button pill class="bntVerRanking">Ver Ranking</b-button>
@@ -112,6 +112,57 @@
             </b-row>
 
         </b-container>
+
+        <!-- MENU LATERAL -->
+        <nav role="navigation">
+            <div id="menuToggle">
+                <input type="checkbox" />
+                <span></span>
+                <span></span>
+                <span></span>
+
+                <ul id="menu">
+                    <a href="/perfil">
+                        <h1 v-if="this.store.getUserLogged()">
+                            Olá, {{ this.store.getUserLogged().username }}
+                        </h1>
+                        <br>
+                        <hr>
+                        <br>
+                    </a>
+                    <a href="/">
+                        <li>Página Inicial</li>
+                    </a>
+                    <a href="/mapView">
+                        <li>Mapa de Ecopontos</li>
+                    </a>
+                    <a href="/addEcopoint">
+                        <li v-if="this.store.getUserLogged()">Adicionar Ecoponto</li>
+                    </a>
+                    <a href="/perfil">
+                        <li v-if="this.store.getUserLogged()">Perfil</li>
+                    </a>
+                    <a href="/desafios">
+                        <li v-if="this.store.getUserLogged()">Desafios</li>
+                    </a>
+                    <a href="/ranking">
+                        <li v-if="this.store.getUserLogged()">Ranking</li>
+                    </a>
+                    <hr>
+                    <br>
+                    <a href="/login">
+                        <li v-if="!this.store.getUserLogged()">Iniciar Sessão</li>
+                    </a>
+                    <a href="/register">
+                        <li v-if="!this.store.getUserLogged()">Registar</li>
+                    </a>
+                    <a href="/login" @click="this.store.logout()">
+                        <li v-if="this.store.getUserLogged()">Logout</li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+
     </div>
 </template>
 
@@ -183,8 +234,15 @@ export default {
 .edit-profile {
     background-image: url('../assets/imgs/mainbg.svg');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 1920px 1080px;
     height: auto;
+    animation: gradient 70s linear infinite;
+}
+
+@keyframes gradient {
+    100% {
+        background-size: 3000px 2000px;
+    }
 }
 
 #title {
@@ -193,8 +251,8 @@ export default {
     font-weight: 800;
     font-size: 50px;
     line-height: 47px;
-
-    color: #f6f7f9;
+    text-transform: uppercase;
+    color: #F39C12;
 }
 
 .bntEditarPerfil {
@@ -204,9 +262,10 @@ export default {
     font-family: 'Saira Condensed';
     font-style: normal;
     font-weight: 400;
+    padding: 15px;
     font-size: 30px;
     line-height: 47px;
-    border-radius: 25px;
+    border-radius: 1px;
 }
 
 #NameUser,
@@ -234,7 +293,6 @@ export default {
     font-weight: 400;
     font-size: 30px;
     line-height: 47px;
-
     color: #fff;
 
 }
@@ -285,7 +343,8 @@ export default {
     font-size: 30px;
     line-height: 47px;
     color: #FFFFFF;
-    border-radius: 25px;
+    padding: 15px;
+    border-radius: 10px;
 
     outline: none;
     border: none;
@@ -294,4 +353,105 @@ export default {
 .btn {
     text-align: right;
 }
+
+/* MENU LATERAL */
+#menuToggle {
+    display: block;
+    position: fixed;
+    top: 6vh;
+    left: 96vw;
+    z-index: 1;
+
+    user-select: none;
+}
+
+#menuToggle a {
+    font-family: "Saira Condensed";
+    text-decoration: none;
+    color: #232323;
+
+    transition: color 0.3s ease;
+}
+
+#menuToggle a:hover {
+    color: #2ecc71;
+}
+
+#menuToggle input {
+    display: block;
+    width: 40px;
+    height: 32px;
+    position: absolute;
+    top: -7px;
+    left: -5px;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 2;
+}
+
+/* HAMBURGER */
+#menuToggle span {
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+    background: #f39c12;
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    transform-origin: 4px 0px;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+        background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+}
+
+#menuToggle span:first-child {
+    transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2) {
+    transform-origin: 0% 100%;
+}
+
+#menuToggle input:checked~span {
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+    background: #232323;
+}
+
+#menuToggle input:checked~span:nth-last-child(3) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+#menuToggle input:checked~span:nth-last-child(2) {
+    transform: rotate(-45deg) translate(0, -1px);
+}
+
+/* POSIÇÃO DO MENU */
+#menu {
+    position: absolute;
+    width: 350px;
+    margin: -100px 0 0 0;
+    padding: 50px;
+    padding-top: 150px;
+    padding-bottom: 520px;
+    right: -50px;
+    background: #ededed;
+    list-style-type: none;
+    transform-origin: 0% 0%;
+    transform: translate(100%, 0);
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+}
+
+#menu li {
+    padding: 10px 0;
+    font-size: 22px;
+}
+
+#menuToggle input:checked~ul {
+    transform: none;
+    opacity: 1;
+}
+
 </style>

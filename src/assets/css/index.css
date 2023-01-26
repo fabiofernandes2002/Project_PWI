@@ -22,15 +22,15 @@ section {
 
 .mainpage {
   background-image: url("../imgs/mainbg.svg");
-  background-size: 2000px 3900px;
+  background-size: 100% 200%;
   background-repeat: no-repeat;
-  background-position: -400px 0;
-  /* animation: gradient 70s infinite alternate linear; */
+  background-position: center;
+  animation: gradient 90s infinite alternate linear;
 }
 
 @keyframes gradient {
   100% {
-    background-size: 3000px 4500px;
+    background-size: 400% 400%;
   }
 }
 
