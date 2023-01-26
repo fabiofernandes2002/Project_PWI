@@ -142,9 +142,7 @@ import { userStore } from '../stores/user';
 
 .edit-profile {
     background-image: url('../assets/imgs/mainbg.svg');
-    background-repeat: no-repeat;
     background-size: 1920px 1080px;
-    height: 100vh;
     animation: gradient 70s linear infinite;
 }
 

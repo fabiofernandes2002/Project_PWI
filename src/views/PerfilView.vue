@@ -84,7 +84,7 @@
                         </div>
                         <div>
                             <!-- mostrar um paragrafo a dizer nã tens medalha o v-else -->
-                            <p class="text-center" v-if="medals.length === 0">Não tens medalhas</p>
+                            <p class="text-center" id="NaoTemMedalhas" v-if="medals.length === 0">Não tens medalhas</p>
                             <!-- Apresentar as medalhas a partir da minha storemedals -->
                             <b-row class="text-center">
                                 <b-col cols="12" md="6" class="mt-5" v-for="medal in medals" :key="medal.idMedal"
@@ -452,6 +452,16 @@ export default {
 #menuToggle input:checked~ul {
     transform: none;
     opacity: 1;
+}
+
+#NaoTemMedalhas {
+    font-family: 'Saira Condensed';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 35px;
+    line-height: 55px;
+
+    color: #fff;
 }
 
 </style>

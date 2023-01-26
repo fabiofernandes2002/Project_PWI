@@ -2,48 +2,50 @@
     <div class="addEcopoint">
         <b-container fluid>
             <div class="add-title">
-            <h1>Adicionar Ecoponto</h1>
-        </div>
-
-        <div class="display-img">
-            <img v-if="imageUrl === null" src="https://dummyimage.com/640x360/fff/aaa" />
-            <img v-if="imageUrl" :src="imageUrl" />
-        </div>
-
-        <div class="image-submit">
-            <input type="file" ref="fileInput" @change="uploadImage" />
-        </div>
-
-        <div class="location">
-            <h2>Localização:</h2>
-            <div class="location-input">
-                <input type="text" placeholder="Rua" />
-                <input type="number" placeholder="Código Postal" />
+                <h1>Adicionar Ecoponto</h1>
             </div>
-        </div>
 
-        <div class="description">
-            <h2>Descrição:</h2>
-            <div class="description-input">
-                <input type="text" placeholder="Descrição" />
-            </div>
-        </div>
+            <b-form @submit.prevent="onSubmit">
+                <div class="display-img">
+                    <img v-if="imageUrl === null" src="https://dummyimage.com/640x360/fff/aaa" />
+                    <img v-if="imageUrl" :src="imageUrl" />
+                </div>
 
-        <div class="comment">
-            <h2>Comentário:</h2>
-            <div class="comment-input">
-                <input type="text" placeholder="Comentário" />
-            </div>
-        </div>
-        
-        <div class="submit">
-            <button type="submit" class="submit-btn" @click="onSubmit">Submeter</button>
-        </div>
-        
+                <div class="image-submit">
+                    <input type="file" ref="fileInput" @change="uploadImage" />
+                </div>
+
+                <div class="location">
+                    <h2>Localização:</h2>
+                    <div class="location-input">
+                        <input type="text" placeholder="Rua" />
+                        <input type="number" placeholder="Código Postal" />
+                    </div>
+                </div>
+
+                <div class="description">
+                    <h2>Descrição:</h2>
+                    <div class="description-input">
+                        <input type="text" placeholder="Descrição" />
+                    </div>
+                </div>
+
+                <div class="comment">
+                    <h2>Comentário:</h2>
+                    <div class="comment-input">
+                        <input type="text" placeholder="Comentário" />
+                    </div>
+                </div>
+
+                <div class="submit">
+                    <button type="submit" class="submit-btn">Submeter</button>
+                </div>
+            </b-form>
 
 
-         <!-- MENU LATERAL -->
-         <nav role="navigation">
+
+            <!-- MENU LATERAL -->
+            <nav role="navigation">
                 <div id="menuToggle">
                     <input type="checkbox" />
                     <span></span>
@@ -57,7 +59,7 @@
                             </h1>
                             <br>
                             <hr>
-                        
+
                         </a>
                         <a href="/">
                             <li>Página Inicial</li>
@@ -140,6 +142,10 @@ export default {
             sessionStorage.removeItem('user');
             this.$router.push('/login');
         },
+
+        onsubmit(){
+            
+        }
     }
 }
 </script>
@@ -153,7 +159,7 @@ export default {
     background-image: url("../assets/imgs/mainbg.svg");
     background-repeat: no-repeat;
     background-size: 1920px 1080px;
-    height:auto;
+    height: auto;
     animation: gradient 70s ease infinite;
 }
 
@@ -170,23 +176,23 @@ export default {
     top: 6vh;
     left: 96vw;
     z-index: 1;
-  
+
     user-select: none;
-  }
-  
-  #menuToggle a {
+}
+
+#menuToggle a {
     font-family: "Saira Condensed";
     text-decoration: none;
     color: #232323;
-  
+
     transition: color 0.3s ease;
-  }
-  
-  #menuToggle a:hover {
+}
+
+#menuToggle a:hover {
     color: #2ecc71;
-  }
-  
-  #menuToggle input {
+}
+
+#menuToggle input {
     display: block;
     width: 40px;
     height: 32px;
@@ -196,10 +202,10 @@ export default {
     cursor: pointer;
     opacity: 0;
     z-index: 2;
-  }
-  
-  /* HAMBURGER */
-  #menuToggle span {
+}
+
+/* HAMBURGER */
+#menuToggle span {
     display: block;
     width: 33px;
     height: 4px;
@@ -211,30 +217,34 @@ export default {
     z-index: 1;
     transform-origin: 4px 0px;
     transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
-      background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
-  }
-  #menuToggle span:first-child {
+        background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+}
+
+#menuToggle span:first-child {
     transform-origin: 0% 0%;
-  }
-  #menuToggle span:nth-last-child(2) {
+}
+
+#menuToggle span:nth-last-child(2) {
     transform-origin: 0% 100%;
-  }
-  
-  #menuToggle input:checked ~ span {
+}
+
+#menuToggle input:checked~span {
     opacity: 1;
     transform: rotate(45deg) translate(-2px, -1px);
     background: #232323;
-  }
-  #menuToggle input:checked ~ span:nth-last-child(3) {
+}
+
+#menuToggle input:checked~span:nth-last-child(3) {
     opacity: 0;
     transform: rotate(0deg) scale(0.2, 0.2);
-  }
-  #menuToggle input:checked ~ span:nth-last-child(2) {
+}
+
+#menuToggle input:checked~span:nth-last-child(2) {
     transform: rotate(-45deg) translate(0, -1px);
-  }
-  
-  /* POSIÇÃO DO MENU */
-  #menu {
+}
+
+/* POSIÇÃO DO MENU */
+#menu {
     position: absolute;
     width: 350px;
     margin: -100px 0 0 0;
@@ -247,24 +257,26 @@ export default {
     transform-origin: 0% 0%;
     transform: translate(100%, 0);
     transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
-  }
-  
-  #menu li {
+}
+
+#menu li {
     padding: 10px 0;
     font-size: 22px;
-  }
-  #menuToggle input:checked ~ ul {
+}
+
+#menuToggle input:checked~ul {
     transform: none;
     opacity: 1;
-  }
-  
+}
+
 
 .add-title {
-    display:flex;
+    display: flex;
     padding-top: 5vh;
     padding-bottom: 5vh;
-    justify-content: center;    
+    justify-content: center;
 }
+
 .add-title h1 {
     font-size: 3.5em;
     color: #fff;
@@ -283,7 +295,7 @@ export default {
     font-family: "Saira Condensed";
 }
 
-.display-img img{
+.display-img img {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -302,7 +314,8 @@ export default {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;;
+    margin: 4px 2px;
+    ;
     border-radius: 10px;
     font-family: "Saira Condensed";
 }
@@ -372,17 +385,18 @@ export default {
     text-decoration: none;
     display: inline-block;
     font-size: 20px;
-    margin: 4px 2px;;
+    margin: 4px 2px;
+    ;
     border-radius: 10px;
     font-family: "Saira Condensed";
 }
 
-.location input:hover{
+.location input:hover {
     transform: scale(1.1);
     transition: all 0.2s ease;
 }
 
-.description{
+.description {
     display: flex;
     margin-left: 3vw;
     margin-top: 3vh;
@@ -409,10 +423,11 @@ export default {
     font-family: "Saira Condensed";
 }
 
-.description input:hover{
+.description input:hover {
     transform: scale(1.1);
     transition: all 0.2s ease;
 }
+
 .comment {
     display: flex;
     margin-left: 3vw;
@@ -435,12 +450,13 @@ export default {
     text-decoration: none;
     display: inline-block;
     font-size: 20px;
-    margin: 4px 20px;;
+    margin: 4px 20px;
+    ;
     border-radius: 10px;
     font-family: "Saira Condensed";
 }
 
-.comment input:hover{
+.comment input:hover {
     transform: scale(1.1);
     transition: all 0.2s ease;
 }
@@ -453,6 +469,7 @@ export default {
     padding: 5vh;
     border: none;
 }
+
 .submit-btn {
     display: flex;
     justify-content: center;

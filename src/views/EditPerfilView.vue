@@ -50,8 +50,8 @@
                                     </div>
                                 </b-col>
                                 <b-col>
-                                    <b-avatar v-if="form.imageUrl == null" :src="this.store.getUserLogged().photo" left size="6rem"></b-avatar>
-                                    <b-avatar v-if="form.imageUrl" :src="this.form.imageUrl" left size="6rem"></b-avatar>
+                                    <b-avatar v-if="this.store.getUserLogged().photo" :src="this.store.getUserLogged().photo" left size="6rem"></b-avatar>
+                                    <b-avatar v-else left size="6rem"></b-avatar>
 
                                 </b-col>
                             </b-row>

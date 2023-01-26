@@ -36,6 +36,13 @@
                                     </a>
                                 </div>
 
+                                <!-- Button registo de utilização -->
+                                <div class="mt-3">
+                                    <a href="/registoUtilizacao">
+                                        <b-button class="bntEditarPerfil">Registo de Utilização</b-button>
+                                    </a>
+                                </div>
+
                             </b-col>
                         </div>
 
