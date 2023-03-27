@@ -26,7 +26,8 @@
                                         <b-button pill class="bntApagar" @click="removeRegister(index)">Apagar</b-button>
                                     </b-col>
                                     <b-col cols="6" class="text-right">
-                                        <b-button pill class="bntValidar" @click="validateRegister(index)" :disabled="areButtonsDisabled[index]">{{txtBtns[index]}}</b-button>
+                                        <b-button pill class="bntValidar" @click="validateRegister(index)"
+                                            :disabled="areButtonsDisabled[index]">{{ txtBtns[index] }}</b-button>
                                     </b-col>
                                 </b-row>
                             </b-card-footer>
@@ -36,8 +37,8 @@
                 </b-col>
             </b-row>
 
-                       <!-- MENU LATERAL DE ADMINISTRADOR -->
-           <nav role="navigation">
+            <!-- MENU LATERAL DE ADMINISTRADOR -->
+            <nav role="navigation">
                 <div id="menuToggle">
                     <input type="checkbox" />
                     <span></span>
@@ -103,13 +104,13 @@ export default {
     created() {
         this.storeOccurence.getOccurences;
         this.utilizacoes = this.storeOccurence.occurences;
-        
+
         //lista, cujos elementos terão string "Validar" se o elemento da lista utilizacoes tiver o campo isValidated a false
         //ou "Validado" se o elemento da lista utilizacoes tiver o campo isValidated a true
         this.txtBtns = this.utilizacoes.map(utilizacao => utilizacao.isValidated ? "Validado" : "Validar");
 
         this.areButtonsDisabled = this.utilizacoes.map(utilizacao => utilizacao.isValidated);
-        
+
 
 
     },
@@ -139,8 +140,8 @@ export default {
             }).then((result) => {
                 if (result) {
                     // se clicar em yes, remove o registo
-                    this.storeOccurence.removeOccurrence(id+1);
-                    
+                    this.storeOccurence.removeOccurrence(id + 1);
+
                     this.$router.go();
                 }
             });
@@ -175,7 +176,7 @@ export default {
                 if (result) {
 
                     this.txtBtns[indexBtn] = 'Validado';
-                    
+
                     this.utilizacoes.forEach((utilizacao, index) => {
                         if (utilizacao.validated) {
                             this.txtBtns[index] = 'Validado';
@@ -184,8 +185,8 @@ export default {
 
                     //deixar o botão disabled se o registo ja tiver sido validado
                     this.areButtonsDisabled[indexBtn] = true;
-                    
-                    this.storeOccurence.validateOccurrence(indexBtn+1);
+
+                    this.storeOccurence.validateOccurrence(indexBtn + 1);
 
                     //chamar a função addPoints do userStore
                     this.storeUser.addPoints(this.utilizacoes[indexBtn].userId);
@@ -202,14 +203,14 @@ export default {
 </script>
 
 <style scoped>
+.background {
+    background-image: url(../assets/imgs/adminBG.svg);
 
-.background{
-background-image: url(../assets/imgs/adminBG.svg);
-
-background-size: cover;
-background-position: center;
+    background-size: cover;
+    background-position: center;
 
 }
+
 .bntValidar {
     background-color: #134077;
     color: white;
@@ -226,7 +227,7 @@ background-position: center;
     width: 100%;
 }
 
-#title{
+#title {
     color: #fff;
     font-size: 40px;
     font-weight: bold;

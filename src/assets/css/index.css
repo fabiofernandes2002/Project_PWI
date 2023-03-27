@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Saira Condensed");
-@import url("https://fonts.cdnfonts.com/css/boldhead");
+@import url('https://fonts.googleapis.com/css?family=Saira Condensed');
+@import url('https://fonts.cdnfonts.com/css/boldhead');
 
 * {
   padding: 0;
@@ -21,7 +21,7 @@ section {
 /*#region ----------- PRINCIPAIS ----------- */
 
 .mainpage {
-  background-image: url("../imgs/mainbg.svg");
+  background-image: url('../imgs/mainbg.svg');
   background-size: 100% 200%;
   background-repeat: no-repeat;
   background-position: center;
@@ -46,7 +46,7 @@ section {
 }
 
 #menuToggle a {
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   text-decoration: none;
   color: #232323;
 
@@ -141,7 +141,7 @@ section {
   animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) both;
   display: flex;
   justify-content: center;
-  font-family: "Boldhead", sans-serif;
+  font-family: 'Boldhead', sans-serif;
   color: #1abc9c;
   padding-top: 20vh;
   font-size: 3.5rem;
@@ -177,7 +177,7 @@ section {
   background-color: #f39c12;
   border: none;
   color: #ffffff;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   text-align: center;
   font-size: 22px;
   padding: 15px;
@@ -196,7 +196,7 @@ section {
 }
 
 .locationButton span:after {
-  content: "\00bb""\00bb";
+  content: '\00bb''\00bb';
   position: absolute;
   opacity: 0;
   top: 0;
@@ -227,7 +227,7 @@ section {
   padding: 5px;
   height: 70px;
   font-size: 20px;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   border-radius: 9px 0 0 9px;
   box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
   outline: none;
@@ -243,7 +243,7 @@ section {
   height: 70px;
   border: 1px solid #1abc9c;
   background: #1abc9c;
-  background-image: url("../imgs/Search-icon.svg");
+  background-image: url('../imgs/Search-icon.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 30px 30px;
@@ -265,7 +265,7 @@ section {
 
 /* LOGO */
 .logo {
-  background-image: url("/src/assets/imgs/logo_acabado.png");
+  background-image: url('/src/assets/imgs/logo_acabado.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -287,7 +287,7 @@ section {
 
 /* TÍTULOS SECUNDÁRIOS */
 .title2 h1 {
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   font-weight: bold;
   font-size: 3.5rem;
   display: flex;
@@ -361,7 +361,7 @@ section {
   width: 25vh;
   right: 30vh;
   bottom: 1.4vh;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   font-weight: bold;
   font-size: 3.5vh;
   color: #f39c12;
@@ -373,7 +373,7 @@ section {
   width: 60vh;
   color: white;
   text-align: center;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   text-align: right;
   font-size: 2.2vh;
   right: 67vh;
@@ -395,7 +395,7 @@ section {
   width: 20vh;
   left: 8vh;
   bottom: 1.4vh;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   font-size: 3.5vh;
   text-align: center;
   color: #f39c12;
@@ -407,7 +407,7 @@ section {
   width: 60vh;
   color: white;
   text-align: center;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   text-align: left;
   font-size: 2.2vh;
   left: 9.2vh;
@@ -429,7 +429,7 @@ section {
   width: 30vh;
   right: 35.5vh;
   bottom: 0.5vh;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   font-size: 3.5vh;
   text-align: center;
   color: #f39c12;
@@ -441,7 +441,7 @@ section {
   width: 60vh;
   color: white;
   text-align: center;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   text-align: right;
   font-size: 2.2vh;
   right: 67vh;
@@ -463,7 +463,7 @@ section {
   width: 25vh;
   left: 10vh;
   bottom: 0.5vh;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   font-size: 3.5vh;
   text-align: center;
   color: #f39c12;
@@ -475,7 +475,7 @@ section {
   width: 60vh;
   color: white;
   text-align: center;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   text-align: left;
   font-size: 2.2vh;
   left: 11.5vh;
@@ -505,7 +505,7 @@ section {
   height: 7vh;
   left: 10vw;
   top: 8vh;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   font-size: 3.5vh;
   text-align: center;
   background-color: transparent;
@@ -538,7 +538,7 @@ section {
 .amarelo-desc {
   position: relative;
   display: block;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   font-size: 3vh;
   text-align: justify;
   color: #f1c40f;
@@ -551,7 +551,7 @@ section {
   height: 7vh;
   left: 50vw;
   top: 13vh;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   font-size: 3.5vh;
   text-align: center;
   background-color: transparent;
@@ -584,7 +584,7 @@ section {
 .azul-desc {
   position: relative;
   display: block;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   font-size: 3vh;
   text-align: justify;
   color: #00bfff;
@@ -597,7 +597,7 @@ section {
   height: 7vh;
   left: 10vw;
   top: 18vh;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   font-size: 3.5vh;
   text-align: center;
   background-color: transparent;
@@ -630,7 +630,7 @@ section {
 .verde-desc {
   position: relative;
   display: block;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   font-size: 3vh;
   text-align: justify;
   color: #1abc9c;
@@ -643,7 +643,7 @@ section {
   height: 7vh;
   left: 50vw;
   top: 23vh;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   font-size: 3.5vh;
   text-align: center;
   background-color: transparent;
@@ -676,7 +676,7 @@ section {
 .castanho-desc {
   position: relative;
   display: block;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   font-size: 3vh;
   text-align: justify;
   color: #825a2c;
@@ -689,7 +689,7 @@ section {
   height: 7vh;
   left: 10vw;
   top: 28vh;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   font-size: 3.5vh;
   text-align: center;
   background-color: transparent;
@@ -722,7 +722,7 @@ section {
 .vermelho-desc {
   position: relative;
   display: block;
-  font-family: "Saira Condensed";
+  font-family: 'Saira Condensed';
   font-size: 3vh;
   text-align: justify;
   color: #e74c3c;
