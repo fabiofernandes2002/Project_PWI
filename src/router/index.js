@@ -1,19 +1,19 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '../views/LoginView.vue'
-import RegisterView from '../views/RegisterView.vue'
-import LandingPage from '../views/LandingPage.vue'
-import MapView from '../views/MapView.vue'
-import addEcopoint from '../views/AddEcopoint.vue'
-import Maps from '../components/Maps.vue'
-import PerfilView from '../views/PerfilView.vue'
-import EditPerfilView from '../views/EditPerfilView.vue'
-import RankingView from '../views/RankingView.vue'
-import AdminView from '../views/AdminView.vue'
-import GerirUtilizadoresView from '../views/GerirUtilizadoresView.vue'
-import userView from '../views/userView.vue'
-import GerirEcopontosView from '../views/GerirEcopontosView.vue'
-import RegistoUtilizacaoView from '../views/RegistoUtilizacaoView.vue'
-import DesafiosView from '../views/DesafiosView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import LoginView from '../views/LoginView.vue';
+import RegisterView from '../views/RegisterView.vue';
+import LandingPage from '../views/LandingPage.vue';
+import MapView from '../views/MapView.vue';
+import addEcopoint from '../views/AddEcopoint.vue';
+import Maps from '../components/Maps.vue';
+import PerfilView from '../views/PerfilView.vue';
+import EditPerfilView from '../views/EditPerfilView.vue';
+import RankingView from '../views/RankingView.vue';
+import AdminView from '../views/AdminView.vue';
+import GerirUtilizadoresView from '../views/GerirUtilizadoresView.vue';
+import userView from '../views/userView.vue';
+import GerirEcopontosView from '../views/GerirEcopontosView.vue';
+import RegistoUtilizacaoView from '../views/RegistoUtilizacaoView.vue';
+import DesafiosView from '../views/DesafiosView.vue';
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,12 +21,12 @@ export const router = createRouter({
     {
       path: '/',
       name: 'LandingPage',
-      component: LandingPage
+      component: LandingPage,
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: LoginView,
     },
     {
       path: '/register',
@@ -34,78 +34,77 @@ export const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: RegisterView
+      component: RegisterView,
     },
     {
       path: '/LandingPage',
       name: 'landingPage',
-      component: LandingPage
+      component: LandingPage,
     },
 
     {
       path: '/map',
       name: 'map',
-      component: Maps
+      component: Maps,
     },
 
     {
       path: '/mapView',
       name: 'mapView',
-      component: MapView
+      component: MapView,
     },
     {
       path: '/perfil',
       name: 'perfil',
-      component: PerfilView
+      component: PerfilView,
     },
     {
       path: '/editPerfil',
       name: 'editPerfil',
-      component: EditPerfilView
+      component: EditPerfilView,
     },
     {
       path: '/ranking',
       name: 'ranking',
-      component: RankingView
+      component: RankingView,
     },
     {
       path: '/addEcopoint',
       name: 'addEcopoint',
-      component: addEcopoint
+      component: addEcopoint,
     },
     {
       path: '/admin',
       name: 'admin',
-      component: AdminView
+      component: AdminView,
     },
     {
       path: '/gerirUtilizadores',
       name: 'gerirUtilizadores',
-      component: GerirUtilizadoresView
+      component: GerirUtilizadoresView,
     },
     /* abrir o user especifico pelo seu id */
     {
       path: '/user/:id',
       name: 'User',
-      component: userView
+      component: userView,
     },
     {
       path: '/gerirEcopontos',
       name: 'gerirEcopontos',
-      component: GerirEcopontosView
+      component: GerirEcopontosView,
     },
     {
       path: '/registoUtilizacao',
       name: 'registoUtilizacao',
-      component: RegistoUtilizacaoView
+      component: RegistoUtilizacaoView,
     },
     {
       path: '/Desafios',
       name: 'Desafios',
-      component: DesafiosView
-    }
+      component: DesafiosView,
+    },
+  ],
+});
 
-  ]
-})
-
-export default router
+export default router;

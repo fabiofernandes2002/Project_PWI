@@ -113,7 +113,7 @@ export default {
 
     if (localStorage.getItem('users') == null) {
       localStorage.setItem('users', JSON.stringify(this.store.users));
-    }  else  {
+    } else {
       this.store.users = JSON.parse(localStorage.getItem('users'));
     }
 

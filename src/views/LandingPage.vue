@@ -1,5 +1,4 @@
 <template>
-
   <div class="mainpage">
 
     <!------------------- SECTION 1 ----------------->
@@ -285,7 +284,7 @@ export default {
       });
       console.log(this.location);
 
-      
+
     },
 
     searchLocation() {
@@ -302,7 +301,7 @@ export default {
       }
 
       this.getCurrentLocation();
-      
+
       this.$router.push('/mapView');
 
 

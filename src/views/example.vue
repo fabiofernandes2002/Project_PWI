@@ -5,29 +5,31 @@
     <b-row>
       <div class="title mx-auto">
         <b-col cols="6">
-        <h1 class="loginTitle">Login</h1>
-        <h3 class="textLogin">Insere os teus dados para continuares a tua aventura no mundo da reciclagem</h3>
-      </b-col>
+          <h1 class="loginTitle">Login</h1>
+          <h3 class="textLogin">Insere os teus dados para continuares a tua aventura no mundo da reciclagem</h3>
+        </b-col>
       </div>
     </b-row><br>
     <b-row>
       <div class="formulario mx-auto b-col border-right" style="border-color: red;">
         <b-col>
           <b-form-group label-for="email-input">
-            <b-form-input type="email" id="email-input" v-model="email" placeholder="Username ou email" required></b-form-input>
+            <b-form-input type="email" id="email-input" v-model="email" placeholder="Username ou email"
+              required></b-form-input>
           </b-form-group>
         </b-col>
-          <br>
+        <br>
         <b-col>
           <b-form-group label-for="password-input">
-            <b-form-input type="password" id="password-input" v-model="password" placeholder="Password" required></b-form-input>
+            <b-form-input type="password" id="password-input" v-model="password" placeholder="Password"
+              required></b-form-input>
           </b-form-group><br>
           <b-button block variant="primary">Login</b-button>
         </b-col>
       </div>
-      <!-- <div class="w-100">
+    <!-- <div class="w-100">
         <hr>
-      </div> -->
+        </div> -->
       <div class="logoEName text-right b-col">
         <b-col cols="6" class="logoImage">
           <!-- buscar minha imagem do logo -->
@@ -35,7 +37,8 @@
           <h1 class="logoName">Photo Recycle</h1>
 
           <!-- link de ainda não tiver conta -->
-          <b-link href="/register" id="linkCriarConta">Ainda não tens conta? <span id="registerLink">Crie conta!</span></b-link>
+          <b-link href="/register" id="linkCriarConta">Ainda não tens conta? <span id="registerLink">Crie
+              conta!</span></b-link>
         </b-col>
       </div>
     </b-row>
@@ -117,11 +120,4 @@ export default {
 #password-input {
   border-color: #F39C12;
 }
-
-
-
-
-
-
-
 </style>

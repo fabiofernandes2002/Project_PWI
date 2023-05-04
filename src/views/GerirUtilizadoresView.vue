@@ -36,8 +36,8 @@
                 </b-row>
             </div>
 
-           <!-- MENU LATERAL DE ADMINISTRADOR -->
-           <nav role="navigation">
+            <!-- MENU LATERAL DE ADMINISTRADOR -->
+            <nav role="navigation">
                 <div id="menuToggle">
                     <input type="checkbox" />
                     <span></span>
@@ -137,7 +137,7 @@ export default {
             });
 
             localStorage.setItem('users', JSON.stringify(this.store.users));
-            
+
         },
 
         /* selectUser(user) {
@@ -407,5 +407,4 @@ a:hover {
     transform: none;
     opacity: 1;
 }
-
 </style>

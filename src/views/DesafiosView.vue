@@ -8,24 +8,24 @@
 
             <div class="desafios-list">
                 <b-row>
-                <b-col cols="12">
-                    <div class="tabela-desafios">
-                        <b-table striped :items="desafios.desafios" :fields="fields">
-                            <!-- adiciona o nome do desafio -->
-                            <template #cell(name)="row" >
-                                <span>{{ row.item.name }}</span>
-                            </template>
-                            <!-- adiciona a descrição do desafio -->
-                            <template #cell(description)="row" >
-                                <span>{{ row.item.description }}</span>
-                            </template>
-                        </b-table>
-                        
-                    </div>
-                </b-col>
-            </b-row>
+                    <b-col cols="12">
+                        <div class="tabela-desafios">
+                            <b-table striped :items="desafios.desafios" :fields="fields">
+                                <!-- adiciona o nome do desafio -->
+                                <template #cell(name)="row">
+                                    <span>{{ row.item.name }}</span>
+                                </template>
+                                <!-- adiciona a descrição do desafio -->
+                                <template #cell(description)="row">
+                                    <span>{{ row.item.description }}</span>
+                                </template>
+                            </b-table>
+
+                        </div>
+                    </b-col>
+                </b-row>
             </div>
-    
+
             <!-- MENU LATERAL -->
             <nav role="navigation">
                 <div id="menuToggle">
@@ -41,7 +41,7 @@
                             </h1>
                             <br>
                             <hr>
-                        
+
                         </a>
                         <a href="/">
                             <li>Página Inicial</li>
@@ -90,9 +90,9 @@ export default {
             store: userStore(),
             desafios: desafiosStore(),
             fields: [
-                    { key: 'name', label: 'Nome' },
-                    { key: 'description', label: 'Descrição' },
-                ],
+                { key: 'name', label: 'Nome' },
+                { key: 'description', label: 'Descrição' },
+            ],
         }
     }
 
@@ -114,7 +114,7 @@ export default {
     }
 }
 
-.logo h1{
+.logo h1 {
     font-family: "Saira Condensed";
     font-size: 2.5em;
     color: #f39c12;
@@ -143,7 +143,7 @@ export default {
     font-size: 3.5em;
     color: #f39c12;
     font-weight: bold;
-    display:flex;
+    display: flex;
     justify-content: center;
     text-transform: uppercase;
 }
@@ -250,16 +250,17 @@ export default {
 }
 
 .tabela-desafios {
-    display:flex;
+    display: flex;
     position: relative;
     margin: 0 auto;
     top: 30vh;
     width: 85%;
 }
+
 .table {
     font-family: "Saira Condensed";
     font-size: 1.3em;
     color: white;
     text-transform: uppercase;
-}   
+}
 </style>

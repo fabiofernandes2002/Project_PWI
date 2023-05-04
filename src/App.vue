@@ -37,6 +37,4 @@ if (localStorage.getItem('occurences')) {
 <template>
       <RouterView />
       <!-- <Maps/> -->
-
-
 </template>

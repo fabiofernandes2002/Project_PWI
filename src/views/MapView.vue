@@ -27,9 +27,9 @@
 
                 </b-col>
             </b-row>
-            
-             <!-- MENU LATERAL -->
-             <nav role="navigation">
+
+            <!-- MENU LATERAL -->
+            <nav role="navigation">
                 <div id="menuToggle">
                     <input type="checkbox" />
                     <span></span>
@@ -43,7 +43,7 @@
                             </h1>
                             <br>
                             <hr>
-                        
+
                         </a>
                         <a href="/">
                             <li>Página Inicial</li>
@@ -84,7 +84,7 @@
 <script>
 import { ecopointStore } from '../stores/ecopoint';
 import { userStore } from '../stores/user';
-import{occurenceStore} from '../stores/occurence';
+import { occurenceStore } from '../stores/occurence';
 
 
 export default {
@@ -156,7 +156,7 @@ export default {
                     google.maps.event.addDomListener(document.getElementById('btn-utilizar-ecoponto'), 'click', this.mostrarDiv);
                     this.idSelectedEcopoint = ecopoint.id;
                 });
-                
+
 
                 // desapaercer a mostarDiv da imagem ao carregar no botão de fechar a infoWindow
                 google.maps.event.addListener(infoWindow, 'closeclick', () => {
@@ -200,7 +200,7 @@ export default {
                 });
 
                 marker.addListener("click", () => {
-                    infoWindow.open(map, marker); 
+                    infoWindow.open(map, marker);
                 });
 
                 map.setCenter(pos);
