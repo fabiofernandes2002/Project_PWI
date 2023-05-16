@@ -60,7 +60,7 @@
 
         <b-col cols="12" md="6" class="logoImage">
           <!-- buscar minha imagem do logo -->
-          <b-img src="src/assets/imgs/logo_acabado.png" alt="Logo" id="logo"></b-img>
+          <b-img src="src/assets/imgs/logo_acabado.webp" alt="Logo" id="logo"></b-img>
           <h1 class="logoName">Photo Recycle</h1>
 
           <!-- link de ainda não tiver conta -->

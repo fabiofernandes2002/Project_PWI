@@ -42,7 +42,7 @@
             locais apropriados. Além de colocar no sítio correto, é preciso identificar as diferentes características
             dentro do mesmo tipo de resíduos. É preciso ainda verificar se os materiais estão em bom estado para serem
             reciclados.</span>
-          <img id="ident-img" src="../assets/imgs/identificacao.png" alt="Identificação">
+          <img id="ident-img" src="../assets/imgs/identificacao.webp" alt="Identificação">
         </span>
 
         <span class="circle-bottom">
@@ -51,7 +51,7 @@
             A etapa final destina-se apenas à pesquisa de potenciais compradores dos produtos transformados pós serem
             reciclados, nomeadamente arquitetos, designers e artistas.
           </span>
-          <img id="forn-img" src="../assets/imgs/fornecimento.png" alt="Fornecimento">
+          <img id="forn-img" src="../assets/imgs/fornecimento.webp" alt="Fornecimento">
         </span>
 
         <span class="circle-2">
@@ -61,7 +61,7 @@
             potencial para reciclagem. Uma tarefa árdua, principalmente pela tentativa de reaproveitamento dos materiais
             misturados com outros.
           </span>
-          <img id="sep-img" src="../assets/imgs/separacao.png" alt="Separação">
+          <img id="sep-img" src="../assets/imgs/separacao.webp" alt="Separação">
         </span>
 
         <span class="circle-3">
@@ -71,7 +71,7 @@
             pois determina a qualidade dos materiais recicláveis. Uma etapa desvalorizada e desajudada pois apenas as
             universidades contribuem para o fornecimento de máquinas para esta tarefa.
           </span>
-          <img id="descont-img" src="../assets/imgs/descontaminacao.png" alt="Descontaminação">
+          <img id="descont-img" src="../assets/imgs/descontaminacao.webp" alt="Descontaminação">
         </span>
       </div>
     </section>
@@ -97,7 +97,7 @@
                 deslocar-se a um local apropriado para deixar.</p>
             </div>
             <div style="float: right; width: 40%; margin-top: 30px">
-              <img src="../assets/imgs/amarelo.png" alt="Descrição da imagem" style="width: 100%;">
+              <img src="../assets/imgs/amarelo.webp" alt="Descrição da imagem" style="width: 100%;">
             </div>
           </b-card>
 
@@ -115,7 +115,7 @@
                 colocados, podem ser reciclados 7 vezes. </p>
             </div>
             <div style="float: right; width: 40%; margin-top: 30px">
-              <img src="../assets/imgs/azul.png" alt="Descrição da imagem" style="width: 100%;">
+              <img src="../assets/imgs/azul.webp" alt="Descrição da imagem" style="width: 100%;">
             </div>
           </b-card>
         </b-collapse>
@@ -132,7 +132,7 @@
                 colocados, podem ser reciclados 7 vezes. </p>
             </div>
             <div style="float: right; width: 40%; margin-top: 30px">
-              <img src="../assets/imgs/verde.png" alt="Descrição da imagem" style="width: 100%;">
+              <img src="../assets/imgs/verde.webp" alt="Descrição da imagem" style="width: 100%;">
             </div>
           </b-card>
         </b-collapse>
@@ -150,7 +150,7 @@
                 colocados, podem ser reciclados 7 vezes. </p>
             </div>
             <div style="float: right; width: 40%; margin-top: 30px">
-              <img src="../assets/imgs/castanho.png" alt="Descrição da imagem" style="width: 100%;">
+              <img src="../assets/imgs/castanho.webp" alt="Descrição da imagem" style="width: 100%;">
             </div>
           </b-card>
         </b-collapse>
@@ -168,7 +168,7 @@
                 colocados, podem ser reciclados 7 vezes. </p>
             </div>
             <div style="float: right; width: 40%; margin-top: 30px">
-              <img src="../assets/imgs/pilhao.png" alt="Descrição da imagem" style="width: 100%;">
+              <img src="../assets/imgs/pilhao.webp" alt="Descrição da imagem" style="width: 100%;">
             </div>
           </b-card>
         </b-collapse>
