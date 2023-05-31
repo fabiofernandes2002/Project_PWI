@@ -2,7 +2,6 @@ import API_URL from './config';
 
 export const AuthService = {
   async register(user) {
-    console.log('referralCode:', user.referralCode);
     const response = await fetch(`${API_URL}/users`, {
       method: 'POST',
       headers: {
