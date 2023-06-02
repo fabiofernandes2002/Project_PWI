@@ -12,7 +12,7 @@ export const AuthService = {
         password: user.password,
         confirmPassword: user.confirmPassword,
         email: user.email,
-        datanascimento: user.datanascimento,
+        dataNascimento: user.datanascimento,
         morada: user.morada,
         localidade: user.localidade,
         codigoPostal: user.codigoPostal,
@@ -39,14 +39,14 @@ export const AuthService = {
         'Content-Type': 'application/json;charset=utf-8',
       },
       body: JSON.stringify({
-        username: user.username,
+        email: user.email,
         password: user.password,
       }),
     });
     if (response.ok) {
       const data = await response.json();
       if (data.accessToken) {
-        localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('users', JSON.stringify(data));
         return data;
       } else {
         throw Error(data.message);

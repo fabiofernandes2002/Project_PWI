@@ -1,6 +1,8 @@
 // import { ref, computed } from 'vue'
 import { defineStore } from 'pinia';
-import { router } from '../router';
+import { router } from "../router";
+import { AuthService } from "../services/auth.service";
+//import { UsersService } from "../services/users.service";
 
 export const userStore = defineStore('user', {
     state: () => ({
@@ -126,5 +128,23 @@ export const userStore = defineStore('user', {
       localStorage.removeItem('user');
       this.$router.push('/LandingPage');
     },
+
+    /* async register(user) {
+      const response = await AuthService.register(user);
+      if (response) {
+        router.push("/login");
+      }
+    },
+
+    async login(user) {
+      const response = await AuthService.login(user);
+      if (response.accessToken) {
+        localStorage.setItem("users", JSON.stringify(response))
+      }
+    },
+    logout() {
+      AuthService.logout();
+      router.push("/LandingPage");
+    }, */
   },
 });
