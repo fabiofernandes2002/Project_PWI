@@ -63,7 +63,7 @@
                     </b-col>
                 </b-row>
             </div>
-            
+
             <!-- MENU LATERAL DE ADMINISTRADOR -->
             <nav role="navigation">
                 <div id="menuToggle">
@@ -140,8 +140,9 @@ export default {
 }
 
 .adminMain {
-transform: translateY(50%);
+    transform: translateY(50%);
 }
+
 .mt-5 {
     margin-top: 0rem !important;
 
@@ -252,7 +253,7 @@ transform: translateY(50%);
     color: #FFFFFF;
 }
 
-a:hover{
+a:hover {
     text-decoration: none;
 }
 
@@ -355,5 +356,4 @@ a:hover{
     transform: none;
     opacity: 1;
 }
-
 </style>

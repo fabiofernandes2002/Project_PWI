@@ -22,12 +22,12 @@ export const router = createRouter({
     {
       path: '/',
       name: 'LandingPage',
-      component: LandingPage
+      component: LandingPage,
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: LoginView,
     },
     {
       path: '/register',
@@ -35,70 +35,70 @@ export const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: RegisterView
+      component: RegisterView,
     },
     {
       path: '/LandingPage',
       name: 'landingPage',
-      component: LandingPage
+      component: LandingPage,
     },
 
     {
       path: '/map',
       name: 'map',
-      component: Maps
+      component: Maps,
     },
 
     {
       path: '/mapView',
       name: 'mapView',
-      component: MapView
+      component: MapView,
     },
     {
       path: '/perfil',
       name: 'perfil',
-      component: PerfilView
+      component: PerfilView,
     },
     {
       path: '/editPerfil',
       name: 'editPerfil',
-      component: EditPerfilView
+      component: EditPerfilView,
     },
     {
       path: '/ranking',
       name: 'ranking',
-      component: RankingView
+      component: RankingView,
     },
     {
       path: '/addEcopoint',
       name: 'addEcopoint',
-      component: addEcopoint
+      component: addEcopoint,
     },
     {
       path: '/admin',
       name: 'admin',
-      component: AdminView
+      component: AdminView,
     },
     {
       path: '/gerirUtilizadores',
       name: 'gerirUtilizadores',
-      component: GerirUtilizadoresView
+      component: GerirUtilizadoresView,
     },
     /* abrir o user especifico pelo seu id */
     {
       path: '/user/:id',
       name: 'User',
-      component: userView
+      component: userView,
     },
     {
       path: '/gerirEcopontos',
       name: 'gerirEcopontos',
-      component: GerirEcopontosView
+      component: GerirEcopontosView,
     },
     {
       path: '/registoUtilizacao',
       name: 'registoUtilizacao',
-      component: RegistoUtilizacaoView
+      component: RegistoUtilizacaoView,
     },
     {
       path: '/Desafios',
@@ -110,8 +110,7 @@ export const router = createRouter({
       name: 'RegistoAdicaoEcoponto',
       component: RegistoAdicaoEcopontoView
     }
+  ],
+});
 
-  ]
-})
-
-export default router
+export default router;

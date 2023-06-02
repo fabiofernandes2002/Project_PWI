@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
 
 export const desafiosStore = defineStore('desafios', {
     state: () => ({
@@ -11,15 +11,15 @@ export const desafiosStore = defineStore('desafios', {
         ]
     }),
 
-    getters: {
-        getDesafios: (state) => {
-            return state.desafios
-        }
+  getters: {
+    getDesafios: (state) => {
+      return state.desafios;
     },
+  },
 
-    actions: {
-        setDesafios(desafios) {
-            this.desafios = desafios;
-        },
-    }
-})
+  actions: {
+    setDesafios(desafios) {
+      this.desafios = desafios;
+    },
+  },
+});

@@ -1,6 +1,6 @@
 // import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
-import {router} from '../router';
+import { defineStore } from 'pinia';
+import { router } from '../router';
 
 export const userStore = defineStore('user', {
     state: () => ({
@@ -29,20 +29,26 @@ export const userStore = defineStore('user', {
 
         getUserById: (state) => (id) => state.users.find(user => user.id == id),
 
+  getters: {
+    getUsers: (state) => {
+      return state.users;
     },
 
-    actions: {
+    getUserById: (state) => (id) => state.users.find((user) => user.id == id),
+  },
 
-        addPoints(id){
-            console.log(id);
-            let user = this.users.find(user => user.id == id);
-            user.pontos += 10;
-            //substituir o user antigo pelo novo
-            this.users.splice(this.users.indexOf(user), 1, user);
-            // salvar na locastorage o user na lista users
-            localStorage.setItem('users', JSON.stringify(this.users));
-        },
+  actions: {
+    addPoints(id) {
+      console.log(id);
+      let user = this.users.find((user) => user.id == id);
+      user.pontos += 10;
+      //substituir o user antigo pelo novo
+      this.users.splice(this.users.indexOf(user), 1, user);
+      // salvar na locastorage o user na lista users
+      localStorage.setItem('users', JSON.stringify(this.users));
+    },
 
+<<<<<<< HEAD
         addPointsForAddEcopoints(id){
             console.log(id);
             let user = this.users.find(user => user.id == id);
@@ -76,9 +82,21 @@ export const userStore = defineStore('user', {
 
         setUsers(users) {
             this.users = users;
+=======
+    setUsers(users) {
+      this.users = users;
+    },
+>>>>>>> fc14c4aa6d550d5889f6c9b5d7d907bf23131775
 
-        },
+    // updateUser data ao editar perfil
+    updateUser(data) {
+      let user = this.users.find((user) => user.id == data.id);
+      user.username = data.username;
+      user.email = data.email;
+      user.password = data.password;
+      user.photo = data.photo;
 
+<<<<<<< HEAD
         // updateUser data ao editar perfil
         updateUser(data){
         
@@ -87,59 +105,52 @@ export const userStore = defineStore('user', {
             user.email = data.email;
             user.password = data.password;
             user.foto = data.foto;
+=======
+      // substituir o user antigo pelo novo
+      this.users.splice(this.users.indexOf(user), 1, user);
+>>>>>>> fc14c4aa6d550d5889f6c9b5d7d907bf23131775
 
-            // substituir o user antigo pelo novo
-            this.users.splice(this.users.indexOf(user), 1, user);
+      localStorage.setItem('users', JSON.stringify(this.users));
+      localStorage.setItem('user', JSON.stringify(user));
+    },
 
-            localStorage.setItem('users', JSON.stringify(this.users));
-            localStorage.setItem('user', JSON.stringify(user));
-            
-        },
+    getUserLogged() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      return user;
+    },
 
+    // getuserPosition que se encontra na tabela do ranking de utilizadores todos os utilizadores mesmo os que não estão no top 10 do tipo userNormal
+    getUserPosition(username) {
+      const allUsers = this.users.filter((user) => user.tipo == 'userNormal');
+      const index = this.orderUsers(allUsers).findIndex((user) => user.username === username);
+      if (index === -1) {
+        return -1;
+      } else {
+        return index + 1 + `º`;
+      }
+    },
 
-        getUserLogged(){
-            const user =  JSON.parse(localStorage.getItem('user'));
-            return user;
-        },
+    orderUsers(allUsers) {
+      return allUsers.sort((a, b) => {
+        const aXP = a.pontos ? a.pontos : 0;
+        const bXP = b.pontos ? b.pontos : 0;
+        return bXP - aXP;
+      });
+    },
 
-        // getuserPosition que se encontra na tabela do ranking de utilizadores todos os utilizadores mesmo os que não estão no top 10 do tipo userNormal
-        getUserPosition(username){
-            const allUsers = this.users.filter(user => user.tipo == 'userNormal')
-            const index = this.orderUsers(allUsers).findIndex(user => user.username === username);
-            if(index === -1){
-                return -1;
-            }else{
-                return index + 1 + `º`;
-            }
-   
+    isAdmin() {
+      return getUserLogged().tipo === 'admin' ? true : false;
+    },
 
-        },
+    removeUser(id) {
+      const index = this.users.findIndex((user) => user.id === id);
+      this.users.splice(index, 1);
+      localStorage.setItem('users', JSON.stringify(this.users));
+    },
 
-        orderUsers(allUsers){
-            return allUsers.sort((a, b) => {
-                const aXP = a.pontos ? a.pontos : 0;
-                const bXP = b.pontos ? b.pontos : 0;
-                return bXP - aXP;
-            })
-        },
-
-        isAdmin(){
-            return getUserLogged().tipo === 'admin' ? true : false;
-        },
-
-        removeUser(id){
-            const index = this.users.findIndex((user) => user.id === id);
-            this.users.splice(index, 1);
-            localStorage.setItem('users', JSON.stringify(this.users));
-            
-        },
-
-        logout(){
-            localStorage.removeItem('user');
-            this.$router.push('/LandingPage');
-        },
-
-
-    }
-
-})
+    logout() {
+      localStorage.removeItem('user');
+      this.$router.push('/LandingPage');
+    },
+  },
+});

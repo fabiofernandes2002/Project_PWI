@@ -43,20 +43,20 @@
                             </b-col>
 
 
-                        <b-col>
-                            <b-form-group id="input-group-6" label="Tipo de ecoponto:" label-for="input-6">
-                                <b-form-select id="input-6" v-model="form.ecopointType" :options="options"
-                                    required></b-form-select>
-                            </b-form-group>
-                        </b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col class="mb-5">
-                            <b-button type="submit" variant="primary">Adicionar ecoponto</b-button>
-                        </b-col>
-                    </b-row>
-                </b-form>
-            </b-col>
+                            <b-col>
+                                <b-form-group id="input-group-6" label="Tipo de ecoponto:" label-for="input-6">
+                                    <b-form-select id="input-6" v-model="form.ecopointType" :options="options"
+                                        required></b-form-select>
+                                </b-form-group>
+                            </b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col class="mb-5">
+                                <b-button type="submit" variant="primary">Adicionar ecoponto</b-button>
+                            </b-col>
+                        </b-row>
+                    </b-form>
+                </b-col>
 
                 <!-- tabela com os ecopontos -->
                 <b-col cols="10" class="mt-5">
@@ -88,8 +88,8 @@
                     </b-table>
                 </b-col>
             </div>
-           <!-- MENU LATERAL DE ADMINISTRADOR -->
-           <nav role="navigation">
+            <!-- MENU LATERAL DE ADMINISTRADOR -->
+            <nav role="navigation">
                 <div id="menuToggle">
                     <input type="checkbox" />
                     <span></span>
@@ -195,8 +195,8 @@ export default {
                 this.$router.push('/gerirEcopontos');
                 this.$router.go();
             });
-            
-            
+
+
         },
 
         deleteEcopoint(id) {
@@ -214,11 +214,11 @@ export default {
 </script>
 
 <style scoped>
-.background{
-background-image: url(../assets/imgs/adminBG.svg);
+.background {
+    background-image: url(../assets/imgs/adminBG.svg);
 
-background-size: cover;
-background-position: center;
+    background-size: cover;
+    background-position: center;
 
 }
 
@@ -277,7 +277,7 @@ background-position: center;
     font-family: 'Saira Condensed';
     text-transform: uppercase;
     padding-top: 20px;
-    font-weight:bold;
+    font-weight: bold;
     font-size: 40px;
     color: #F39C12;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
@@ -382,5 +382,4 @@ background-position: center;
     transform: none;
     opacity: 1;
 }
-
 </style>

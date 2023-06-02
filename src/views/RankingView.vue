@@ -14,132 +14,131 @@
                     <div class="mt-5 mb-5">
                         <!-- Apresentar os users na tabela ranking, username e pontos e ordenar a tabela por pontos  -->
                         <b-table striped hover :items="store.users" :fields="fields">
-                            <template #cell(index)="row" >
+                            <template #cell(index)="row">
                                 <span>{{ row.index + 1 }}</span>
                             </template>
                             <template #cell(username)="row" class="align-middle">
                                 <!-- Por avatar e username do user ao lado -->
                                 <b-avatar :src="row.item.foto" size="2rem" class="mr-2"></b-avatar> {{ row.item.username }}
                             </template>
-                            
+
                         </b-table>
-                        
+
                     </div>
                 </b-col>
             </b-row>
         </b-container>
 
-         <!-- MENU LATERAL -->
-         <nav role="navigation">
-                <div id="menuToggle">
-                    <input type="checkbox" />
-                    <span></span>
-                    <span></span>
-                    <span></span>
+        <!-- MENU LATERAL -->
+        <nav role="navigation">
+            <div id="menuToggle">
+                <input type="checkbox" />
+                <span></span>
+                <span></span>
+                <span></span>
 
-                    <ul id="menu">
-                        <a href="/perfil">
-                            <h1 v-if="this.store.getUserLogged()">
-                                Olá, {{ this.store.getUserLogged().username }}
-                            </h1>
-                            <br>
-                            <hr>
-                        
-                        </a>
-                        <a href="/">
-                            <li>Página Inicial</li>
-                        </a>
-                        <a href="/mapView">
-                            <li>Mapa de Ecopontos</li>
-                        </a>
-                        <a href="/addEcopoint">
-                            <li v-if="this.store.getUserLogged()">Adicionar Ecoponto</li>
-                        </a>
-                        <a href="/perfil">
-                            <li v-if="this.store.getUserLogged()">Perfil</li>
-                        </a>
-                        <a href="/desafios">
-                            <li v-if="this.store.getUserLogged()">Desafios</li>
-                        </a>
-                        <a href="/ranking">
-                            <li v-if="this.store.getUserLogged()">Ranking</li>
-                        </a>
-                        <hr>
+                <ul id="menu">
+                    <a href="/perfil">
+                        <h1 v-if="this.store.getUserLogged()">
+                            Olá, {{ this.store.getUserLogged().username }}
+                        </h1>
                         <br>
-                        <a href="/login">
-                            <li v-if="!this.store.getUserLogged()">Iniciar Sessão</li>
-                        </a>
-                        <a href="/register">
-                            <li v-if="!this.store.getUserLogged()">Registar</li>
-                        </a>
-                        <a href="/login" @click="this.store.logout()">
-                            <li v-if="this.store.getUserLogged()">Logout</li>
-                        </a>
-                    </ul>
-                </div>
-            </nav>
+                        <hr>
+
+                    </a>
+                    <a href="/">
+                        <li>Página Inicial</li>
+                    </a>
+                    <a href="/mapView">
+                        <li>Mapa de Ecopontos</li>
+                    </a>
+                    <a href="/addEcopoint">
+                        <li v-if="this.store.getUserLogged()">Adicionar Ecoponto</li>
+                    </a>
+                    <a href="/perfil">
+                        <li v-if="this.store.getUserLogged()">Perfil</li>
+                    </a>
+                    <a href="/desafios">
+                        <li v-if="this.store.getUserLogged()">Desafios</li>
+                    </a>
+                    <a href="/ranking">
+                        <li v-if="this.store.getUserLogged()">Ranking</li>
+                    </a>
+                    <hr>
+                    <br>
+                    <a href="/login">
+                        <li v-if="!this.store.getUserLogged()">Iniciar Sessão</li>
+                    </a>
+                    <a href="/register">
+                        <li v-if="!this.store.getUserLogged()">Registar</li>
+                    </a>
+                    <a href="/login" @click="this.store.logout()">
+                        <li v-if="this.store.getUserLogged()">Logout</li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
 
     </div>
 </template>
 
 <script>
 import { userStore } from '../stores/user';
-    export default {
-        name: 'RankingView',
-        data() {
-            return {
-                store: userStore(),
-                //usersS: [],
-                fields: [
-                    { key: 'index', label: 'Classificacão' },
-                    { key: 'username', label: 'Nome de Utilizador' },
-                    { key: 'pontos', label: 'Pontos' },
+export default {
+    name: 'RankingView',
+    data() {
+        return {
+            store: userStore(),
+            //usersS: [],
+            fields: [
+                { key: 'index', label: 'Classificacão' },
+                { key: 'username', label: 'Nome de Utilizador' },
+                { key: 'pontos', label: 'Pontos' },
 
-                ],
-            }
+            ],
+        }
+    },
+
+    created() {
+        const allUsers = this.store.users.filter(user => user.tipo == 'userNormal')
+        this.store.orderUsers(allUsers)
+        console.log(this.store.orderUsers(allUsers));
+
+        let position = allUsers.findIndex(user => user.username == this.store.getUserLogged().username)
+        console.log(position);
+        position += 1
+
+        const top10 = allUsers.length > 10 ? allUsers.slice(0, 10) : allUsers
+        this.store.users = top10
+    },
+
+    /* mounted () {
+        
+    }, */
+
+    /* methods: {
+        sortedTableByPoints() {
+            this.store.users.sort((a, b) => {
+                return b.pontos - a.pontos;
+            });
         },
 
-        created() {
-            const allUsers = this.store.users.filter(user => user.tipo == 'userNormal')
-            this.store.orderUsers(allUsers)
-            console.log(this.store.orderUsers(allUsers));
-
-            let position = allUsers.findIndex(user => user.username == this.store.getUserLogged().username)
-            console.log(position);
-            position += 1
-
-            const top10 = allUsers.length > 10 ? allUsers.slice(0, 10) : allUsers
-            this.store.users = top10
+        // se o utizador for de type admin não aparece na tabela
+        filterAdmin() {
+            this.usersS = this.store.users.filter(user => user.tipo !== 'admin');
         },
 
-        /* mounted () {
-            
-        }, */
-
-        /* methods: {
-            sortedTableByPoints() {
-                this.store.users.sort((a, b) => {
-                    return b.pontos - a.pontos;
-                });
-            },
-
-            // se o utizador for de type admin não aparece na tabela
-            filterAdmin() {
-                this.usersS = this.store.users.filter(user => user.tipo !== 'admin');
-            },
-
-            // só incluir na tabela os 10 primeiros users com mais pontos
-            filterTop10() {
-                this.usersS = this.store.users.slice(0, 10);
-            },
-        }, */
+        // só incluir na tabela os 10 primeiros users com mais pontos
+        filterTop10() {
+            this.usersS = this.store.users.slice(0, 10);
+        },
+    }, */
 
 
-    }
+}
 </script>
 
 <style lang="scss" scoped>
-
 .edit-profile {
     background-image: url('../assets/imgs/mainbg.svg');
     background-size: 1920px 1080px;
@@ -151,6 +150,7 @@ import { userStore } from '../stores/user';
         background-size: 3000px 2000px;
     }
 }
+
 #title {
     font-family: 'Saira Condensed';
     font-style: normal;
@@ -182,8 +182,8 @@ import { userStore } from '../stores/user';
     font-size: 20px;
     line-height: 31px;
     color: #fff
-    
 }
+
 .col-12 {
     margin: 0 auto;
     max-width: 80%;

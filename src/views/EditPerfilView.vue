@@ -63,8 +63,8 @@
                                     </div>
                                 </b-col>
                                 <b-col>
-                                    <b-form-file placeholder="Escolha uma foto"
-                                        drop-placeholder="Escolher ficheiro" @change="uploadImage"></b-form-file>
+                                    <b-form-file placeholder="Escolha uma foto" drop-placeholder="Escolher ficheiro"
+                                        @change="uploadImage"></b-form-file>
                                 </b-col>
                             </b-row>
                         </div>
@@ -102,7 +102,7 @@ export default {
                 confirmPasswordChange: '',
                 imageUrl: null,
             },
-            
+
         }
     },
 
@@ -200,36 +200,35 @@ export default {
             };
             reader.readAsDataURL(file);
 
-            if(this.store.getUserLogged()){
+            if (this.store.getUserLogged()) {
                 this.store.getUserLogged().photo = this.imageUrl;
             }
         },
 
-        
+
     },
 
 }
 </script>
 
 <style lang="scss" scoped>
-
 .backgroundFundo {
-  background-image: url("../assets/imgs/mainbg.svg");
-  background-size: 1500px 2500px;
-  height: auto;
-  animation: gradient 30s infinite alternate linear;
+    background-image: url("../assets/imgs/mainbg.svg");
+    background-size: 1500px 2500px;
+    height: auto;
+    animation: gradient 30s infinite alternate linear;
 }
 
 @keyframes gradient {
-  100% {
-    background-size: 2000px 3000px;
-  }
+    100% {
+        background-size: 2000px 3000px;
+    }
 }
 
 .mt-5 {
-  margin-top: 0rem !important;
+    margin-top: 0rem !important;
 
-  line-height: 118px;
+    line-height: 118px;
 }
 
 #forms {

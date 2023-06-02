@@ -87,21 +87,21 @@ export default {
         }).then(() => {
           // verificar se o utilizador é admin ou não
           if (user.tipo === 'admin') {
-            
+
             this.$router.push('/admin')
           } else {
             this.$router.push('/LandingPage')
           }
-          
+
         });
-        
+
 
         // guardar o utilizador na session storage para poder ser usado em outras páginas
         localStorage.setItem('user', JSON.stringify(user));
 
-        
+
       } else {
-        
+
         this.$swal({
           title: 'Email ou password incorretos!',
           icon: 'error',

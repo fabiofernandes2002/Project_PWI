@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
 
 export const medalsStore = defineStore('medals', {
    state: () => ({
@@ -18,16 +18,15 @@ export const medalsStore = defineStore('medals', {
          ],
     }),
 
-    getters: {
-        getMedals: (state) => {
-            return state.medals
-        },
+  getters: {
+    getMedals: (state) => {
+      return state.medals;
     },
+  },
 
-    actions: {
-        setMedals(medals) {
-            this.medals = medals;
-        }
-
-    }
-})
+  actions: {
+    setMedals(medals) {
+      this.medals = medals;
+    },
+  },
+});
