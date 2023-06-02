@@ -91,21 +91,8 @@ export const ecopointStore = defineStore('ecopoint', {
       this.ecopoints = ecopoints;
     },
 
-<<<<<<< HEAD
     async addEcopoint(foto, nome, criador, localizacao, morada, codigoPostal, tipo) {
       const { latitude, longitude } = await this.getLatitudeLongitude(morada, codigoPostal);
-=======
-    addEcopoint(
-      ecopointName,
-      ecopointLocation,
-      ecopointAddress,
-      latitude,
-      longitude,
-      ecopointType,
-      userCreate,
-      ecopointCreationDate
-    ) {
->>>>>>> fc14c4aa6d550d5889f6c9b5d7d907bf23131775
       const ecopoint = {
         id: this.ecopoints.length + 1,
         foto: foto,
@@ -118,16 +105,10 @@ export const ecopointStore = defineStore('ecopoint', {
         tipo: tipo,
         latitude: latitude,
         longitude: longitude,
-<<<<<<< HEAD
         validacao: false
       }
       this.ecopoints.push(ecopoint)
       localStorage.setItem('ecopoints', JSON.stringify(this.ecopoints))
-=======
-      };
-      this.ecopoints.push(ecopoint);
-      localStorage.setItem('ecopoints', JSON.stringify(this.ecopoints));
->>>>>>> fc14c4aa6d550d5889f6c9b5d7d907bf23131775
     },
 
     // funcao que a partir da localizacao e codigo postal, retorna a latitude e longitude
@@ -155,11 +136,6 @@ export const ecopointStore = defineStore('ecopoint', {
       this.ecopoints.splice(index, 1);
       localStorage.setItem('ecopoints', JSON.stringify(this.ecopoints));
     },
-<<<<<<< HEAD
 
   }
 })
-=======
-  },
-});
->>>>>>> fc14c4aa6d550d5889f6c9b5d7d907bf23131775

@@ -21,14 +21,6 @@ export const userStore = defineStore('user', {
         
     }),
 
-    getters: {
-        
-        getUsers:(state) => {
-            return state.users
-        },
-
-        getUserById: (state) => (id) => state.users.find(user => user.id == id),
-
   getters: {
     getUsers: (state) => {
       return state.users;
@@ -48,7 +40,6 @@ export const userStore = defineStore('user', {
       localStorage.setItem('users', JSON.stringify(this.users));
     },
 
-<<<<<<< HEAD
         addPointsForAddEcopoints(id){
             console.log(id);
             let user = this.users.find(user => user.id == id);
@@ -82,21 +73,8 @@ export const userStore = defineStore('user', {
 
         setUsers(users) {
             this.users = users;
-=======
-    setUsers(users) {
-      this.users = users;
-    },
->>>>>>> fc14c4aa6d550d5889f6c9b5d7d907bf23131775
+        },
 
-    // updateUser data ao editar perfil
-    updateUser(data) {
-      let user = this.users.find((user) => user.id == data.id);
-      user.username = data.username;
-      user.email = data.email;
-      user.password = data.password;
-      user.photo = data.photo;
-
-<<<<<<< HEAD
         // updateUser data ao editar perfil
         updateUser(data){
         
@@ -105,10 +83,6 @@ export const userStore = defineStore('user', {
             user.email = data.email;
             user.password = data.password;
             user.foto = data.foto;
-=======
-      // substituir o user antigo pelo novo
-      this.users.splice(this.users.indexOf(user), 1, user);
->>>>>>> fc14c4aa6d550d5889f6c9b5d7d907bf23131775
 
       localStorage.setItem('users', JSON.stringify(this.users));
       localStorage.setItem('user', JSON.stringify(user));
