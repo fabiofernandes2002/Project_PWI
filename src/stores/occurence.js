@@ -3,11 +3,11 @@ import { defineStore } from 'pinia'
 export const occurenceStore = defineStore('occurence', {
     state: () => ({
         occurences: [
-            { id:1, userId: 1, idEcopoint: '2', useData: '25-01-2023', photo: 'https://picsum.photos/200/300', creationDate: '25-01-2023' , isValidated: false},
-            { id:2, userId: 2, idEcopoint: '3', useData: '25-01-2023', photo: 'https://picsum.photos/200/300', creationDate: '25-01-2023' , isValidated: false},
-            { id:3, userId: 3, idEcopoint: '4', useData: '25-01-2023', photo: 'https://picsum.photos/200/300', creationDate: '25-01-2023' , isValidated: false},
-            { id:4, userId: 4, idEcopoint: '5', useData: '25-01-2023', photo: 'https://picsum.photos/200/300', creationDate: '25-01-2023', isValidated: false },
-            { id:5, userId: 5, idEcopoint: '6', useData: '25-01-2023', photo: 'https://picsum.photos/200/300', creationDate: '25-01-2023', isValidated: true },
+            { id:1, idUtilizador: 1, idEcoponto: '2', foto: 'https://picsum.photos/200/300', dataUtilizacao: '25-01-2023' , validacao: false},
+            { id:2, idUtilizador: 2, idEcoponto: '3', foto: 'https://picsum.photos/200/300', dataUtilizacao: '25-01-2023' , validacao: false},
+            { id:3, idUtilizador: 3, idEcoponto: '4', foto: 'https://picsum.photos/200/300', dataUtilizacao: '25-01-2023' , validacao: false},
+            { id:4, idUtilizador: 4, idEcoponto: '5', foto: 'https://picsum.photos/200/300', dataUtilizacao: '25-01-2023', validacao: false },
+            { id:5, idUtilizador: 5, idEcoponto: '6', foto: 'https://picsum.photos/200/300', dataUtilizacao: '25-01-2023', validacao: true },
             
         ]
     }),
@@ -26,19 +26,18 @@ export const occurenceStore = defineStore('occurence', {
         //função que altera, na localstoraga, a propriedade isValidate para true
         validateOccurrence(id){
             const index = this.occurences.findIndex((occurence) => occurence.id === id);
-            this.occurences[index].isValidated = true;
+            this.occurences[index].validacao = true;
             localStorage.setItem('occurences', JSON.stringify(this.occurences));
         },
 
-        addOccurrence(idEcopoint, idUser, imageUrl) {
+        addOccurrence(idEcoponto, idUtilizador, foto) {
             const occurrence = {
                 id: this.occurences.length + 1,
-                creationDate: new Date().toLocaleDateString('pt-PT'),
-                idEcopoint: idEcopoint,
-                photo: imageUrl,
-                useData: new Date().toLocaleDateString('pt-PT'),
-                userId: idUser,
-                isValidated: false
+                idEcoponto: idEcoponto,
+                foto: foto,
+                dataUtilizacao: new Date().toLocaleDateString('pt-PT'),
+                idUtilizador: idUtilizador,
+                validacao: false
             }
             this.occurences.push(occurrence)
             localStorage.setItem('occurences', JSON.stringify(this.occurences))

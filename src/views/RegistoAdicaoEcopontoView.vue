@@ -4,29 +4,31 @@
         <b-container>
             <b-row>
                 <b-col cols="12" class="text-center">
-                    <h1 class="mt-5 mb-5" id="title">Registo de Utilizações</h1>
+                    <h1 class="mt-5 mb-5" id="title">Registo de Adição de Ecopontos</h1>
                 </b-col>
             </b-row>
 
             <b-row>
                 <!-- Apresentar cards com imagem do utilização, nome de utilizador que submeteu para cada utilização do ecopontos -->
-                <b-col cols="6" md="4" v-for="(utilizacao, index) in utilizacoes" :key="utilizacao.id">
+                <b-col cols="6" md="4" v-for="(adicao, index) in adicoes" :key="adicao.id">
                     <b-card-group>
                         <b-card class="mb-4">
-                            <b-card-img :src="utilizacao.foto" alt="Image"></b-card-img>
+                            <b-card-img :src="adicao.foto" alt="Image"></b-card-img>
                             <b-card-body>
-                                <b-card-text>Id do Utilizador: {{ utilizacao.idUtilizador }}</b-card-text>
-                                <b-card-text>Id do Ecoponto: {{ utilizacao.idEcoponto }}</b-card-text>
-                                <b-card-text>Data de Utilização: {{ utilizacao.dataUtilizacao }}</b-card-text>
+                                <b-card-text>Id do Utilizador: {{ adicao.criador }}</b-card-text>
+                                <b-card-text>Nome do Ecoponto: {{ adicao.nome}}</b-card-text>
+                                <b-card-text>Tipo de Ecoponto: {{ adicao.tipo }}</b-card-text>
+                                <b-card-text>Localização: {{ adicao.localizacao }}</b-card-text>
+                                <b-card-text>Data de Criação: {{ adicao.dataCriacao }}</b-card-text>
                             </b-card-body>
                             <!-- buuton para validar a utilização e apagar um fica a esquerda e outro a direita -->
                             <b-card-footer>
                                 <b-row>
                                     <b-col cols="6" class="text-left">
-                                        <b-button pill class="bntApagar" @click="removeRegister(index)">Apagar</b-button>
+                                        <b-button pill class="bntApagar" @click="removeAdicaoEcoponto(index)">Apagar</b-button>
                                     </b-col>
                                     <b-col cols="6" class="text-right">
-                                        <b-button pill class="bntValidar" @click="validateRegister(index)" :disabled="areButtonsDisabled[index]">{{txtBtns[index]}}</b-button>
+                                        <b-button pill class="bntValidar" @click="validateAdicaoEcoponto(index)" :disabled="areButtonsDisabled[index]">{{txtBtns[index]}}</b-button>
                                     </b-col>
                                 </b-row>
                             </b-card-footer>
@@ -87,37 +89,35 @@
 <script>
 import { ecopointStore } from '../stores/ecopoint'
 import { userStore } from '../stores/user'
-import { occurenceStore } from '../stores/occurence'
 export default {
     data() {
         return {
             store: ecopointStore(),
             storeUser: userStore(),
-            storeOccurence: occurenceStore(),
-            utilizacoes: [],
+            adicoes: [],
             areButtonsDisabled: [],
-            txtBtns: []
+            txtBtns: [],
         }
     },
 
     created() {
-        this.storeOccurence.getOccurences;
-        this.utilizacoes = this.storeOccurence.occurences;
+        this.store.getEcopoints;
+        this.adicoes = this.store.ecopoints;
         
         //lista, cujos elementos terão string "Validar" se o elemento da lista utilizacoes tiver o campo isValidated a false
         //ou "Validado" se o elemento da lista utilizacoes tiver o campo isValidated a true
-        this.txtBtns = this.utilizacoes.map(utilizacao => utilizacao.validacao ? "Validado" : "Validar");
+        this.txtBtns = this.adicoes.map(adicao => adicao.validacao ? "Validado" : "Validar");
 
-        this.areButtonsDisabled = this.utilizacoes.map(utilizacao => utilizacao.validacao);
+        this.areButtonsDisabled = this.adicoes.map(adicao => adicao.validacao);
         
 
 
     },
     methods: {
-        removeRegister(id) {
+        removeAdicaoEcoponto(id) {
             //swal message a perguntar se quer mesmo eliminar o registo
             this.$swal({
-                title: 'Tens a certeza que queres eliminar este registo?',
+                title: 'Tens a certeza que queres eliminar este ecoponto?',
                 text: 'Não poderás reverter esta ação!',
                 icon: 'warning',
                 buttons: {
@@ -139,7 +139,7 @@ export default {
             }).then((result) => {
                 if (result) {
                     // se clicar em yes, remove o registo
-                    this.storeOccurence.removeOccurrence(id+1);
+                    this.store.deleteEcopoint(id+1);
                     
                     this.$router.go();
                 }
@@ -149,10 +149,10 @@ export default {
 
         },
 
-        validateRegister(indexBtn) {
+        validateAdicaoEcoponto(indexBtn) {
             //swal message a perguntar se quer mesmo validar o registo
             this.$swal({
-                title: 'Tens a certeza que queres validar este registo?',
+                title: 'Tens a certeza que queres validar este ecoponto?',
                 text: 'Não poderás reverter esta ação!',
                 icon: 'warning',
                 buttons: {
@@ -176,8 +176,8 @@ export default {
 
                     this.txtBtns[indexBtn] = 'Validado';
                     
-                    this.utilizacoes.forEach((utilizacao, index) => {
-                        if (utilizacao.validacao) {
+                    this.adicoes.forEach((adicao, index) => {
+                        if (adicao.validacao) {
                             this.txtBtns[index] = 'Validado';
                         }
                     });
@@ -185,13 +185,12 @@ export default {
                     //deixar o botão disabled se o registo ja tiver sido validado
                     this.areButtonsDisabled[indexBtn] = true;
                     
-                    this.storeOccurence.validateOccurrence(indexBtn+1);
+                    this.store.validarEcoponto(indexBtn+1);
 
                     //chamar a função addPoints do userStore
-                    this.storeUser.addPoints(this.utilizacoes[indexBtn].idUtilizador);
-
-                    // contar o numero de ecopontos que o utilizador usou
-                    this.storeUser.countEcopontosUtilizados(this.utilizacoes[indexBtn].idUtilizador);
+                    this.storeUser.addPointsForAddEcopoints(this.adicoes[indexBtn].criador); 
+                    // contar o numero de ecopontos adicionados pelo utilizador
+                    this.storeUser.countEcopontosRegistados(this.adicoes[indexBtn].criador);
 
                 }
             });

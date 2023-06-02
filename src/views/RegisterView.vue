@@ -23,7 +23,7 @@
                 </b-form-group>
                 <!-- Data de Nascimento -->
                 <b-form-group label-for="datanascimento-input">
-                  <b-form-input type="date" id="datanascimento-input" v-model="form.datanascimento"
+                  <b-form-input type="date" id="datanascimento-input" v-model="form.dataNascimento"
                     placeholder="Data de Nascimento" required></b-form-input>
                 </b-form-group>
                 <!-- input morada -->
@@ -38,7 +38,7 @@
                 </b-form-group>
                 <!-- input codigo postal number type -->
                 <b-form-group label-for="codigopostal-input">
-                  <b-form-input type="text" id="codigopostal-input" v-model="form.codigopostal"
+                  <b-form-input type="text" id="codigopostal-input" v-model="form.codigoPostal"
                     placeholder="Codigo Postal" required></b-form-input>
                 </b-form-group>
 
@@ -86,13 +86,12 @@ export default {
       form: {
         username: "",
         email: "",
-        datanascimento: "",
+        dataNascimento: "",
         morada: "",
         localidade: "",
-        codigopostal: "",
+        codigoPostal: "",
         password: "",
-        confirmarpassword: "",
-        ecopontosRegistados: 0,
+        confirmarpassword: ""
       },
     };
 
@@ -131,20 +130,20 @@ export default {
         id: this.store.users.length + 1,
         username: this.form.username,
         email: this.form.email,
-        datanascimento: this.form.datanascimento,
+        dataNascimento: this.form.datanascimento,
         morada: this.form.morada,
         localidade: this.form.localidade,
-        codigopostal: this.form.codigopostal,
+        codigoPostal: this.form.codigopostal,
         password: this.form.password,
         confirmarpassword: this.form.confirmarpassword,
         photo: '',
         tipo: 'userNormal',
         pontos: 0,
-        medals: [],
-        nºUtilizaçao: 0,
+        medalhas: [],
+        ecopontosUtilizados: 0,
         desafios: [],
         diaSemana: '',
-        ranking: 0,
+        classificacao: 0,
         ecopontosRegistados: 0,
       }
 

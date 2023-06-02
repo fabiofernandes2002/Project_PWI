@@ -19,7 +19,7 @@
                             </template>
                             <template #cell(username)="row" class="align-middle">
                                 <!-- Por avatar e username do user ao lado -->
-                                <b-avatar :src="row.item.photo" size="2rem" class="mr-2"></b-avatar> {{ row.item.username }}
+                                <b-avatar :src="row.item.foto" size="2rem" class="mr-2"></b-avatar> {{ row.item.username }}
                             </template>
                             
                         </b-table>

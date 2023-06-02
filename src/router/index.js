@@ -14,6 +14,7 @@ import userView from '../views/userView.vue'
 import GerirEcopontosView from '../views/GerirEcopontosView.vue'
 import RegistoUtilizacaoView from '../views/RegistoUtilizacaoView.vue'
 import DesafiosView from '../views/DesafiosView.vue'
+import RegistoAdicaoEcopontoView from '../views/RegistoAdicaoEcopontoView.vue'
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -103,6 +104,11 @@ export const router = createRouter({
       path: '/Desafios',
       name: 'Desafios',
       component: DesafiosView
+    },
+    {
+      path: '/registoAdicaoEcoponto',
+      name: 'RegistoAdicaoEcoponto',
+      component: RegistoAdicaoEcopontoView
     }
 
   ]

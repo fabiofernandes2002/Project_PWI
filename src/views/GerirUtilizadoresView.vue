@@ -9,7 +9,7 @@
 
                             <b-table striped hover :items="this.allUsers" :fields="fields" @row-clicked="selectUser">
                                 <template #cell(username)="row">
-                                    <b-avatar :src="row.item.photo" size="2rem" class="mr-2"></b-avatar>
+                                    <b-avatar :src="row.item.foto" size="2rem" class="mr-2"></b-avatar>
                                     <!-- routerview que ao carregar em cima do username aparece os seus dados mais abaixo na pagina -->
                                     <router-link :to="{ name: 'User', params: { id: row.item.id } }">
                                         {{ row.item.username }}

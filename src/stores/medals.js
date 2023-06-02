@@ -4,15 +4,15 @@ export const medalsStore = defineStore('medals', {
    state: () => ({
          medals: [
             {
-                idMedal: 1,
-                medalName: 'Medalha de Ouro',
-                urlMedal: '../src/assets/imgs/medal_1.png',
+                id: 1,
+                nomeMedalha: 'Medalha de Ouro',
+                urlMedalha: '../src/assets/imgs/medal_1.png',
                 pontos: 100,
             },
             {
-                idMedal: 2,
-                medalName: 'Medalha de Prata',
-                urlMedal: '../src/assets/imgs/medal_2.png',
+                id: 2,
+                nomeMedalha: 'Medalha de Prata',
+                urlMedalha: '../src/assets/imgs/medal_2.png',
                 pontos: 50,
             },
          ],
