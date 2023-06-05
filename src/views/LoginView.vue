@@ -12,7 +12,7 @@
             <b-col cols="6" md="10" class="mt-3">
               <b-form @submit="onSubmit">
                 <b-form-group label-for="email-input">
-                  <b-form-input type="text" id="email-input" v-model="form.email" placeholder="Username ou email"
+                  <b-form-input type="text" id="email-input" v-model="form.email" placeholder="Email"
                     required></b-form-input>
                 </b-form-group>
                 <b-form-group label-for="password-input">
@@ -64,7 +64,20 @@ export default {
 
 
   methods: {
-    onSubmit(event) {
+    async login (event) {
+      try{
+        event.preventDefault();
+        await this.store.login({
+          email: this.form.email,
+          password: this.form.password
+        });
+        this.$router.push('/LandingPage');
+      } catch (err){
+        console.log(err);
+      }
+    },
+
+/*     onSubmit(event) {
 
       event.preventDefault();
       const data = {
@@ -112,7 +125,7 @@ export default {
 
     }
 
-  }
+ */  }
 }
 
 </script>

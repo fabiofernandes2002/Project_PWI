@@ -48,11 +48,11 @@
                 </b-form-group>
                 <!-- input confirmar password -->
                 <b-form-group label-for="confirmarpassword-input">
-                  <b-form-input type="password" id="confirmarpassword-input" v-model="form.confirmarpassword"
+                  <b-form-input type="password" id="confirmarpassword-input" v-model="form.confirmPassword"
                     placeholder="Confirmar Password" required></b-form-input>
                 </b-form-group>
                 <br>
-                <b-button block variant="primary" type="submit" id="bntLogin" @click="register">Registar</b-button>
+                <b-button block variant="primary" type="submit" id="bntLogin" @click="registo">Registar</b-button>
               </b-form>
             </b-col>
           </div>
@@ -91,7 +91,7 @@ export default {
         localidade: "",
         codigopostal: "",
         password: "",
-        confirmarpassword: "",
+        confirmPassword: "",
         ecopontosRegistados: 0,
       },
     };
@@ -123,7 +123,27 @@ export default {
 
 
   methods: {
-    onSubmit(event) {
+    async registo(event) {
+      try {
+        event.preventDefault();
+        await this.store.registo({
+          username: this.form.username,
+          password: this.form.password,
+          confirmPassword: this.form.confirmPassword,
+          email: this.form.email,
+          datanascimento: this.form.datanascimento,
+          morada: this.form.morada,
+          localidade: this.form.localidade,
+          codigopostal: this.form.codigopostal,
+          tipo: this.form.tipo,
+        });
+        console.log(this.form.password);
+        console.log(this.form.confirmPassword);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+/*     onSubmit(event) {
       event.preventDefault()
 
       const data = {
@@ -204,12 +224,7 @@ export default {
       } else {
         return true
       }
-    },
-
-
-
-
-
+    },*/
   },
 }
 

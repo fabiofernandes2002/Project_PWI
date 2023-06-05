@@ -225,7 +225,7 @@
           <a href="/register">
             <li v-if="!this.store.getUserLogged()">Registar</li>
           </a>
-          <a href="/login" @click="this.store.logout()">
+          <a href="/" @click="this.store.logout()">
             <li v-if="this.store.getUserLogged()">Logout</li>
           </a>
         </ul>
@@ -272,11 +272,12 @@ export default {
 
     // logout do utilizador e remover os dados da session storage
     logout() {
-      localStorage.removeItem('user');
-      this.$router.push('/landingPage');
-
+      try {
+        this.store.logout();
+      } catch (error) {
+        console.log(error);
+      }
     },
-
     // funçao que pega a localização do utilizador ao clicar no botão utilizar localização atual e mostra no input de pesquisa a localização do utilizador e depois ao pesuisar mostra os ecopontos mais proximos
     getCurrentLocation() {
       navigator.geolocation.getCurrentPosition(position => {
