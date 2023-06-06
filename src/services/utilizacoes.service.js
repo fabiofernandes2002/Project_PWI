@@ -3,7 +3,7 @@ import API_URL from "./config";
 export const UtilizacoesService = {
     async getAllUtilizacoes() {
         const user = JSON.parse(localStorage.getItem("user"));
-        const token = user.accessToken;
+        const token = user.token;
         const response = await fetch(`${API_URL}/registoUtilizacao`, {
             method: "GET",
             headers: {
@@ -23,7 +23,7 @@ export const UtilizacoesService = {
 
     async validateUtilizacoes(idRegistoUtilizacao) {
         const user = JSON.parse(localStorage.getItem("user"));
-        const token = user.accessToken;
+        const token = user.token;
         const response = await fetch(`${API_URL}/registoUtilizacao/validacao/${idRegistoUtilizacao}`, {
             method: "PATCH",
             headers: {

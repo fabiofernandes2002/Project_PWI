@@ -38,10 +38,10 @@ export const AuthService = {
                 password: user.password,
                 confirmPassword: user.confirmPassword,
                 email: user.email,
-                datanascimento: user.datanascimento,
+                dataNascimento: user.dataNascimento,
                 morada: user.morada,
                 localidade: user.localidade,
-                codigopostal: user.codigopostal,
+                codigoPostal: user.codigoPostal,
                 tipo: user.tipo,
             }),
         });
@@ -60,5 +60,10 @@ export const AuthService = {
 
     async logout() {
         localStorage.removeItem("user");
+    },
+
+    async getUserLogged() {
+        const user = JSON.parse(localStorage.getItem("user"));
+        return user;
     }
 };

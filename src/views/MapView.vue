@@ -226,6 +226,12 @@ export default {
 
 
     },
+
+    async mounted () {
+        await this.getAllEcopontos();
+        await this.storeUser.getAllUsers() == this.users;
+    },
+    
     methods: {
 
         logout() {
@@ -273,6 +279,15 @@ export default {
             }
             this.mostrarDivImagem = false;
         },
+
+        async getAllEcopontos(){
+            try {
+                await this.store.getEcopoints();
+                this.ecopoints = this.store.getAllEcopontos;
+            } catch (error) {
+                console.log(error);
+            }
+        }
     },
 
 }

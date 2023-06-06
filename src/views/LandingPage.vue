@@ -263,12 +263,13 @@ export default {
 
 
   methods: {
-    /* getUserLogged() {
-      const user = JSON.parse(sessionStorage.getItem('user'));
-      return user;
-
-
-    }, */
+    getUserLogged() {
+      try {
+        this.store.getUserLogged();
+      } catch (error) {
+        console.log(error);
+      }
+    },
 
     // logout do utilizador e remover os dados da session storage
     logout() {

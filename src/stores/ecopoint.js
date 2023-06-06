@@ -87,8 +87,63 @@ export const ecopointStore = defineStore('ecopoint', {
   },
 
   actions: {
+
+    async getAllEcopontos() {
+      try {
+        const response = await EcopontosService.getAllEcopontos();
+        this.setEcopoints(response);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     setEcopoints(ecopoints) {
       this.ecopoints = ecopoints;
+    },
+
+    async getEcopontoById(id) {
+      try {
+        const response = await EcopontosService.getEcopontoById(id);
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async createEcoponto(ecoponto) {
+      try {
+        const response = await EcopontosService.createEcoponto(ecoponto);
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async useEcoponto(id) {
+      try {
+        const response = await EcopontosService.useEcoponto(id);
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async validateEcoponto(id) {
+      try {
+        const response = await EcopontosService.validateEcoponto(id);
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async deleteEcopontoById(id) {
+      try {
+        const response = await EcopontosService.deleteEcopontoById(id);
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
     },
 
     async addEcopoint(foto, nome, criador, localizacao, morada, codigoPostal, tipo) {

@@ -3,7 +3,7 @@ import API_URL from './config.js';
 export const EcopontosService = {
     async getAllEcopontos() {
         const user = JSON.parse(localStorage.getItem('user'));
-        const token = user.accessToken;
+        const token = user.token;
         const response = await fetch(`${API_URL}/ecopontos`, {
             method: 'GET',
             headers: {
@@ -49,7 +49,8 @@ export const EcopontosService = {
 
     async createEcoponto(ecoponto) {
         const user = JSON.parse(localStorage.getItem('user'));
-        const token = user.accessToken;
+        const { latitude, longitude } = await this.getLatitudeLongitude(morada, codigoPostal);
+        const token = user.token;
         const response = await fetch(`${API_URL}/ecopontos/adicaoEcoponto`, {
             method: 'POST',
             headers: {
@@ -64,7 +65,11 @@ export const EcopontosService = {
                 morada: ecoponto.morada,
                 localizacao: ecoponto.localizacao,
                 codigoPostal: ecoponto.codigoPostal,
+                dataCriacao: new Date(),
                 tipo: ecoponto.tipo,
+                latitude: latitude,
+                longitude: longitude,
+                validacao: false,
             }),
         });
         if (response.ok) {
@@ -82,7 +87,7 @@ export const EcopontosService = {
 
     async useEcoponto(id) {
         const user = JSON.parse(localStorage.getItem('user'));
-        const token = user.accessToken;
+        const token = user.token;
         const response = await fetch(`${API_URL}/ecopontos/${id}/use`, {
             method: 'POST',
             headers: {
@@ -110,7 +115,7 @@ export const EcopontosService = {
     // validaar o ecoponto (admin) passando o parametro de validação a true
     async validateEcoponto(id) {
         const user = JSON.parse(localStorage.getItem('users'));
-        const token = user.accessToken;
+        const token = user.token;
         const response = await fetch(`${API_URL}/ecopontos/validacao/${id}`, {
             method: 'PATCH',
             headers: {
@@ -133,7 +138,7 @@ export const EcopontosService = {
 
     async deleteEcopontoById(id) {
         const user = JSON.parse(localStorage.getItem('users'));
-        const token = user.accessToken;
+        const token = user.token;
         const response = await fetch(`${API_URL}/ecopontos/${id}`, {
             method: 'DELETE',
             headers: {
@@ -152,5 +157,17 @@ export const EcopontosService = {
             const data = await response.json();
             throw Error(data.message);
         }
-    }
+    },
+
+    async getLatitudeLongitude(morada, codigoPostal) {
+        const url = `https://nominatim.openstreetmap.org/search?street=${morada}&postalcode=${codigoPostal}&format=json&limit=1`;
+        const response = await fetch(url);
+        const data = await response.json();
+        this.latitude = data[0].lat;
+        this.longitude = data[0].lon;
+        return {
+          latitude: this.latitude,
+          longitude: this.longitude
+        };
+    },
 };

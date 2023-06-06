@@ -2,8 +2,8 @@ import API_URL from './config.js';
 
 export const UsersService = {
   async getAllUsers() {
-    const user = JSON.parse(localStorage.getItem('users'));
-    const token = user.accessToken;
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.token;
     const response = await fetch(`${API_URL}/users`, {
       method: 'GET',
       headers: {
@@ -20,8 +20,8 @@ export const UsersService = {
   },
 
   async deleteUser(id) {
-    const user = JSON.parse(localStorage.getItem('users'));
-    const token = user.accessToken;
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.token;
     const response = await fetch(`${API_URL}/users/${id}`, {
       method: 'DELETE',
       headers: {
@@ -38,7 +38,7 @@ export const UsersService = {
   },
 
   async updateUser(data, id) {
-    const user = JSON.parse(localStorage.getItem('users'));
+    const user = JSON.parse(localStorage.getItem('user'));
     const token = user.accessToken;
     const response = await fetch(`${API_URL}/users/${id}`, {
       method: 'PATCH',
@@ -50,6 +50,7 @@ export const UsersService = {
         username: data.username,
         email: data.email,
         password: data.password,
+        confirmPassword: data.confirmPassword,
       }),
     });
     if (response.ok) {
@@ -61,7 +62,7 @@ export const UsersService = {
   },
 
   async getUserById(id) {
-    const user = JSON.parse(localStorage.getItem('users'));
+    const user = JSON.parse(localStorage.getItem('user'));
     const token = user.accessToken;
     const response = await fetch(`${API_URL}/users/${id}`, {
       method: 'GET',
@@ -79,7 +80,7 @@ export const UsersService = {
   },
 
   async getTop10Users() {
-    const user = JSON.parse(localStorage.getItem('users'));
+    const user = JSON.parse(localStorage.getItem('user'));
     const token = user.accessToken;
     const response = await fetch(`${API_URL}/users/top10`, {
       method: 'GET',

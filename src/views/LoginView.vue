@@ -56,10 +56,10 @@ export default {
     }
   },
 
-  created() {
+  /* created() {
     this.usersS = this.store.users;
 
-  },
+  }, */
 
 
 
@@ -71,7 +71,27 @@ export default {
           email: this.form.email,
           password: this.form.password
         });
-        this.$router.push('/LandingPage');
+
+        this.$swal({
+          title: 'Login efetuado com sucesso!',
+          icon: 'success',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#F39C12',
+          onClose: false,
+        }).then(() => {
+          //
+          // verificar se o utilizador é admin ou não
+          /* if (user.tipo === 'admin') {
+            this.$router.push('/admin');
+          } else if (user.tipo === 'userNormal') {
+            this.$router.push('/LandingPage');
+          } else {
+            // Tratar o caso em que o tipo de usuário não é reconhecido
+            console.log('Tipo de usuário desconhecido:', user.tipo);
+          } */
+          this.$router.push('/LandingPage');
+
+        });
       } catch (err){
         console.log(err);
       }

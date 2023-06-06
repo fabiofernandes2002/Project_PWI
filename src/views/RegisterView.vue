@@ -10,7 +10,7 @@
           <div class="formulario mx-auto " id="forms" style="border-color: red;">
 
             <b-col cols="6" md="10" class="mt-3">
-              <b-form @submit="onSubmit">
+              <b-form @submit="registo">
                 <!-- input username -->
                 <b-form-group label-for="username-input">
                   <b-form-input type="text" id="username-input" class="user" v-model="form.username"
@@ -134,11 +134,19 @@ export default {
           dataNascimento: this.form.dataNascimento,
           morada: this.form.morada,
           localidade: this.form.localidade,
-          codigoPostal: this.form.codigoPostal,
-          tipo: this.form.tipo,
+          codigoPostal: this.form.codigoPostal
         });
-        console.log(this.form.password);
-        console.log(this.form.confirmPassword);
+
+        const username = this.form.username;
+        this.$swal({
+          title: `Utilizador ${username} registado com sucesso!`,
+          icon: 'success',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#F39C12',
+          onClose: false,
+        }).then(() => {
+          this.$router.push('/login');
+        });
       } catch (err) {
         console.log(err);
       }
