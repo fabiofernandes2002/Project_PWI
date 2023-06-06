@@ -131,10 +131,10 @@ export default {
           password: this.form.password,
           confirmPassword: this.form.confirmPassword,
           email: this.form.email,
-          datanascimento: this.form.datanascimento,
+          dataNascimento: this.form.dataNascimento,
           morada: this.form.morada,
           localidade: this.form.localidade,
-          codigopostal: this.form.codigopostal,
+          codigoPostal: this.form.codigoPostal,
           tipo: this.form.tipo,
         });
         console.log(this.form.password);
