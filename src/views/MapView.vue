@@ -101,9 +101,9 @@ export default {
         }
     },
 
-    mounted() {
+    async mounted() {
 
-
+        await this.getAllEcopontos()
 
         let map = new google.maps.Map(document.getElementById("map"), {
             zoom: 18,
@@ -220,17 +220,15 @@ export default {
 
     },
 
-    created() {
+    /* created() {
         this.ecopoints = this.store.getEcopoints;
         this.users = this.storeUser.getUsers;
+    }, */
 
-
-    },
-
-    async mounted () {
-        await this.getAllEcopontos();
-        await this.storeUser.getAllUsers() == this.users;
-    },
+    /* async created() {
+        await this.getAllEcopontos()
+        //await this.getAllUsers()
+    }, */
     
     methods: {
 
@@ -257,7 +255,7 @@ export default {
             // verificar se imageUrl não é null
 
             if (this.imageUrl != null) {
-                console.log(this.idSelectedEcopoint, this.storeUser.getUserLogged().id);
+                //console.log(this.idSelectedEcopoint, this.storeUser.getUserLogged().id);
                 this.storeOccurence.addOccurrence(this.idSelectedEcopoint, this.storeUser.getUserLogged().id, this.imageUrl);
 
                 // sweet alert para mostrar que a imagem foi submetida com sucesso
@@ -282,12 +280,22 @@ export default {
 
         async getAllEcopontos(){
             try {
-                await this.store.getEcopoints();
-                this.ecopoints = this.store.getAllEcopontos;
+                const ecopoints = await this.store.getAllEcopontos();
+                this.ecopoints = ecopoints;
+                console.log(this.ecopoints);
             } catch (error) {
                 console.log(error);
             }
-        }
+        },
+
+        /* async getAllUsers(){
+            try {
+                await this.storeUser.getAllUsers();
+                this.users = this.storeUser.getUsers;
+            } catch (error) {
+                console.log(error);
+            }
+        }, */
     },
 
 }

@@ -1,97 +1,27 @@
 // import { ref, computed } from 'vue'
 import {defineStore} from 'pinia'
+import {EcopontosService} from '../services/ecopontos.service'
+import { get } from "mongoose";
 
 export const ecopointStore = defineStore('ecopoint', {
   state: () => ({
 
-    ecopoints: [{
-        id: 1,
-        foto: 'https://picsum.photos/200/300',
-        criador: '1',
-        nome: 'Ecoponto Azul',
-        localizacao: 'Vila Nova de Gaia',
-        morada: 'Avenida da Republica',
-        codigoPostal: '4400-182',
-        dataCriacao: '2021-01-01',
-        tipo: 'Papel',
-        latitude: 41.133333,
-        longitude: -8.616667,
-        validacao: true
-      },
-      {
-        id: 2,
-        foto: 'https://picsum.photos/200/300',
-        criador: '1',
-        nome: 'Ecoponto Verde',
-        localizacao: 'Vila Nova de Gaia',
-        morada: 'Avenida da Republica',
-        codigoPostal: '4400-182',
-        dataCriacao: '2021-01-01',
-        tipo: 'Vidro',
-        latitude: 41.362774699560454,
-        longitude: -8.740214109420776,
-        validacao: true
-      },
-      {
-        id: 3,
-        foto: 'https://picsum.photos/200/300',
-        criador: '1',
-        nome: 'Ecoponto Amarelo',
-        localizacao: 'Vila Nova de Gaia',
-        morada: 'Avenida da Republica',
-        codigoPostal: '4400-182',
-        dataCriacao: '2021-01-01',
-        tipo: 'Plastico',
-        latitude: 41.31776,
-        longitude: -8.67931,
-        validacao: true
-      },
-      {
-        id: 4,
-        foto: 'https://picsum.photos/200/300',
-        criador: '1',
-        nome: 'Ecoponto Castanho',
-        localizacao: 'Vila Nova de Gaia',
-        morada: 'Avenida da Republica',
-        codigoPostal: '4400-182',
-        dataCriacao: '2021-01-01',
-        tipo: 'Organico',
-        latitude: 41.36581039362086,
-        longitude: -8.74010682106018,
-        validacao: true
-      },
-      {
-        id: 5,
-        foto: 'https://picsum.photos/200/300',
-        criador: '1',
-        nome: 'Ecoponto Vermelho',
-        localizacao: 'Vila Nova de Gaia',
-        morada: 'Avenida da Republica',
-        codigoPostal: '4400-182',
-        dataCriacao: '2021-01-01',
-        tipo: 'Pilhas',
-        latitude: 41.351730,
-        longitude: -8.747862,
-        validacao: true
-      }
-    ]
+    ecopoints: []
 
   }),
 
   getters: {
-    getEcopoints: (state) => {
-      return state.ecopoints;
-    },
+    getEcopoints: (state) => state.ecopoints,
 
     getEcopointById: (state) => (id) => state.ecopoints.find((ecopoint) => ecopoint.id === id),
   },
 
   actions: {
-
+    
     async getAllEcopontos() {
       try {
         const response = await EcopontosService.getAllEcopontos();
-        this.setEcopoints(response);
+        return response;
       } catch (error) {
         console.log(error);
       }
@@ -113,7 +43,9 @@ export const ecopointStore = defineStore('ecopoint', {
     async createEcoponto(ecoponto) {
       try {
         const response = await EcopontosService.createEcoponto(ecoponto);
-        return response;
+        if(response.token){
+          localStorage.setItem("ecoponto", JSON.stringify(response));
+        }
       } catch (error) {
         console.log(error);
       }
@@ -144,6 +76,14 @@ export const ecopointStore = defineStore('ecopoint', {
       } catch (error) {
         console.log(error);
       }
+    },
+
+    updateLocalStorage() {
+      const ecopoints = localStorage.setItem('ecopoints', JSON.stringify(this.ecopoints));
+      if (ecopoints) {
+        this.setEcopoints = ecopoints;
+      }
+      
     },
 
     async addEcopoint(foto, nome, criador, localizacao, morada, codigoPostal, tipo) {

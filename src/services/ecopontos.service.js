@@ -12,21 +12,16 @@ export const EcopontosService = {
             },
         });
         if (response.ok) {
-            const data = await response.json();
-            if (data) {
-                return data;
-            } else {
-                throw Error(data.message);
-            }
-        } else {
-            const data = await response.json();
-            throw Error(data.message);
+            let data = await response.json();
+            return data.ecopontos;
+          } else {
+            throw Error(response.message);
         }
     },
 
     async getEcopontoById(id) {
         const user = JSON.parse(localStorage.getItem('user'));
-        const token = user.accessToken;
+        const token = user.token;
         const response = await fetch(`${API_URL}/ecopontos/${id}`, {
             method: 'GET',
             headers: {
@@ -49,8 +44,8 @@ export const EcopontosService = {
 
     async createEcoponto(ecoponto) {
         const user = JSON.parse(localStorage.getItem('user'));
-        const { latitude, longitude } = await this.getLatitudeLongitude(morada, codigoPostal);
         const token = user.token;
+        const { latitude, longitude } = await this.getLatitudeLongitude(ecoponto.morada, ecoponto.codigoPostal);
         const response = await fetch(`${API_URL}/ecopontos/adicaoEcoponto`, {
             method: 'POST',
             headers: {

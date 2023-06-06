@@ -5,7 +5,7 @@
                 <h1>Adicionar Ecoponto</h1>
             </div>
 
-            <b-form @submit.prevent="onSubmit">
+            <b-form @submit.prevent="createEcoponto">
                 <div class="display-img">
                     <img v-if="imageUrl === null" src="https://dummyimage.com/640x360/fff/aaa" />
                     <img v-if="imageUrl" :src="imageUrl" />
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="submit">
-                    <button type="submit" class="submit-btn">Submeter</button>
+                    <button type="submit" @click="createEcoponto" class="submit-btn">Submeter</button>
                 </div>
             </b-form>
 
@@ -126,7 +126,38 @@ export default {
     },
 
     methods: {
-        async onSubmit(evt) {
+
+        async createEcoponto(event){
+            try {
+                event.preventDefault();
+                const { latitude, longitude } = await this.store.getLatitudeLongitude(this.form.localizacao, this.form.codigoPostal);
+                await this.store.createEcoponto({
+                    nome: this.form.nome,
+                    tipo: this.form.tipo,
+                    localizacao: this.form.localizacao,
+                    morada: this.form.morada,
+                    codigoPostal: this.form.codigoPostal,
+                    foto: this.imageUrl,
+                    latitude: latitude,
+                    longitude: longitude,
+                })
+
+                this.$swal({
+                    title: 'Ecoponto criado com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#ff0000'
+                }).then(() => {
+                    this.$router.push('/LandinPage')
+                })
+                // fazer o console.log do ecoponto criado
+                //console.log(this.store.ecopoints[this.store.ecopoints.length - 1]);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        /* async onSubmit(evt) {
             evt.preventDefault()
 
             if (this.imageUrl != null) {
@@ -168,7 +199,7 @@ export default {
             this.form.codigoPostal = '';
             this.imageUrl = null;
 
-        },
+        }, */
 
         uploadImage(event) {
             let file = event.target.files[0];

@@ -42,5 +42,28 @@ export const UtilizacoesService = {
                 throw Error(data.message);
             }
         }
+    },
+
+    async deleteUtilizacoesById(idRegistoUtilizacao) {
+        const user = JSON.parse(localStorage.getItem("user"));
+        const token = user.token;
+        const response = await fetch(`${API_URL}/registoUtilizacao/${idRegistoUtilizacao}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        if (response.ok) {
+            const data = await response.json();
+            if (data) {
+                return data;
+            } else {
+                throw Error(data.message);
+            }
+        } else {
+            const data = await response.json();
+            throw Error(data.message);
+        }
     }
 };

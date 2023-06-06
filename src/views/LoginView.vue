@@ -42,6 +42,7 @@
 
 <script>
 import { userStore } from '../stores/user';
+import jwtDecode from 'jwt-decode';
 
 export default {
   data() {
@@ -55,13 +56,6 @@ export default {
       }
     }
   },
-
-  /* created() {
-    this.usersS = this.store.users;
-
-  }, */
-
-
 
   methods: {
     async login (event) {
@@ -79,23 +73,33 @@ export default {
           confirmButtonColor: '#F39C12',
           onClose: false,
         }).then(() => {
-          //
           // verificar se o utilizador é admin ou não
-          /* if (user.tipo === 'admin') {
-            this.$router.push('/admin');
-          } else if (user.tipo === 'userNormal') {
-            this.$router.push('/LandingPage');
+          if (this.isAdmin()) {
+            this.$router.push('/admin')
           } else {
-            // Tratar o caso em que o tipo de usuário não é reconhecido
-            console.log('Tipo de usuário desconhecido:', user.tipo);
-          } */
-          this.$router.push('/LandingPage');
+            this.$router.push('/LandingPage')
+          }
 
         });
       } catch (err){
-        console.log(err);
+        this.$swal({
+          title: err,
+          icon: 'error',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#F39C12',
+        });
       }
     },
+
+    isAdmin() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const token = user.token;
+      if (token) {
+        const decodedToken = jwtDecode(token);
+        return decodedToken.tipo === "admin";
+      }
+      return false;
+    }
 
 /*     onSubmit(event) {
 

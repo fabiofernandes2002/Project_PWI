@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 import { AuthService } from '../services/auth.service';
 import { UsersService } from '../services/users.service';
 import { router } from '../router';
+import { get } from "mongoose"
 
 export const userStore = defineStore('user', {
   state: () => ({
@@ -18,7 +19,6 @@ export const userStore = defineStore('user', {
       const response = await AuthService.login(user);
       if (response.token) {
         localStorage.setItem("user", JSON.stringify(response));
-        this.loggedIn = true;
       }
     },
 
@@ -44,6 +44,7 @@ export const userStore = defineStore('user', {
       try {
         const response = await UsersService.getAllUsers();
         this.setUsers(response);
+        this.updateLocalStorage();
       } catch (error) {
         console.log(error);
       }
@@ -51,6 +52,13 @@ export const userStore = defineStore('user', {
 
     setUsers(users) {
       this.users = users;
+    },
+
+    updateLocalStorage() {
+      const users = localStorage.setItem('users', JSON.stringify(this.users));
+      if (users) {
+        this.setUsers = users;
+      }
     },
 
     addPoints(id) {
