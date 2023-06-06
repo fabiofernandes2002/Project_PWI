@@ -13,7 +13,7 @@
                 <b-col cols="12 my-3" md="6" class="mt-5" style="text-align:center; padding-top: 5vh;">
                     <div class="ml-5">
                         <!-- Apresentar foto do user e se não tiver mostrar só o avatar -->
-                        <b-avatar v-if="this.store.getUserLogged().photo" :src="this.store.getUserLogged().photo"
+                        <b-avatar v-if="this.store.getUserLogged().foto" :src="this.store.getUserLogged().foto"
                             size="150px"></b-avatar>
                         <!-- else mostrar só o avatar -->
                         <b-avatar v-else size="150px"></b-avatar>
@@ -41,7 +41,7 @@
                     <!-- Data de Nascimento -->
                     <div>
                         <h3 id="dataNascimentoUser">Data de Nascimento: <span id="userLoggedData">{{
-                            this.store.getUserLogged().datanascimento
+                            this.store.getUserLogged().dataNascimento
                         }}</span></h3>
                     </div>
 
@@ -87,10 +87,10 @@
                             <p class="text-center" id="NaoTemMedalhas" v-if="medals.length === 0">Não tens medalhas</p>
                             <!-- Apresentar as medalhas a partir da minha storemedals -->
                             <b-row class="text-center">
-                                <b-col cols="12" md="6" class="mt-5" v-for="medal in medals" :key="medal.idMedal"
+                                <b-col cols="12" md="6" class="mt-5" v-for="medal in medals" :key="medal.id"
                                     v-if="medals.length > 0">
                                     <div>
-                                        <b-img rounded="circle" v-bind:src="medal.urlMedal" width="150px"
+                                        <b-img rounded="circle" v-bind:src="medal.urlMedalha" width="150px"
                                             alt="Circle image"></b-img>
                                     </div>
                                 </b-col>
@@ -215,7 +215,7 @@ export default {
             // iterate through the medals array
             for (let i = 0; i < medals.length; i++) {
                 // check if the user's medals array includes the current medal's id
-                if (user.medals.includes(medals[i].idMedal)) {
+                if (user.medalhas.includes(medals[i].id)) {
                     // push the current medal object to the userMedals array
                     userMedals.push(medals[i]);
                 }

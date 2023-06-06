@@ -50,8 +50,7 @@
                                     </div>
                                 </b-col>
                                 <b-col>
-                                    <b-avatar v-if="this.store.getUserLogged().photo"
-                                        :src="this.store.getUserLogged().photo" left size="6rem"></b-avatar>
+                                    <b-avatar v-if="this.store.getUserLogged().foto" :src="this.store.getUserLogged().foto" left size="6rem"></b-avatar>
                                     <b-avatar v-else left size="6rem"></b-avatar>
 
                                 </b-col>
@@ -126,7 +125,7 @@ export default {
                 username: this.form.usernameChange,
                 password: this.form.passwordChange,
                 confirmPassword: this.form.confirmPasswordChange,
-                photo: this.form.imageUrl,
+                foto: this.form.imageUrl,
             }
 
 

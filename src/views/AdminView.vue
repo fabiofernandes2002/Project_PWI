@@ -43,6 +43,13 @@
                                     </a>
                                 </div>
 
+                                <!-- Button registo de adição de ecopontos -->
+                                <div class="mt-3">
+                                    <a href="/registoAdicaoEcoponto">
+                                        <b-button class="bntEditarPerfil">Registo de Adição de Ecopontos</b-button>
+                                    </a>
+                                </div>
+
                             </b-col>
                         </div>
 

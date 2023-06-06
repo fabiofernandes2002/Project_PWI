@@ -132,7 +132,7 @@ export default {
             const marker = new google.maps.Marker({
                 position: { lat: ecopoint.latitude, lng: ecopoint.longitude },
                 map: map,
-                title: ecopoint.ecopointName,
+                title: ecopoint.nome,
                 // mudar o icone do marker para o icone do ecopoint
                 icon: svgMarker,
             });
@@ -140,11 +140,11 @@ export default {
             const infoWindow = new google.maps.InfoWindow({
                 content: `
                 <div class="infoWindowMapa">
-                    <h3>${ecopoint.ecopointName}</h3>
+                    <h3>${ecopoint.nome}</h3>
                     <h3>Tipo de lixo:</h3>
-                    <p>${ecopoint.ecopointType}</p>
+                    <p>${ecopoint.tipo}</p>
                     <h3>Morada:</h3>
-                    <p>${ecopoint.ecopointAddress}</p>
+                    <p>${ecopoint.morada}</p>
                    <button class="btn btn-primary" id="btn-utilizar-ecoponto" >Utilizar ecoponto</button>
                 </div>
                 `

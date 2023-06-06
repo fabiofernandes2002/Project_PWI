@@ -18,22 +18,23 @@
                 <div class="location">
                     <h2>Localização:</h2>
                     <div class="location-input">
-                        <input type="text" placeholder="Rua" />
-                        <input type="number" placeholder="Código Postal" />
+                        <input type="text" v-model="form.morada" placeholder="Rua" />
+                        <input type="text" v-model="form.codigoPostal" placeholder="Código Postal" />
+                        <input type="text" v-model="form.localizacao" placeholder="Freguesia" />
                     </div>
                 </div>
 
                 <div class="description">
-                    <h2>Descrição:</h2>
+                    <h2>Nome do Ecoponto:</h2>
                     <div class="description-input">
-                        <input type="text" placeholder="Descrição" />
+                        <input type="text" v-model="form.nome" placeholder="Nome do ecoponto" />
                     </div>
                 </div>
 
                 <div class="comment">
-                    <h2>Comentário:</h2>
+                    <h2>Tipo do Ecoponto:</h2>
                     <div class="comment-input">
-                        <input type="text" placeholder="Comentário" />
+                        <input type="text" v-model="form.tipo" placeholder="Tipo do ecoponto" />
                     </div>
                 </div>
 
@@ -54,8 +55,8 @@
 
                     <ul id="menu">
                         <a href="/perfil">
-                            <h1 v-if="this.store.getUserLogged()">
-                                Olá, {{ this.store.getUserLogged().username }}
+                            <h1 v-if="this.storeUser.getUserLogged()">
+                                Olá, {{ this.storeUser.getUserLogged().username }}
                             </h1>
                             <br>
                             <hr>
@@ -68,27 +69,27 @@
                             <li>Mapa de Ecopontos</li>
                         </a>
                         <a href="/addEcopoint">
-                            <li v-if="this.store.getUserLogged()">Adicionar Ecoponto</li>
+                            <li v-if="this.storeUser.getUserLogged()">Adicionar Ecoponto</li>
                         </a>
                         <a href="/perfil">
-                            <li v-if="this.store.getUserLogged()">Perfil</li>
+                            <li v-if="this.storeUser.getUserLogged()">Perfil</li>
                         </a>
                         <a href="/desafios">
-                            <li v-if="this.store.getUserLogged()">Desafios</li>
+                            <li v-if="this.storeUser.getUserLogged()">Desafios</li>
                         </a>
                         <a href="/ranking">
-                            <li v-if="this.store.getUserLogged()">Ranking</li>
+                            <li v-if="this.storeUser.getUserLogged()">Ranking</li>
                         </a>
                         <hr>
                         <br>
                         <a href="/login">
-                            <li v-if="!this.store.getUserLogged()">Iniciar Sessão</li>
+                            <li v-if="!this.storeUser.getUserLogged()">Iniciar Sessão</li>
                         </a>
                         <a href="/register">
-                            <li v-if="!this.store.getUserLogged()">Registar</li>
+                            <li v-if="!this.storeUser.getUserLogged()">Registar</li>
                         </a>
-                        <a href="/login" @click="this.store.logout()">
-                            <li v-if="this.store.getUserLogged()">Logout</li>
+                        <a href="/login" @click="this.storeUser.logout()">
+                            <li v-if="this.storeUser.getUserLogged()">Logout</li>
                         </a>
                     </ul>
                 </div>
@@ -108,19 +109,64 @@ import { userStore } from '../stores/user';
 export default {
     data() {
         return {
+            store: ecopointStore(),
+            storeUser: userStore(),
+            ecopoints: [],
+            users: [],
             imageUrl: null,
-            storeEcopoints: ecopointStore(),
-            store: userStore(),
-            ecopointsS: [],
-            usersS: [],
-            loggedUser: false
+            form: {
+                nome: '',
+                tipo: '',
+                localizacao: '',
+                morada: '',
+                foto: '',
+                codigoPostal: ''
+            }
         }
     },
 
     methods: {
-        onSubmit(evt) {
+        async onSubmit(evt) {
             evt.preventDefault()
 
+            if (this.imageUrl != null) {
+                // adicionar o ecoponto na store dos ecopontos
+                const { latitude, longitude } = await this.store.getLatitudeLongitude(this.form.localizacao, this.form.codigoPostal);
+                const latestEcopoint = this.store.ecopoints[this.store.ecopoints.length - 1];
+                const dataCriacao = latestEcopoint.dataCriacao;
+
+                // pegar validacao do ecoponto e adicionar na store dos ecopontos
+                const validacao = latestEcopoint.validacao;
+
+                this.store.addEcopoint(this.imageUrl, this.form.nome, this.storeUser.getUserLogged().id, this.form.localizacao, this.form.morada, this.form.codigoPostal, this.form.tipo, latitude, longitude, dataCriacao, validacao);
+
+                //this.store.addEcopoint(this.form.nomeEcoponto, this.form.localizacao, this.form.morada, latitude, longitude ,this.form.tipoEcoponto, this.storeUser.getUserLogged().id, dataCriacao, validacao, this.imageUrl);
+                
+                // sweet alert para mostrar que a imagem foi submetida com sucesso
+                this.$swal({
+                    title: 'Ecoponto submetido com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#f39c12',
+                });
+            }
+            else {
+                // sweet alert para mostrar que a imagem não foi submetida
+                this.$swal({
+                    title: 'Ecoponto não submetido!',
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#f39c12',
+                });
+            }
+
+            // limpar o formulário e a imagem do ecoponto depois de submetido
+            this.form.nome = '';
+            this.form.tipo = '';
+            this.form.localizacao = '';
+            this.form.morada = '';
+            this.form.codigoPostal = '';
+            this.imageUrl = null;
 
         },
 
@@ -143,9 +189,6 @@ export default {
             this.$router.push('/login');
         },
 
-        onsubmit() {
-
-        }
     }
 }
 </script>

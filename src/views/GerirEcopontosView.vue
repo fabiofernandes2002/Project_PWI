@@ -143,7 +143,7 @@ export default {
     data() {
         return {
             form: {
-                ecopointName: '',
+                name: '',
                 ecopointLocation: '',
                 ecopointAddress: '',
                 latitude: '',
@@ -180,7 +180,7 @@ export default {
 
     methods: {
         addEcopoint() {
-            this.storeEcopoint.addEcopoint(this.form.ecopointName, this.form.ecopointLocation, this.form.ecopointAddress, this.form.latitude, this.form.longitude, this.form.ecopointType, this.form.userCreate, this.form.ecopointCreationDate);
+            this.storeEcopoint.addEcopoint(this.form.name, this.form.ecopointLocation, this.form.ecopointAddress, this.form.latitude, this.form.longitude, this.form.ecopointType, this.form.userCreate, this.form.ecopointCreationDate);
             // sweat alert para confirmar que o ecoponto foi adicionado só quando carregar no botão de confirmar do sweet alert e atualizar a página
             this.$swal({
                 title: 'Ecoponto adicionado com sucesso!',

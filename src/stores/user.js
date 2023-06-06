@@ -48,20 +48,49 @@ export const userStore = defineStore('user', {
       localStorage.setItem('users', JSON.stringify(this.users));
     },
 
-    setUsers(users) {
-      this.users = users;
-    },
+        addPointsForAddEcopoints(id){
+            console.log(id);
+            let user = this.users.find(user => user.id == id);
+            user.pontos += 50;
+            //substituir o user antigo pelo novo
+            this.users.splice(this.users.indexOf(user), 1, user);
+            // salvar na locastorage o user na lista users
+            localStorage.setItem('users', JSON.stringify(this.users));
+        },
 
-    // updateUser data ao editar perfil
-    updateUser(data) {
-      let user = this.users.find((user) => user.id == data.id);
-      user.username = data.username;
-      user.email = data.email;
-      user.password = data.password;
-      user.photo = data.photo;
+        // contar ecopontosUtilizados e ecopontosRegistados para o user
+        countEcopontosUtilizados(id){
+            console.log(id);
+            let user = this.users.find(user => user.id == id);
+            user.ecopontosUtilizados += 1;
+            //substituir o user antigo pelo novo
+            this.users.splice(this.users.indexOf(user), 1, user);
+            // salvar na locastorage o user na lista users
+            localStorage.setItem('users', JSON.stringify(this.users));
+        },
 
-      // substituir o user antigo pelo novo
-      this.users.splice(this.users.indexOf(user), 1, user);
+        countEcopontosRegistados(id){
+            console.log(id);
+            let user = this.users.find(user => user.id == id);
+            user.ecopontosRegistados += 1;
+            //substituir o user antigo pelo novo
+            this.users.splice(this.users.indexOf(user), 1, user);
+            // salvar na locastorage o user na lista users
+            localStorage.setItem('users', JSON.stringify(this.users));
+        },
+
+        setUsers(users) {
+            this.users = users;
+        },
+
+        // updateUser data ao editar perfil
+        updateUser(data){
+        
+            let user = this.users.find(user => user.id == data.id);
+            user.username = data.username;
+            user.email = data.email;
+            user.password = data.password;
+            user.foto = data.foto;
 
       localStorage.setItem('users', JSON.stringify(this.users));
       localStorage.setItem('user', JSON.stringify(user));
@@ -105,5 +134,23 @@ export const userStore = defineStore('user', {
       localStorage.removeItem('user');
       this.$router.push('/LandingPage');
     },
+
+    /* async register(user) {
+      const response = await AuthService.register(user);
+      if (response) {
+        router.push("/login");
+      }
+    },
+
+    async login(user) {
+      const response = await AuthService.login(user);
+      if (response.accessToken) {
+        localStorage.setItem("users", JSON.stringify(response))
+      }
+    },
+    logout() {
+      AuthService.logout();
+      router.push("/LandingPage");
+    }, */
   },
 });

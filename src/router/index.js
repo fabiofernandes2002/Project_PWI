@@ -1,19 +1,20 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import LoginView from '../views/LoginView.vue';
-import RegisterView from '../views/RegisterView.vue';
-import LandingPage from '../views/LandingPage.vue';
-import MapView from '../views/MapView.vue';
-import addEcopoint from '../views/AddEcopoint.vue';
-import Maps from '../components/Maps.vue';
-import PerfilView from '../views/PerfilView.vue';
-import EditPerfilView from '../views/EditPerfilView.vue';
-import RankingView from '../views/RankingView.vue';
-import AdminView from '../views/AdminView.vue';
-import GerirUtilizadoresView from '../views/GerirUtilizadoresView.vue';
-import userView from '../views/userView.vue';
-import GerirEcopontosView from '../views/GerirEcopontosView.vue';
-import RegistoUtilizacaoView from '../views/RegistoUtilizacaoView.vue';
-import DesafiosView from '../views/DesafiosView.vue';
+import { createRouter, createWebHistory } from 'vue-router'
+import LoginView from '../views/LoginView.vue'
+import RegisterView from '../views/RegisterView.vue'
+import LandingPage from '../views/LandingPage.vue'
+import MapView from '../views/MapView.vue'
+import addEcopoint from '../views/AddEcopoint.vue'
+import Maps from '../components/Maps.vue'
+import PerfilView from '../views/PerfilView.vue'
+import EditPerfilView from '../views/EditPerfilView.vue'
+import RankingView from '../views/RankingView.vue'
+import AdminView from '../views/AdminView.vue'
+import GerirUtilizadoresView from '../views/GerirUtilizadoresView.vue'
+import userView from '../views/userView.vue'
+import GerirEcopontosView from '../views/GerirEcopontosView.vue'
+import RegistoUtilizacaoView from '../views/RegistoUtilizacaoView.vue'
+import DesafiosView from '../views/DesafiosView.vue'
+import RegistoAdicaoEcopontoView from '../views/RegistoAdicaoEcopontoView.vue'
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -102,8 +103,13 @@ export const router = createRouter({
     {
       path: '/Desafios',
       name: 'Desafios',
-      component: DesafiosView,
+      component: DesafiosView
     },
+    {
+      path: '/registoAdicaoEcoponto',
+      name: 'RegistoAdicaoEcoponto',
+      component: RegistoAdicaoEcopontoView
+    }
   ],
 });
 
