@@ -46,6 +46,16 @@ export const ecopointStore = defineStore('ecopoint', {
         if(response.token){
           localStorage.setItem("ecoponto", JSON.stringify(response));
         }
+        this.getLatitudeLongitude(ecoponto.morada, ecoponto.codigoPostal);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async getLatitudeLongitude(morada, codigoPostal) {
+      try {
+        const response = await EcopontosService.getLatitudeLongitude(morada, codigoPostal);
+        return response;
       } catch (error) {
         console.log(error);
       }
