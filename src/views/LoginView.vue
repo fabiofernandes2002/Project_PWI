@@ -94,7 +94,7 @@ export default {
       const user = JSON.parse(localStorage.getItem('user'));
       const token = user.token;
       if(token){
-        const decodedToken = jwt_decode(token);
+        const decodedToken = jwtDecode(token);
         return decodedToken.tipo === 'admin';
       }
       return false;
