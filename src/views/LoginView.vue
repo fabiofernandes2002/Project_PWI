@@ -42,6 +42,7 @@
 
 <script>
 import { userStore } from '../stores/user';
+import jwtDecode from 'jwt-decode';
 
 export default {
   data() {
@@ -55,13 +56,6 @@ export default {
       }
     }
   },
-
-  /* created() {
-    this.usersS = this.store.users;
-
-  }, */
-
-
 
   methods: {
     async login (event) {
@@ -79,7 +73,6 @@ export default {
           confirmButtonColor: '#F39C12',
           onClose: false,
         }).then(() => {
-          //
           // verificar se o utilizador é admin ou não
           if (this.isAdmin()) {
             this.$router.push('/admin')

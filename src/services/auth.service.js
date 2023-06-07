@@ -19,11 +19,11 @@ export const AuthService = {
                 localStorage.setItem("user", JSON.stringify(data));
                 return data;
             } else {
-                throw Error(data.message);
+                throw Error(data.msg);
             }
         } else {
             const data = await response.json();
-            throw Error(data.message);
+            throw Error(data.msg);
         }
     },
 

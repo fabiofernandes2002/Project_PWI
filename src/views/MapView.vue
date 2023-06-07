@@ -101,9 +101,9 @@ export default {
         }
     },
 
-    mounted() {
-
-
+    async mounted() {
+        await this.getAllEcopontos();
+        await this.getAllUsers();
 
         let map = new google.maps.Map(document.getElementById("map"), {
             zoom: 18,
@@ -128,7 +128,8 @@ export default {
 
         // for of para iterar sobre o array de ecopoints e criar um marker para cada um
         for (const ecopoint of this.ecopoints) {
-            //console.log(ecopoint.latitude);
+            console.log(ecopoint.latitude);
+            console.log(typeof ecopoint.latitude)
             const marker = new google.maps.Marker({
                 position: { lat: ecopoint.latitude, lng: ecopoint.longitude },
                 map: map,
@@ -220,17 +221,15 @@ export default {
 
     },
 
-    created() {
+    /* created() {
         this.ecopoints = this.store.getEcopoints;
         this.users = this.storeUser.getUsers;
+    }, */
 
-
-    },
-
-    async mounted () {
-        await this.getAllEcopontos();
-        await this.storeUser.getAllUsers() == this.users;
-    },
+    /* created() {
+        this.getAllEcopontos()
+        //await this.getAllUsers()
+    }, */
     
     methods: {
 
@@ -257,7 +256,7 @@ export default {
             // verificar se imageUrl não é null
 
             if (this.imageUrl != null) {
-                console.log(this.idSelectedEcopoint, this.storeUser.getUserLogged().id);
+                //console.log(this.idSelectedEcopoint, this.storeUser.getUserLogged().id);
                 this.storeOccurence.addOccurrence(this.idSelectedEcopoint, this.storeUser.getUserLogged().id, this.imageUrl);
 
                 // sweet alert para mostrar que a imagem foi submetida com sucesso
@@ -282,12 +281,23 @@ export default {
 
         async getAllEcopontos(){
             try {
-                await this.store.getEcopoints();
-                this.ecopoints = this.store.getAllEcopontos;
+                await this.store.getAllEcopontos();
+                this.ecopoints = this.store.getEcopoints;
+                console.log(this.ecopoints[0].latitude);
+                
             } catch (error) {
                 console.log(error);
             }
-        }
+        },
+
+        async getAllUsers(){
+            try {
+                await this.storeUser.getAllUsers();
+                this.users = this.storeUser.getUsers;
+            } catch (error) {
+                console.log(error);
+            }
+        },
     },
 
 }
