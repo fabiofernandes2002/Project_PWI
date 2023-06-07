@@ -81,21 +81,31 @@ export default {
         }).then(() => {
           //
           // verificar se o utilizador é admin ou não
-          /* if (user.tipo === 'admin') {
-            this.$router.push('/admin');
-          } else if (user.tipo === 'userNormal') {
-            this.$router.push('/LandingPage');
+          if (this.isAdmin()) {
+            this.$router.push('/admin')
           } else {
-            // Tratar o caso em que o tipo de usuário não é reconhecido
-            console.log('Tipo de usuário desconhecido:', user.tipo);
-          } */
-          this.$router.push('/LandingPage');
-
+            this.$router.push('/LandingPage')
+          }
         });
-      } catch (err){
-        console.log(err);
+      } catch (Error){
+        this.$swal({
+          title: Error,
+          icon: 'error',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#F39C12',
+        });
       }
     },
+
+    isAdmin() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const token = user.token;
+      if(token){
+        const decodedToken = jwt_decode(token);
+        return decodedToken.tipo === 'admin';
+      }
+      return false;
+    }
 
 /*     onSubmit(event) {
 

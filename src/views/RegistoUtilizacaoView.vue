@@ -23,10 +23,10 @@
                             <b-card-footer>
                                 <b-row>
                                     <b-col cols="6" class="text-left">
-                                        <b-button pill class="bntApagar" @click="removeRegister(index)">Apagar</b-button>
+                                        <b-button pill class="bntApagar" @click="deleteUtilizacoesById(idRegistoUtilizacao)">Apagar</b-button>
                                     </b-col>
                                     <b-col cols="6" class="text-right">
-                                        <b-button pill class="bntValidar" @click="validateRegister(index)"
+                                        <b-button pill class="bntValidar" @click="validateUtilizacoes(idRegistoUtilizacao)"
                                             :disabled="areButtonsDisabled[index]">{{ txtBtns[index] }}</b-button>
                                     </b-col>
                                 </b-row>
@@ -110,98 +110,105 @@ export default {
         this.txtBtns = this.utilizacoes.map(utilizacao => utilizacao.validacao ? "Validado" : "Validar");
 
         this.areButtonsDisabled = this.utilizacoes.map(utilizacao => utilizacao.validacao);
-        
+
 
 
     },
     methods: {
-        removeRegister(id) {
-            //swal message a perguntar se quer mesmo eliminar o registo
-            this.$swal({
-                title: 'Tens a certeza que queres eliminar este registo?',
-                text: 'Não poderás reverter esta ação!',
-                icon: 'warning',
-                buttons: {
-                    cancel: {
-                        text: "Não",
-                        value: false,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    },
-                    confirm: {
-                        text: "Sim",
-                        value: true,
-                        visible: true,
-                        className: "",
-                        closeModal: true
-                    }
-                }
-            }).then((result) => {
-                if (result) {
-                    // se clicar em yes, remove o registo
-                    this.storeOccurence.removeOccurrence(id + 1);
-
-                    this.$router.go();
-                }
-            });
-
-
-
-        },
-
-        validateRegister(indexBtn) {
-            //swal message a perguntar se quer mesmo validar o registo
-            this.$swal({
-                title: 'Tens a certeza que queres validar este registo?',
-                text: 'Não poderás reverter esta ação!',
-                icon: 'warning',
-                buttons: {
-                    cancel: {
-                        text: "Não",
-                        value: false,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    },
-                    confirm: {
-                        text: "Sim",
-                        value: true,
-                        visible: true,
-                        className: "",
-                        closeModal: true
-                    }
-                }
-            }).then((result) => {
-                if (result) {
-
-                    this.txtBtns[indexBtn] = 'Validado';
-
-                    this.utilizacoes.forEach((utilizacao, index) => {
-                        if (utilizacao.validacao) {
-                            this.txtBtns[index] = 'Validado';
+        async validateUtilizacoes(idRegistoUtilizacao, indexBtn) {
+            try {
+                await this.occurence.validateOccurrence(idRegistoUtilizacao, {
+                    validacao: true
+                });
+                this.$swal({
+                    title: 'Tens a certeza que queres validar este registo?',
+                    text: 'Não poderás reverter esta ação!',
+                    icon: 'warning',
+                    buttons: {
+                        cancel: {
+                            text: "Não",
+                            value: false,
+                            visible: true,
+                            className: "",
+                            closeModal: true,
+                        },
+                        confirm: {
+                            text: "Sim",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: true
                         }
-                    });
+                    }
+                }).then((result) => {
+                    if (result) {
 
-                    //deixar o botão disabled se o registo ja tiver sido validado
-                    this.areButtonsDisabled[indexBtn] = true;
+                        this.txtBtns[indexBtn] = 'Validado';
 
-                    this.storeOccurence.validateOccurrence(indexBtn + 1);
+                        this.utilizacoes.forEach((utilizacao, index) => {
+                            if (utilizacao.validacao) {
+                                this.txtBtns[index] = 'Validado';
+                            }
+                        });
 
-                    //chamar a função addPoints do userStore
-                    this.storeUser.addPoints(this.utilizacoes[indexBtn].idUtilizador);
+                        //deixar o botão disabled se o registo ja tiver sido validado
+                        this.areButtonsDisabled[indexBtn] = true;
 
-                    // contar o numero de ecopontos que o utilizador usou
-                    this.storeUser.countEcopontosUtilizados(this.utilizacoes[indexBtn].idUtilizador);
+                        this.storeOccurence.validateOccurrence(indexBtn + 1);
 
-                }
-            });
-        }
+                        //chamar a função addPoints do userStore
+                        this.storeUser.addPoints(this.utilizacoes[indexBtn].idUtilizador);
+
+                        // contar o numero de ecopontos que o utilizador usou
+                        this.storeUser.countEcopontosUtilizados(this.utilizacoes[indexBtn].idUtilizador);
+
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        
+        async deleteUtilizacoesById(idRegistoUtilizacao) {
+            try {
+                await this.occurence.deleteOccurrence(idRegistoUtilizacao, {
+                    validacao: false
+                });
+
+                //swal message a perguntar se quer mesmo eliminar o registo
+                this.$swal({
+                    title: 'Tens a certeza que queres eliminar este registo?',
+                    text: 'Não poderás reverter esta ação!',
+                    icon: 'warning',
+                    buttons: {
+                        cancel: {
+                            text: "Não",
+                            value: false,
+                            visible: true,
+                            className: "",
+                            closeModal: true,
+                        },
+                        confirm: {
+                            text: "Sim",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: true
+                        }
+                    }
+                }).then((result) => {
+                    if (result) {
+                        // se clicar em yes, remove o registo
+                        this.storeOccurence.removeOccurrence(id + 1);
+
+                        this.$router.go();
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        },
     },
-
-
-
-
 }
 </script>
 
