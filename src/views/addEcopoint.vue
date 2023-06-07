@@ -143,17 +143,28 @@ export default {
                 })
 
                 this.$swal({
-                    title: 'Ecoponto criado com sucesso!',
+                    title: 'Novo registo de adição criado com sucesso!',
                     icon: 'success',
                     confirmButtonText: 'Ok',
                     confirmButtonColor: '#ff0000'
                 }).then(() => {
-                    this.$router.push('/LandinPage')
+                    // apagar o form
+                    this.form.nome = '';
+                    this.form.tipo = '';
+                    this.form.localizacao = '';
+                    this.form.morada = '';
+                    this.form.codigoPostal = '';
+                    this.imageUrl = null;
                 })
                 // fazer o console.log do ecoponto criado
                 //console.log(this.store.ecopoints[this.store.ecopoints.length - 1]);
-            } catch (error) {
-                console.log(error);
+            } catch (Error) {
+                this.$swal({
+                    title: Error,
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#ff0000'
+                })
             }
         },
 

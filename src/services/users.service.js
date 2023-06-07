@@ -15,7 +15,7 @@ export const UsersService = {
       let data = await response.json();
       return data.users;
     } else {
-      throw Error(response.message);
+      throw Error(response.msg);
     }
   },
 
@@ -33,7 +33,7 @@ export const UsersService = {
       let data = await response.json();
       return data.users;
     } else {
-      throw Error(response.message);
+      throw Error(response.msg);
     }
   },
 
@@ -57,7 +57,7 @@ export const UsersService = {
       let data = await response.json();
       return data.users;
     } else {
-      throw Error(response.message);
+      throw Error(response.msg);
     }
   },
 
@@ -75,7 +75,7 @@ export const UsersService = {
       let data = await response.json();
       return data.users;
     } else {
-      throw Error(response.message);
+      throw Error(response.msg);
     }
   },
 

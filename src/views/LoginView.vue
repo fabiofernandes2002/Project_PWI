@@ -81,9 +81,9 @@ export default {
           }
 
         });
-      } catch (err){
+      } catch (Error){
         this.$swal({
-          title: err,
+          title: Error,
           icon: 'error',
           confirmButtonText: 'Ok',
           confirmButtonColor: '#F39C12',

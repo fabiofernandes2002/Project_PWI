@@ -147,8 +147,13 @@ export default {
         }).then(() => {
           this.$router.push('/login');
         });
-      } catch (err) {
-        console.log(err);
+      } catch (Error) {
+        this.$swal({
+          title: Error,
+          icon: 'error',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#F39C12',
+        });
       }
     },
 /*     onSubmit(event) {

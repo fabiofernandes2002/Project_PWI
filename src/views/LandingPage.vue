@@ -186,8 +186,8 @@
 
         <ul id="menu">
           <a href="#section-1">
-            <h1 v-if="this.store.getUserLogged()">
-              Olá, {{ this.store.getUserLogged().username }}
+            <h1 v-if="this.getUserLogged()">
+              Olá, {{ this.getUserLogged().username }}
             </h1>
             <br>
             <hr>
@@ -238,6 +238,7 @@
 import { ecopointStore } from '../stores/ecopoint';
 import { userStore } from '../stores/user';
 import { medalsStore } from '../stores/medals';
+import jwtDecode from 'jwt-decode';
 
 
 export default {
@@ -250,7 +251,8 @@ export default {
       ecopointsS: [],
       usersS: [],
       loggedUser: false,
-      location: ''
+      location: '',
+      username: '',
     }
   },
 
@@ -263,13 +265,6 @@ export default {
 
 
   methods: {
-    getUserLogged() {
-      try {
-        this.store.getUserLogged();
-      } catch (error) {
-        console.log(error);
-      }
-    },
 
     // logout do utilizador e remover os dados da session storage
     logout() {
@@ -311,10 +306,12 @@ export default {
     },
 
 
+  },
 
-    // funçao que calcula a distancia entre o ecoponto e o utilizador
-
-
+  computed: {
+    getUserLogged() {
+      return this.store.getUserLogged;
+    },
   },
 }
 </script>

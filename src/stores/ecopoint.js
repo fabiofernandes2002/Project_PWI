@@ -21,7 +21,7 @@ export const ecopointStore = defineStore('ecopoint', {
     async getAllEcopontos() {
       try {
         const response = await EcopontosService.getAllEcopontos();
-        return response;
+        this.setEcopoints(response);
       } catch (error) {
         console.log(error);
       }

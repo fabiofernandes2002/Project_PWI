@@ -15,7 +15,7 @@ export const EcopontosService = {
             let data = await response.json();
             return data.ecopontos;
           } else {
-            throw Error(response.message);
+            throw Error(response.msg);
         }
     },
 
@@ -34,11 +34,11 @@ export const EcopontosService = {
             if (data) {
                 return data;
             } else {
-                throw Error(data.message);
+                throw Error(data.msg);
             }
         } else {
             const data = await response.json();
-            throw Error(data.message);
+            throw Error(data.msg);
         }
     },
 
@@ -68,15 +68,10 @@ export const EcopontosService = {
             }),
         });
         if (response.ok) {
-            const data = await response.json();
-            if (data) {
-                return data;
-            } else {
-                throw Error(data.message);
-            }
-        } else {
-            const data = await response.json();
-            throw Error(data.message);
+            let data = await response.json();
+            return data.ecopontos;
+          } else {
+            throw Error(response.msg);
         }
     },
 
@@ -101,7 +96,7 @@ export const EcopontosService = {
             if (data) {
                 return data;
             } else {
-                throw Error(data.message);
+                throw Error(data.msg);
             }
         }
 
@@ -126,7 +121,7 @@ export const EcopontosService = {
             if (data) {
                 return data;
             } else {
-                throw Error(data.message);
+                throw Error(data.msg);
             }
         }   
     },
@@ -146,11 +141,11 @@ export const EcopontosService = {
             if (data) {
                 return data;
             } else {
-                throw Error(data.message);
+                throw Error(data.msg);
             }
         } else {
             const data = await response.json();
-            throw Error(data.message);
+            throw Error(data.msg);
         }
     },
 

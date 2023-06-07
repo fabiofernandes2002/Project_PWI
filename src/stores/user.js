@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import { AuthService } from '../services/auth.service';
 import { UsersService } from '../services/users.service';
 import { router } from '../router';
-import { get } from "mongoose"
+import jwtDecode from 'jwt-decode';
 
 export const userStore = defineStore('user', {
   state: () => ({
@@ -30,7 +30,13 @@ export const userStore = defineStore('user', {
     },
 
     getUserLogged() {
-      AuthService.getUserLogged();
+      const user = JSON.parse(localStorage.getItem('user'));
+      const token = user.token;
+      if (token) {
+        const decodedToken = jwtDecode(token);
+        return decodedToken.username;
+      }
+      return null;
     },
 
     logout() {

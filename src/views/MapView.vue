@@ -102,8 +102,8 @@ export default {
     },
 
     async mounted() {
-
-        await this.getAllEcopontos()
+        await this.getAllEcopontos();
+        await this.getAllUsers();
 
         let map = new google.maps.Map(document.getElementById("map"), {
             zoom: 18,
@@ -128,7 +128,8 @@ export default {
 
         // for of para iterar sobre o array de ecopoints e criar um marker para cada um
         for (const ecopoint of this.ecopoints) {
-            //console.log(ecopoint.latitude);
+            console.log(ecopoint.latitude);
+            console.log(typeof ecopoint.latitude)
             const marker = new google.maps.Marker({
                 position: { lat: ecopoint.latitude, lng: ecopoint.longitude },
                 map: map,
@@ -225,8 +226,8 @@ export default {
         this.users = this.storeUser.getUsers;
     }, */
 
-    /* async created() {
-        await this.getAllEcopontos()
+    /* created() {
+        this.getAllEcopontos()
         //await this.getAllUsers()
     }, */
     
@@ -280,22 +281,23 @@ export default {
 
         async getAllEcopontos(){
             try {
-                const ecopoints = await this.store.getAllEcopontos();
-                this.ecopoints = ecopoints;
-                console.log(this.ecopoints);
+                await this.store.getAllEcopontos();
+                this.ecopoints = this.store.getEcopoints;
+                console.log(this.ecopoints[0].latitude);
+                
             } catch (error) {
                 console.log(error);
             }
         },
 
-        /* async getAllUsers(){
+        async getAllUsers(){
             try {
                 await this.storeUser.getAllUsers();
                 this.users = this.storeUser.getUsers;
             } catch (error) {
                 console.log(error);
             }
-        }, */
+        },
     },
 
 }
