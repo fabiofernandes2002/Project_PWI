@@ -79,7 +79,6 @@ export default {
           } else {
             this.$router.push('/LandingPage')
           }
-
         });
       } catch (Error){
         this.$swal({
@@ -94,9 +93,9 @@ export default {
     isAdmin() {
       const user = JSON.parse(localStorage.getItem('user'));
       const token = user.token;
-      if (token) {
+      if(token){
         const decodedToken = jwtDecode(token);
-        return decodedToken.tipo === "admin";
+        return decodedToken.tipo === 'admin';
       }
       return false;
     }

@@ -65,5 +65,5 @@ export const UtilizacoesService = {
             const data = await response.json();
             throw Error(data.message);
         }
-    }
+    },
 };

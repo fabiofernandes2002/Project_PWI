@@ -1,59 +1,80 @@
 import { defineStore } from 'pinia';
+import { UtilizacoesService } from '../services/utilizacoes.service';
 
 export const occurenceStore = defineStore('occurence', {
-    state: () => ({
-        occurences: [
-            { id:1, idUtilizador: 1, idEcoponto: '2', foto: 'https://picsum.photos/200/300', dataUtilizacao: '25-01-2023' , validacao: false},
-            { id:2, idUtilizador: 2, idEcoponto: '3', foto: 'https://picsum.photos/200/300', dataUtilizacao: '25-01-2023' , validacao: false},
-            { id:3, idUtilizador: 3, idEcoponto: '4', foto: 'https://picsum.photos/200/300', dataUtilizacao: '25-01-2023' , validacao: false},
-            { id:4, idUtilizador: 4, idEcoponto: '5', foto: 'https://picsum.photos/200/300', dataUtilizacao: '25-01-2023', validacao: false },
-            { id:5, idUtilizador: 5, idEcoponto: '6', foto: 'https://picsum.photos/200/300', dataUtilizacao: '25-01-2023', validacao: true },
-            
-        ]
-    }),
+  state: () => ({
+    occurences: localStorage.occurences 
+    ? JSON.parse(localStorage.occurences) 
+    : [
+
+    ],
+  }),
 
   getters: {
-    getOccurences: (state) => {
-      return state.occurences;
+    getOccurences: (state) => state.occurences,
     },
-  },
-
-  
 
   actions: {
-      setOccurences(occurences) {
+    /*     setOccurences(occurences) {
           this.occurences = occurences;
-      },
-        
-      //função que altera, na localstoraga, a propriedade isValidate para true
-      validateOccurrence(id){
+        },
+    
+        //função que altera, na localstoraga, a propriedade isValidate para true
+        validateOccurrence(id) {
           const index = this.occurences.findIndex((occurence) => occurence.id === id);
           this.occurences[index].validacao = true;
           localStorage.setItem('occurences', JSON.stringify(this.occurences));
-      },
-
-      addOccurrence(idEcoponto, idUtilizador, foto) {
+        },
+    
+        addOccurrence(idEcoponto, idUtilizador, foto) {
           const occurrence = {
-              id: this.occurences.length + 1,
-              idEcoponto: idEcoponto,
-              foto: foto,
-              dataUtilizacao: new Date().toLocaleDateString('pt-PT'),
-              idUtilizador: idUtilizador,
-              validacao: false
+            id: this.occurences.length + 1,
+            idEcoponto: idEcoponto,
+            foto: foto,
+            dataUtilizacao: new Date().toLocaleDateString('pt-PT'),
+            idUtilizador: idUtilizador,
+            validacao: false
           }
           this.occurences.push(occurrence)
           localStorage.setItem('occurences', JSON.stringify(this.occurences))
-      },
+        },
+    
+        removeOccurrence(id) {
+          const index = this.occurences.findIndex((occurence) => occurence.id === id);
+          this.occurences.splice(index, 1);
+    
+          //atualizar os ids dos elementos do array occurrences na localstorage
+          this.occurences.forEach((occurence, index) => {
+            occurence.id = index + 1;
+          });
+          localStorage.setItem('occurences', JSON.stringify(this.occurences));
+        },
+     */
+    async getAllutilizacoes() {
+      try {
+        const response = await UtilizacoesService.getAllUtilizacoes();
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
+    },
 
-    removeOccurrence(id) {
-      const index = this.occurences.findIndex((occurence) => occurence.id === id);
-      this.occurences.splice(index, 1);
+    async validateUtilizacoes(idRegistoUtilizacao) {
+      try {
+        const response = await UtilizacoesService.validateUtilizacoes(idRegistoUtilizacao);
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
+    },
 
-      //atualizar os ids dos elementos do array occurrences na localstorage
-      this.occurences.forEach((occurence, index) => {
-        occurence.id = index + 1;
-      });
-      localStorage.setItem('occurences', JSON.stringify(this.occurences));
+    async deleteUtilizacoesById(idRegistoUtilizacao) {
+      try{
+        const response = await UtilizacoesService.deleteUtilizacoesById(idRegistoUtilizacao);
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 });
