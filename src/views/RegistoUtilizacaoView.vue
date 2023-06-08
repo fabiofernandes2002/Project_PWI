@@ -23,7 +23,8 @@
                             <b-card-footer>
                                 <b-row>
                                     <b-col cols="6" class="text-left">
-                                        <b-button pill class="bntApagar" @click="deleteUtilizacoesById(idRegistoUtilizacao)">Apagar</b-button>
+                                        <b-button pill class="bntApagar"
+                                            @click="deleteUtilizacoesById(idRegistoUtilizacao)">Apagar</b-button>
                                     </b-col>
                                     <b-col cols="6" class="text-right">
                                         <b-button pill class="bntValidar" @click="validateUtilizacoes(idRegistoUtilizacao)"
@@ -110,14 +111,20 @@ export default {
         this.txtBtns = this.utilizacoes.map(utilizacao => utilizacao.validacao ? "Validado" : "Validar");
 
         this.areButtonsDisabled = this.utilizacoes.map(utilizacao => utilizacao.validacao);
-
-
-
     },
     methods: {
+        async getAllUtilizacoes() {
+            try {
+                await this.storeOccurence.getAllutilizacoes();
+                this.utilizacoes = this.storeOccurence.getOccurences;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
         async validateUtilizacoes(idRegistoUtilizacao, indexBtn) {
             try {
-                await this.occurence.validateOccurrence(idRegistoUtilizacao, {
+                await this.storeOccurence.validateUtilizacoes(idRegistoUtilizacao, {
                     validacao: true
                 });
                 this.$swal({
@@ -168,10 +175,10 @@ export default {
                 console.log(error);
             }
         },
-        
+
         async deleteUtilizacoesById(idRegistoUtilizacao) {
             try {
-                await this.occurence.deleteOccurrence(idRegistoUtilizacao, {
+                await this.storeOccurence.deleteUtilizacoesById(idRegistoUtilizacao, {
                     validacao: false
                 });
 
