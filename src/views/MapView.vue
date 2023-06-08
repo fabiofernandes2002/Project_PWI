@@ -230,7 +230,7 @@ export default {
         this.getAllEcopontos()
         //await this.getAllUsers()
     }, */
-    
+
     methods: {
 
         logout() {
@@ -277,23 +277,38 @@ export default {
                 });
             }
             this.mostrarDivImagem = false;
+            this.useEcoponto();
         },
 
-        async getAllEcopontos(){
+        async getAllEcopontos() {
             try {
                 await this.store.getAllEcopontos();
                 this.ecopoints = this.store.getEcopoints;
                 console.log(this.ecopoints[0].latitude);
-                
+
             } catch (error) {
                 console.log(error);
             }
         },
 
-        async getAllUsers(){
+        async getAllUsers() {
             try {
                 await this.storeUser.getAllUsers();
                 this.users = this.storeUser.getUsers;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        async useEcoponto(idEcoponto) {
+            try {
+                await this.storeOccurence.addOccurrence(idEcoponto, this.storeUser.getUserLogged().id, this.imageUrl);
+                this.$swal({
+                    title: 'Utilização feita com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#f39c12',
+                });
             } catch (error) {
                 console.log(error);
             }
