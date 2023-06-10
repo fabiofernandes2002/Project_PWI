@@ -13,7 +13,7 @@ export const ecopointStore = defineStore('ecopoint', {
   getters: {
     getEcopoints: (state) => state.ecopoints,
 
-    getEcopointById: (state) => (id) => state.ecopoints.find((ecopoint) => ecopoint.id === id),
+    getEcopointById: (state) => (id) => state.ecopoints.find((ecopoint) => ecopoint._id === id),
   },
 
   actions: {

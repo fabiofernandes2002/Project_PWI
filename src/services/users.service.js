@@ -31,7 +31,7 @@ export const UsersService = {
     });
     if (response.ok) {
       let data = await response.json();
-      return data.users;
+      return data;
     } else {
       throw Error(response.msg);
     }
@@ -63,7 +63,7 @@ export const UsersService = {
 
   async getUserById(id) {
     const user = JSON.parse(localStorage.getItem('user'));
-    const token = user.accessToken;
+    const token = user.token;
     const response = await fetch(`${API_URL}/users/${id}`, {
       method: 'GET',
       headers: {
@@ -73,15 +73,15 @@ export const UsersService = {
     });
     if (response.ok) {
       let data = await response.json();
-      return data.users;
+      return data.user;
     } else {
       throw Error(response.msg);
     }
   },
 
-  async getTop10Users() {
+  async getTop10() {
     const user = JSON.parse(localStorage.getItem('user'));
-    const token = user.accessToken;
+    const token = user.token;
     const response = await fetch(`${API_URL}/users/top10`, {
       method: 'GET',
       headers: {

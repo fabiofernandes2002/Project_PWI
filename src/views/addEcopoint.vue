@@ -137,13 +137,12 @@ export default {
                     localizacao: this.form.localizacao,
                     morada: this.form.morada,
                     codigoPostal: this.form.codigoPostal,
-                    foto: this.imageUrl,
                     latitude: latitude,
                     longitude: longitude,
                 })
 
                 this.$swal({
-                    title: 'Novo registo de adição criado com sucesso!',
+                    title: 'Novo ecoponto criado com sucesso!',
                     icon: 'success',
                     confirmButtonText: 'Ok',
                     confirmButtonColor: '#ff0000'
@@ -155,9 +154,10 @@ export default {
                     this.form.morada = '';
                     this.form.codigoPostal = '';
                     this.imageUrl = null;
+
+                    
                 })
-                // fazer o console.log do ecoponto criado
-                //console.log(this.store.ecopoints[this.store.ecopoints.length - 1]);
+                
             } catch (Error) {
                 this.$swal({
                     title: Error,

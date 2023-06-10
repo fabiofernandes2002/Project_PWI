@@ -128,8 +128,8 @@ export default {
 
         // for of para iterar sobre o array de ecopoints e criar um marker para cada um
         for (const ecopoint of this.ecopoints) {
-            console.log(ecopoint.latitude);
-            console.log(typeof ecopoint.latitude)
+            //console.log(ecopoint.latitude);
+            //console.log(typeof ecopoint.latitude)
             const marker = new google.maps.Marker({
                 position: { lat: ecopoint.latitude, lng: ecopoint.longitude },
                 map: map,
@@ -283,7 +283,7 @@ export default {
             try {
                 await this.store.getAllEcopontos();
                 this.ecopoints = this.store.getEcopoints;
-                console.log(this.ecopoints[0].latitude);
+                //console.log(this.ecopoints[0].latitude);
                 
             } catch (error) {
                 console.log(error);

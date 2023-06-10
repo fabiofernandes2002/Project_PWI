@@ -186,8 +186,8 @@
 
         <ul id="menu">
           <a href="#section-1">
-            <h1 v-if="this.getUserLogged()">
-              Olá, {{ this.getUserLogged().username }}
+            <h1 v-if="this.store.getUserLogged()">
+              Olá, {{ this.store.getUserLogged().username }}
             </h1>
             <br>
             <hr>

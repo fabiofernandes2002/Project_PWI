@@ -5,24 +5,24 @@
                 <b-col cols="10" class="mt-5">
                     <h1 class="text-center mb-5">Gerir Ecopontos</h1>
                     <!-- formulário para adicionar novo ecoponto -->
-                    <b-form @submit.prevent="addEcopoint" id="form">
+                    <b-form @submit.prevent="createEcoponto" id="form">
                         <b-row>
                             <b-col>
                                 <b-form-group id="input-group-1" label="Nome do ecoponto:" label-for="input-1">
-                                    <b-form-input id="input-1" v-model="form.ecopointName" required></b-form-input>
+                                    <b-form-input id="input-1" v-model="form.nome" required></b-form-input>
                                 </b-form-group>
                             </b-col>
 
 
                             <b-col>
                                 <b-form-group id="input-group-2" label="Localidade do ecoponto:" label-for="input-2">
-                                    <b-form-input id="input-2" v-model="form.ecopointLocation" required></b-form-input>
+                                    <b-form-input id="input-2" v-model="form.localizacao" required></b-form-input>
                                 </b-form-group>
                             </b-col>
                             <!-- morada -->
                             <b-col>
                                 <b-form-group id="input-group-3" label="Morada do ecoponto:" label-for="input-3">
-                                    <b-form-input id="input-3" v-model="form.ecopointAddress" required></b-form-input>
+                                    <b-form-input id="input-3" v-model="form.morada" required></b-form-input>
                                 </b-form-group>
                             </b-col>
 
@@ -31,22 +31,21 @@
                         <b-row cols="10" md="6">
 
                             <b-col>
-                                <b-form-group id="input-group-4" label="Latitude do ecoponto:" label-for="input-4">
-                                    <b-form-input id="input-4" v-model="form.latitude" required></b-form-input>
+                                <b-form-group id="input-group-4" label="Codigo Postal:" label-for="input-4">
+                                    <b-form-input id="input-4" v-model="form.codigoPostal"></b-form-input>
                                 </b-form-group>
                             </b-col>
 
-                            <b-col>
+                            <!-- <b-col>
                                 <b-form-group id="input-group-5" label="Longitude do ecoponto:" label-for="input-5">
-                                    <b-form-input id="input-5" v-model="form.longitude" required></b-form-input>
+                                    <b-form-input id="input-5" v-model="form.longitude" ></b-form-input>
                                 </b-form-group>
-                            </b-col>
+                            </b-col> -->
 
 
                             <b-col>
                                 <b-form-group id="input-group-6" label="Tipo de ecoponto:" label-for="input-6">
-                                    <b-form-select id="input-6" v-model="form.ecopointType" :options="options"
-                                        required></b-form-select>
+                                    <b-form-input id="input-6" v-model="form.tipo" label-for="input-6" required></b-form-input>
                                 </b-form-group>
                             </b-col>
                         </b-row>
@@ -60,16 +59,16 @@
 
                 <!-- tabela com os ecopontos -->
                 <b-col cols="10" class="mt-5">
-                    <b-table striped hover :items="storeEcopoint.ecopoints" :fields="fields" :per-page="perPage"
+                    <b-table striped hover :items="this.ecopoints" :fields="fields" :per-page="perPage"
                         :current-page="currentPage" @filtered="onFiltered" @row-clicked="rowClicked">
                         <template #cell(ecopointName)="row">
-                            <b>{{ row.item.ecopointName }}</b>
+                            <b>{{ row.item.nome }}</b>
                         </template>
                         <template #cell(ecopointLocation)="row">
-                            <b>{{ row.item.ecopointLocation }}</b>
+                            <b>{{ row.item.localizacao }}</b>
                         </template>
                         <template #cell(ecopointAddress)="row">
-                            <b>{{ row.item.ecopointAddress }}</b>
+                            <b>{{ row.item.morada }}</b>
                         </template>
                         <template #cell(latitude)="row">
                             <b>{{ row.item.latitude }}</b>
@@ -78,10 +77,10 @@
                             <b>{{ row.item.longitude }}</b>
                         </template>
                         <template #cell(ecopointType)="row">
-                            <b>{{ row.item.ecopointType }}</b>
+                            <b>{{ row.item.tipo }}</b>
                         </template>
                         <template #cell(actions)="row">
-                            <b-button id="delete" variant="danger" @click="deleteEcopoint(row.item)">
+                            <b-button id="delete" variant="danger" @click="deleteEcopontoById(row.item._id)">
                                 Eliminar
                             </b-button>
                         </template>
@@ -143,13 +142,11 @@ export default {
     data() {
         return {
             form: {
-                name: '',
-                ecopointLocation: '',
-                ecopointAddress: '',
-                latitude: '',
-                longitude: '',
-                ecopointType: '',
-                userCreate: '',
+                nome: '',
+                localizacao: '',
+                morada: '',
+                codigoPostal: '',
+                tipo: '',
                 // userCreate: this.storeUser.getUserLogged().id,
                 ecopointCreationDate: new Date().toLocaleDateString('pt-PT'),
 
@@ -173,42 +170,104 @@ export default {
                 { key: 'actions', label: 'Ações' },
             ],
 
-            storeEcopoint: ecopointStore(),
+            store: ecopointStore(),
             storeUser: userStore(),
+            ecopoints: [],
         }
     },
 
+    async mounted () {
+        await this.getAllEcopontos();;
+    },
+
     methods: {
-        addEcopoint() {
-            this.storeEcopoint.addEcopoint(this.form.name, this.form.ecopointLocation, this.form.ecopointAddress, this.form.latitude, this.form.longitude, this.form.ecopointType, this.form.userCreate, this.form.ecopointCreationDate);
-            // sweat alert para confirmar que o ecoponto foi adicionado só quando carregar no botão de confirmar do sweet alert e atualizar a página
-            this.$swal({
-                title: 'Ecoponto adicionado com sucesso!',
-                icon: 'success',
-                confirmButtonText: 'Confirmar',
-                confirmButtonColor: '#2D9CDB',
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                allowEnterKey: false,
-                stopKeydownPropagation: false,
-            }).then(() => {
-                this.$router.push('/gerirEcopontos');
-                this.$router.go();
-            });
+        async createEcoponto(event){
+            try {
+                event.preventDefault();
+                const { latitude, longitude } = await this.store.getLatitudeLongitude(this.form.localizacao, this.form.codigoPostal);
+                const validacao = this.storeUser.getUserLogged().tipo === 'admin' ? true : false;
+                await this.store.createEcoponto({
+                    nome: this.form.nome,
+                    tipo: this.form.tipo,
+                    localizacao: this.form.localizacao,
+                    morada: this.form.morada,
+                    codigoPostal: this.form.codigoPostal,
+                    latitude: latitude,
+                    longitude: longitude,
+                    validacao: validacao,
+                })
+
+                // quando o ecoponto é criado pelo admin, validacao = true
 
 
+                this.$swal({
+                    title: 'Novo ecoponto criado com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#ff0000'
+                }).then(() => {
+                    // apagar o form
+                    this.form.nome = '';
+                    this.form.tipo = '';
+                    this.form.localizacao = '';
+                    this.form.morada = '';
+                    this.form.codigoPostal = '';
+                })
+                //this.$router.go();
+            } catch (Error) {
+                this.$swal({
+                    title: Error,
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#ff0000'
+                })
+            }
         },
 
-        deleteEcopoint(id) {
-            this.storeEcopoint.deleteEcopoint(id.id);
-            // atualizar os id dos ecopontos para que não haja erros
-            this.storeEcopoint.ecopoints.forEach((ecopoint, index) => {
-                ecopoint.id = index + 1;
-            });
-            localStorage.setItem('ecopoints', JSON.stringify(this.storeEcopoint.ecopoints));
+        async getAllEcopontos(){
+            try {
+                await this.store.getAllEcopontos();
+                this.ecopoints = this.store.getEcopoints;
+                
+            } catch (error) {
+                console.log(error);
+            }
         },
 
-
+        async deleteEcopontoById(id){
+            
+            try {
+                const result = await this.$swal({
+                title: 'Tens a certeza que queres eliminar este ecoponto?',
+                text: 'Não poderás reverter esta ação!',
+                icon: 'warning',
+                buttons: {
+                    cancel: {
+                        text: "Não",
+                        value: false,
+                        visible: true,
+                        className: "",
+                        closeModal: true,
+                    },
+                    confirm: {
+                        text: "Sim",
+                        value: true,
+                        visible: true,
+                        className: "",
+                        closeModal: true
+                    }
+                }
+                })
+                if (result) {
+                    await this.store.deleteEcopontoById(id);
+                    this.ecopoints = this.ecopoints.filter(ecopoint => ecopoint._id !== id);
+                    
+                    this.$router.go();
+                }   
+            } catch (error) {
+                console.log(error);
+            }
+        },
     }
 }
 </script>

@@ -11,7 +11,8 @@ export const userStore = defineStore('user', {
   }),
 
   getters: {
-    getUsers: (state) => state.users
+    getUsers: (state) => state.users,
+    getUser: (state) => (id) => state.users.find((user) => user._id === id),
   },
 
   actions: {
@@ -29,15 +30,17 @@ export const userStore = defineStore('user', {
       }
     },
 
-    getUserLogged() {
+    /* getUserLogged() {
       const user = JSON.parse(localStorage.getItem('user'));
       const token = user.token;
       if (token) {
         const decodedToken = jwtDecode(token);
-        return decodedToken.username;
+        console.log(decodedToken)
+        return decodedToken;
+        
       }
       return null;
-    },
+    }, */
 
     logout() {
       AuthService.logout();
@@ -52,6 +55,35 @@ export const userStore = defineStore('user', {
         this.setUsers(response);
         this.updateLocalStorage();
       } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async getUserById(id) {
+      try {
+        const response = await UsersService.getUserById(id);
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async deleteUser(id) {
+      try{
+        const response = await UsersService.deleteUser(id);
+        return response;
+      }
+      catch(error){
+        console.log(error);
+      }
+    },
+
+    async getTop10(){
+      try{
+        const response = await UsersService.getTop10();
+        return response;
+      }
+      catch(error){
         console.log(error);
       }
     },

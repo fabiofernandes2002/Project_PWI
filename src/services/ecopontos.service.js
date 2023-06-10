@@ -46,6 +46,7 @@ export const EcopontosService = {
         const user = JSON.parse(localStorage.getItem('user'));
         const token = user.token;
         const { latitude, longitude } = await this.getLatitudeLongitude(ecoponto.morada, ecoponto.codigoPostal);
+        const validacao = user.tipo === 'admin' ? true : false;
         const response = await fetch(`${API_URL}/ecopontos/adicaoEcoponto`, {
             method: 'POST',
             headers: {
@@ -64,12 +65,12 @@ export const EcopontosService = {
                 tipo: ecoponto.tipo,
                 latitude: latitude,
                 longitude: longitude,
-                validacao: false,
+                validacao: validacao,
             }),
         });
         if (response.ok) {
             let data = await response.json();
-            return data.ecopontos;
+            return data;
           } else {
             throw Error(response.msg);
         }
@@ -127,7 +128,7 @@ export const EcopontosService = {
     },
 
     async deleteEcopontoById(id) {
-        const user = JSON.parse(localStorage.getItem('users'));
+        const user = JSON.parse(localStorage.getItem('user'));
         const token = user.token;
         const response = await fetch(`${API_URL}/ecopontos/${id}`, {
             method: 'DELETE',
@@ -137,16 +138,12 @@ export const EcopontosService = {
             },
         });
         if (response.ok) {
-            const data = await response.json();
-            if (data) {
-                return data;
-            } else {
-                throw Error(data.msg);
-            }
-        } else {
-            const data = await response.json();
-            throw Error(data.msg);
-        }
+            let data = await response.json();
+            return data;
+          } else {
+            throw Error(response.msg);
+            
+          }
     },
 
     async getLatitudeLongitude(morada, codigoPostal) {

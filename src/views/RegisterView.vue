@@ -147,9 +147,9 @@ export default {
         }).then(() => {
           this.$router.push('/login');
         });
-      } catch (Error) {
+      } catch (error) {
         this.$swal({
-          title: Error,
+          title: error,
           icon: 'error',
           confirmButtonText: 'Ok',
           confirmButtonColor: '#F39C12',
