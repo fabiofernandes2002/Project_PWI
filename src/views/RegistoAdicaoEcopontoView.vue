@@ -16,7 +16,7 @@
                             <b-card-img :src="adicao.foto" alt="Image"></b-card-img>
                             <b-card-body>
                                 <b-card-text>Id do Utilizador: {{ adicao.criador }}</b-card-text>
-                                <b-card-text>Nome do Ecoponto: {{ adicao.nome}}</b-card-text>
+                                <b-card-text>Nome do Ecoponto: {{ adicao.nome }}</b-card-text>
                                 <b-card-text>Tipo de Ecoponto: {{ adicao.tipo }}</b-card-text>
                                 <b-card-text>Localização: {{ adicao.localizacao }}</b-card-text>
                                 <b-card-text>Data de Criação: {{ adicao.dataCriacao }}</b-card-text>
@@ -25,10 +25,12 @@
                             <b-card-footer>
                                 <b-row>
                                     <b-col cols="6" class="text-left">
-                                        <b-button pill class="bntApagar" @click="removeAdicaoEcoponto(index)">Apagar</b-button>
+                                        <b-button pill class="bntApagar"
+                                            @click="removeAdicaoEcoponto(index)">Apagar</b-button>
                                     </b-col>
                                     <b-col cols="6" class="text-right">
-                                        <b-button pill class="bntValidar" @click="validateAdicaoEcoponto(index)" :disabled="areButtonsDisabled[index]">{{txtBtns[index]}}</b-button>
+                                        <b-button pill class="bntValidar" @click="validateAdicaoEcoponto(index)"
+                                            :disabled="areButtonsDisabled[index]">{{ txtBtns[index] }}</b-button>
                                     </b-col>
                                 </b-row>
                             </b-card-footer>
@@ -38,8 +40,8 @@
                 </b-col>
             </b-row>
 
-                       <!-- MENU LATERAL DE ADMINISTRADOR -->
-           <nav role="navigation">
+            <!-- MENU LATERAL DE ADMINISTRADOR -->
+            <nav role="navigation">
                 <div id="menuToggle">
                     <input type="checkbox" />
                     <span></span>
@@ -103,13 +105,13 @@ export default {
     created() {
         this.store.getEcopoints;
         this.adicoes = this.store.ecopoints;
-        
+
         //lista, cujos elementos terão string "Validar" se o elemento da lista utilizacoes tiver o campo isValidated a false
         //ou "Validado" se o elemento da lista utilizacoes tiver o campo isValidated a true
         this.txtBtns = this.adicoes.map(adicao => adicao.validacao ? "Validado" : "Validar");
 
         this.areButtonsDisabled = this.adicoes.map(adicao => adicao.validacao);
-        
+
 
 
     },
@@ -139,17 +141,14 @@ export default {
             }).then((result) => {
                 if (result) {
                     // se clicar em yes, remove o registo
-                    this.store.deleteEcopoint(id+1);
-                    
+                    this.store.deleteEcopontoById(id);
+
                     this.$router.go();
                 }
             });
-
-
-
         },
 
-        validateAdicaoEcoponto(indexBtn) {
+        validateAdicaoEcoponto(id) {
             //swal message a perguntar se quer mesmo validar o registo
             this.$swal({
                 title: 'Tens a certeza que queres validar este ecoponto?',
@@ -173,45 +172,34 @@ export default {
                 }
             }).then((result) => {
                 if (result) {
-
-                    this.txtBtns[indexBtn] = 'Validado';
-                    
-                    this.adicoes.forEach((adicao, index) => {
-                        if (adicao.validacao) {
-                            this.txtBtns[index] = 'Validado';
-                        }
-                    });
-
-                    //deixar o botão disabled se o registo ja tiver sido validado
-                    this.areButtonsDisabled[indexBtn] = true;
-                    
-                    this.store.validarEcoponto(indexBtn+1);
-
-                    //chamar a função addPoints do userStore
-                    this.storeUser.addPointsForAddEcopoints(this.adicoes[indexBtn].criador); 
-                    // contar o numero de ecopontos adicionados pelo utilizador
-                    this.storeUser.countEcopontosRegistados(this.adicoes[indexBtn].criador);
-
+                    // se clicar em yes, valida o registo
+                    this.store.validateEcoponto(id + 1);
                 }
             });
-        }
+        },
+
+        async validateEcoponto(id) {
+            await this.store.validateEcoponto(id);
+            this.$router.go();
+        },
+
+        async deleteEcopontoById(id) {
+            await this.store.deleteEcopontoById(id);
+            this.$router.go();
+        },
     },
-
-
-
-
 }
 </script>
 
 <style scoped>
+.background {
+    background-image: url('../assets/imgs/adminBG.svg');
 
-.background{
-background-image: url(../assets/imgs/adminBG.svg);
-
-background-size: cover;
-background-position: center;
+    background-size: cover;
+    background-position: center;
 
 }
+
 .bntValidar {
     background-color: #134077;
     color: white;
@@ -228,7 +216,7 @@ background-position: center;
     width: 100%;
 }
 
-#title{
+#title {
     color: #fff;
     font-size: 40px;
     font-weight: bold;
