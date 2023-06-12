@@ -95,7 +95,7 @@ export const EcopontosService = {
         if (response.ok) {
             const data = await response.json();
             if (data) {
-                return data;
+                return data.ecopoint;
             } else {
                 throw Error(data.msg);
             }
