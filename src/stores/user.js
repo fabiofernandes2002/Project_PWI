@@ -73,7 +73,7 @@ export const userStore = defineStore('user', {
         
       }
       return null;
-    }, */
+    },
 
     logout() {
       AuthService.logout();
