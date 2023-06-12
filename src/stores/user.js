@@ -29,6 +29,39 @@ export const userStore = defineStore('user', {
       }
     },
 
+    async updateUser(id, data) {
+      try{
+        const response = await UsersService.updateUser(id, data);
+        if (response) {
+          return response;
+        }
+      } catch (error) {
+        throw Error(error);
+      }
+    },
+
+    async getUserById(id) {
+      try {
+        const response = await UsersService.getUserById(id);
+        if (response) {
+          return response;
+        }
+      } catch (error) {
+        throw Error(error);
+      }
+    },
+
+    async getTop10Users() {
+      try {
+        const response = await UsersService.getTop10Users();
+        if (response) {
+          return response;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     getUserLogged() {
       const user = JSON.parse(localStorage.getItem('user'));
       const token = user.token;
@@ -109,7 +142,7 @@ export const userStore = defineStore('user', {
     },
 
     // updateUser data ao editar perfil
-    updateUser(data){
+/*     updateUser(data){
     
         let user = this.users.find(user => user.id == data.id);
         user.username = data.username;
@@ -120,7 +153,7 @@ export const userStore = defineStore('user', {
     localStorage.setItem('users', JSON.stringify(this.users));
     localStorage.setItem('user', JSON.stringify(user));
     },
-
+ */
     getUserLogged() {
       const user = JSON.parse(localStorage.getItem('user'));
       return user;

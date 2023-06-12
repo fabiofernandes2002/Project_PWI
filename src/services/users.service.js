@@ -37,9 +37,9 @@ export const UsersService = {
     }
   },
 
-  async updateUser(data, id) {
+  async updateUser(id, data) {
     const user = JSON.parse(localStorage.getItem('user'));
-    const token = user.accessToken;
+    const token = user.token;
     const response = await fetch(`${API_URL}/users/${id}`, {
       method: 'PATCH',
       headers: {
@@ -63,7 +63,7 @@ export const UsersService = {
 
   async getUserById(id) {
     const user = JSON.parse(localStorage.getItem('user'));
-    const token = user.accessToken;
+    const token = user.token;
     const response = await fetch(`${API_URL}/users/${id}`, {
       method: 'GET',
       headers: {
@@ -81,7 +81,7 @@ export const UsersService = {
 
   async getTop10Users() {
     const user = JSON.parse(localStorage.getItem('user'));
-    const token = user.accessToken;
+    const token = user.token;
     const response = await fetch(`${API_URL}/users/top10`, {
       method: 'GET',
       headers: {

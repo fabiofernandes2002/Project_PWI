@@ -13,7 +13,7 @@
                 <b-col cols="12">
                     <div class="mt-5 mb-5">
                         <!-- Apresentar os users na tabela ranking, username e pontos e ordenar a tabela por pontos  -->
-                        <b-table striped hover :items="store.users" :fields="fields">
+                        <b-table striped hover :items="this.usersS" :fields="fields">
                             <template #cell(index)="row">
                                 <span>{{ row.index + 1 }}</span>
                             </template>
@@ -89,7 +89,7 @@ export default {
     data() {
         return {
             store: userStore(),
-            //usersS: [],
+            usersS: [],
             fields: [
                 { key: 'index', label: 'Classificacão' },
                 { key: 'username', label: 'Nome de Utilizador' },
@@ -112,27 +112,20 @@ export default {
         this.store.users = top10
     },
 
-    /* mounted () {
-        
-    }, */
+    async mounted () {
+        await this.getTop10Users()
+    },
 
-    /* methods: {
-        sortedTableByPoints() {
-            this.store.users.sort((a, b) => {
-                return b.pontos - a.pontos;
-            });
-        },
-
-        // se o utizador for de type admin não aparece na tabela
-        filterAdmin() {
-            this.usersS = this.store.users.filter(user => user.tipo !== 'admin');
-        },
-
-        // só incluir na tabela os 10 primeiros users com mais pontos
-        filterTop10() {
-            this.usersS = this.store.users.slice(0, 10);
-        },
-    }, */
+    methods: {
+        async getTop10Users(){
+            try{
+                const users = await this.store.getTop10Users()
+                this.usersS = users
+            }catch(error){
+                console.log(error)
+            }
+        }
+    },
 
 
 }
