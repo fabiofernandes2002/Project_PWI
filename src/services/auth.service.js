@@ -50,11 +50,11 @@ export const AuthService = {
             if (data) {
                 return data;
             } else {
-                throw Error(data.message);
+                throw Error(data.msg);
             }
         } else {
             const data = await response.json();
-            throw Error(data.message);
+            throw Error(data.msg);
         }
     },
 

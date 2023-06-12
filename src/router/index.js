@@ -87,8 +87,9 @@ export const router = createRouter({
     /* abrir o user especifico pelo seu id */
     {
       path: '/user/:id',
-      name: 'User',
+      name: 'UserView',
       component: userView,
+      props: true,
     },
     {
       path: '/gerirEcopontos',

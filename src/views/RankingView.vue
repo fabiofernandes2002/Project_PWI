@@ -15,11 +15,14 @@
                         <!-- Apresentar os users na tabela ranking, username e pontos e ordenar a tabela por pontos  -->
                         <b-table striped hover :items="this.usersS" :fields="fields">
                             <template #cell(index)="row">
-                                <span>{{ row.index + 1 }}</span>
+                                <span>{{ row.index +1 }}</span>
                             </template>
                             <template #cell(username)="row" class="align-middle">
                                 <!-- Por avatar e username do user ao lado -->
                                 <b-avatar :src="row.item.foto" size="2rem" class="mr-2"></b-avatar> {{ row.item.username }}
+                            </template>
+                            <template #cell(pontos)="row">
+                                <span>{{ row.item.pontos }}</span>
                             </template>
 
                         </b-table>
@@ -91,25 +94,41 @@ export default {
             store: userStore(),
             usersS: [],
             fields: [
-                { key: 'index', label: 'Classificacão' },
+                { key: 'index', label: 'Classificação' },
                 { key: 'username', label: 'Nome de Utilizador' },
                 { key: 'pontos', label: 'Pontos' },
 
             ],
+            users: [],
         }
     },
 
-    created() {
-        const allUsers = this.store.users.filter(user => user.tipo == 'userNormal')
-        this.store.orderUsers(allUsers)
-        console.log(this.store.orderUsers(allUsers));
+    /* async created() {
+        //const allUsers = this.store.users.filter(user => user.tipo == 'userNormal')
+        await this.getTop10()
+        
 
-        let position = allUsers.findIndex(user => user.username == this.store.getUserLogged().username)
+        /* let position = this.allUsers.findIndex(user => user.username == this.store.getUserLogged().username)
         console.log(position);
         position += 1
 
         const top10 = allUsers.length > 10 ? allUsers.slice(0, 10) : allUsers
         this.store.users = top10
+    }, */
+
+    methods: {
+        async getTop10(){
+            try {
+                const users = await this.store.getTop10()
+                this.users = users
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    },
+
+    async mounted() {
+        await this.getTop10();
     },
 
     async mounted () {

@@ -10,15 +10,13 @@
                             <b-table striped hover :items="this.allUsers" :fields="fields" @row-clicked="selectUser">
                                 <template #cell(username)="row">
                                     <b-avatar :src="row.item.foto" size="2rem" class="mr-2"></b-avatar>
-                                    <!-- routerview que ao carregar em cima do username aparece os seus dados mais abaixo na pagina -->
-                                    <router-link :to="{ name: 'User', params: { id: row.item.id } }">
-                                        {{ row.item.username }}
-                                    </router-link>
+                                    
+                                    <a @click="selectUser(row.item._id)"> {{ row.item.username }} </a>
                                 </template>
                                 <template #cell(apagar)="row" class="align-middle">
                                     <!-- Por avatar e username do user ao lado -->
                                     <b-button size="sm" pill variant="danger"
-                                        @click="this.removeUser(row.item)">Remover</b-button>
+                                        @click="deleteUser(row.item._id)">Remover</b-button>
                                 </template>
 
                             </b-table>
@@ -96,19 +94,11 @@ export default {
                 { key: 'username', label: 'Utilizadores', sortable: true },
                 { key: 'apagar', label: 'Apagar' },
             ],
-            user: {},
+            user: [],
             allUsers: [],
-            selectUser: {},
+            id: this.$route.params.id,
         }
     },
-
-    created() {
-        this.user = this.store.getUserById(this.$route.params.id);
-        this.allUsers = this.store.users.filter(user => user.tipo == 'userNormal');
-
-    },
-
-
 
     methods: {
         removeUser(id) {
@@ -140,24 +130,84 @@ export default {
 
         },
 
-        /* selectUser(user) {
-            this.selectUser = user
-        } */
-    },
-
-    computed: {
-        userWithLink() {
-            return this.allUsers.map(user => {
-                return {
-                    ...user,
-                    username: ''
-                }
-            })
+        async selectUser(id) {
+            this.$router.push(`/users/${id}`);
+            console.log(id);
         },
 
-        /* selectUser() {
-            return this.store.users.find(user => user.id === this.$route.params.id);
-        } */
+        async getAllUsers(){
+            try {
+                await this.store.getAllUsers();
+                this.allUsers = this.store.getUsers.filter(user => user.tipo == 'userNormal');
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        async getUserById(id){
+            try {
+                const user = await this.store.getUserById(id);
+                this.user = user;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        async deleteUser(id){
+            try {
+                
+
+                const result = await this.$swal({
+                title: 'Tens a certeza que queres eliminar este utilizador?',
+                text: 'Não poderás reverter esta ação!',
+                icon: 'warning',
+                buttons: {
+                    cancel: {
+                        text: "Não",
+                        value: false,
+                        visible: true,
+                        className: "",
+                        closeModal: true,
+                    },
+                    confirm: {
+                        text: "Sim",
+                        value: true,
+                        visible: true,
+                        className: "",
+                        closeModal: true
+                    }
+                }
+                })
+                if (result) {
+                    await this.store.deleteUser(id);
+                    this.allUsers = this.allUsers.filter(user => user._id !== id);
+                    
+                    this.$router.go();
+                }   
+            } catch (error) {
+                console.log(error);
+            }
+        },
+    },
+
+    async mounted () {
+        await this.getAllUsers();
+        this.getUserById(this.id);
+        console.log(this.id);
+    },
+
+    created () {
+        this.user = this.store.getUserById(this.id);
+        console.log(this.id);
+        this.$watch(
+            () => this.$route.params,
+            (toParams, previousParams) => {
+                if (toParams.id !== previousParams.id) {
+                    this.id = toParams.id;
+                    this.user = this.store.getUserById(this.id);
+                }
+            }
+        )
     },
 }
 </script>
