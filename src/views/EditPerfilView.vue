@@ -10,7 +10,7 @@
 
 
                 <b-col cols="10" md="6" sm="12" class="mt-3 ">
-                    <b-form @submit="onSubmit" @reset="onReset">
+                    <b-form @submit="updateUser" @reset="onReset">
                         <b-form-group id="input-group-1" label-for="input-1">
                             <b-form-input type="text" id="usernameUpdate" placeholder="Username"
                                 v-model="form.usernameChange" required></b-form-input>
@@ -50,7 +50,8 @@
                                     </div>
                                 </b-col>
                                 <b-col>
-                                    <b-avatar v-if="this.store.getUserLogged().foto" :src="this.store.getUserLogged().foto" left size="6rem"></b-avatar>
+                                    <b-avatar v-if="this.store.getUserLogged().foto" :src="this.store.getUserLogged().foto"
+                                        left size="6rem"></b-avatar>
                                     <b-avatar v-else left size="6rem"></b-avatar>
 
                                 </b-col>
@@ -72,8 +73,7 @@
                         <!-- Botões de atualizar perfil e cancelar -->
                         <b-row class="mt-5 mb-5">
                             <b-col>
-                                <b-button type="submit" pill class="mx-1" id="atualizarPerfil">Atualizar
-                                    Perfil</b-button>
+                                <b-button type="submit" pill class="mx-1" id="atualizarPerfil" @click="updateUser">Atualizar Perfil</b-button>
                             </b-col>
                             <b-col class="text-right">
                                 <b-button type="reset" pill id="cancelar" @click="onReset">Cancelar</b-button>
@@ -90,6 +90,9 @@
 
 <script>
 import { userStore } from '../stores/user';
+import { UsersService } from '../services/users.service';
+import jwtDecode from 'jwt-decode';
+
 export default {
     data() {
         return {
@@ -102,7 +105,7 @@ export default {
                 confirmPasswordChange: '',
                 imageUrl: null,
             },
-
+            userId: '',
         }
     },
 
@@ -116,7 +119,7 @@ export default {
 
 
     methods: {
-        onSubmit(evt) {
+/*         onSubmit(evt) {
             evt.preventDefault()
 
             const data = {
@@ -169,14 +172,47 @@ export default {
                 console.error('Erro ao atualizar dados do utilizador: ', error);
 
             }
-
-
-
-
-
-
-
         },
+ */
+        getUserId() {
+            const user = JSON.parse(localStorage.getItem("user"));
+            const token = user.token;
+
+            if (token) {
+                const decoded = jwtDecode(token);
+                this.userId = decoded.id;
+            }
+        },
+
+        async updateUser(event) {
+            event.preventDefault();
+            try {
+                await this.store.updateUser(this.userId, {
+                    username: this.form.usernameChange,
+                    password: this.form.passwordChange,
+                    confirmPassword: this.form.confirmPasswordChange,
+                    email: this.form.emailChange,
+                });
+
+                this.$swal({
+                    title: `Perfil atualizado com sucesso!`,
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#F39C12',
+                    onClose: false,
+                }).then(() => {
+                    this.$router.push('/perfil');
+                });
+            } catch (Error) {
+                this.$swal({
+                    title: Error,
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#F39C12',
+                });
+            }
+        },
+
 
         onReset(evt) {
             evt.preventDefault()
@@ -204,10 +240,12 @@ export default {
                 this.store.getUserLogged().photo = this.imageUrl;
             }
         },
-
-
     },
 
+    mounted(){
+        this.getUserId();
+        console.log(this.userId)
+    },
 }
 </script>
 
