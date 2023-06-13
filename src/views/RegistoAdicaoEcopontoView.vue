@@ -179,14 +179,24 @@ export default {
         },
 
         async validateEcoponto(id) {
-            await this.store.validateEcoponto(id);
-            this.$router.go();
+            try {
+                const response = await EcopontosService.validateEcoponto(id);
+                return response;
+            } catch (error) {
+                console.log(error);
+                throw error;
+            }
         },
 
         async deleteEcopontoById(id) {
-            await this.store.deleteEcopontoById(id);
-            this.$router.go();
-        },
+            try {
+                const response = await EcopontosService.deleteEcopontoById(id);
+                return response;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
     },
 }
 </script>
