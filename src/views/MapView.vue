@@ -257,7 +257,7 @@ export default {
 
             if (this.imageUrl != null) {
                 //console.log(this.idSelectedEcopoint, this.storeUser.getUserLogged().id);
-                this.storeOccurence.addOccurrence(this.idSelectedEcopoint, this.storeUser.getUserLogged().id, this.imageUrl);
+                this.storeOccurence.getOccurences(this.idSelectedEcopoint, this.storeUser.getUserLogged().id, this.imageUrl);
 
                 // sweet alert para mostrar que a imagem foi submetida com sucesso
                 this.$swal({
@@ -285,7 +285,7 @@ export default {
                 await this.store.getAllEcopontos();
                 this.ecopoints = this.store.getEcopoints;
                 //console.log(this.ecopoints[0].latitude);
-                
+
             } catch (error) {
                 console.log(error);
             }
@@ -300,19 +300,16 @@ export default {
             }
         },
 
-        async useEcoponto(idEcoponto) {
+        async useEcoponto(id) {
             try {
-                await this.storeOccurence.addOccurrence(idEcoponto, this.storeUser.getUserLogged().id, this.imageUrl);
-                this.$swal({
-                    title: 'Utilização feita com sucesso!',
-                    icon: 'success',
-                    confirmButtonText: 'Ok',
-                    confirmButtonColor: '#f39c12',
-                });
+                await this.storeOccurence.addOccurrence(id, this.storeUser.getUserLogged().id, this.imageUrl);
+                return 'Utilização feita com sucesso!';
             } catch (error) {
                 console.log(error);
+                throw error;
             }
         },
+
     },
 
 }
