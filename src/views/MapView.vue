@@ -282,7 +282,7 @@ export default {
 
             if (this.imageUrl != null) {
                 //console.log(this.idSelectedEcopoint, this.storeUser.getUserLogged().id);
-                this.storeOccurence.addOccurrence(this.idSelectedEcopoint, this.storeUser.getUserLogged().id, this.imageUrl);
+                this.storeOccurence.getOccurences(this.idSelectedEcopoint, this.storeUser.getUserLogged().id, this.imageUrl);
 
                 // sweet alert para mostrar que a imagem foi submetida com sucesso
                 this.$swal({
@@ -310,7 +310,7 @@ export default {
                 await this.store.getAllEcopontos();
                 this.ecopoints = this.store.getEcopoints;
                 //console.log(this.ecopoints[0].latitude);
-                
+
             } catch (error) {
                 console.log(error);
             }
@@ -337,6 +337,7 @@ export default {
                 this.mostrarDivImagem = false;
             } catch (error) {
                 console.log(error);
+                throw error;
             }
 
             /* try {
