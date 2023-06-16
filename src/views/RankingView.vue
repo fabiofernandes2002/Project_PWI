@@ -13,7 +13,7 @@
                 <b-col cols="12">
                     <div class="mt-5 mb-5">
                         <!-- Apresentar os users na tabela ranking, username e pontos e ordenar a tabela por pontos  -->
-                        <b-table striped hover :items="this.usersS" :fields="fields">
+                        <b-table striped hover :items="this.users" :fields="fields">
                             <template #cell(index)="row">
                                 <span>{{ row.index +1 }}</span>
                             </template>
@@ -42,8 +42,8 @@
 
                 <ul id="menu">
                     <a href="/perfil">
-                        <h1 v-if="this.store.getUserLogged()">
-                            Olá, {{ this.store.getUserLogged().username }}
+                        <h1 v-if="user">
+                            Olá, {{ user.username }}
                         </h1>
                         <br>
                         <hr>
@@ -87,6 +87,7 @@
 
 <script>
 import { userStore } from '../stores/user';
+import jwtDecode from 'jwt-decode';
 export default {
     name: 'RankingView',
     data() {
@@ -100,6 +101,8 @@ export default {
 
             ],
             users: [],
+            userId: '',
+            user: []
         }
     },
 
@@ -117,6 +120,25 @@ export default {
     }, */
 
     methods: {
+        getUserId() {
+            const user = JSON.parse(localStorage.getItem("user"));
+            const token = user.token;
+
+            if (token) {
+                const decoded = jwtDecode(token);
+                this.userId = decoded.id;
+            } 
+        },
+
+        async getUser(id) {
+            try {
+                const users = await this.store.getUserById(id);
+                this.user = users;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
         async getTop10(){
             try {
                 const users = await this.store.getTop10()
@@ -129,23 +151,9 @@ export default {
 
     async mounted() {
         await this.getTop10();
+        this.getUserId();
+        await this.getUser(this.userId);
     },
-
-    async mounted () {
-        await this.getTop10Users()
-    },
-
-    methods: {
-        async getTop10Users(){
-            try{
-                const users = await this.store.getTop10Users()
-                this.usersS = users
-            }catch(error){
-                console.log(error)
-            }
-        }
-    },
-
 
 }
 </script>

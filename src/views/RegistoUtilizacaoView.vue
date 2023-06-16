@@ -10,7 +10,7 @@
 
             <b-row>
                 <!-- Apresentar cards com imagem do utilização, nome de utilizador que submeteu para cada utilização do ecopontos -->
-                <b-col cols="6" md="4" v-for="(utilizacao, index) in utilizacoes" :key="utilizacao.id">
+                <b-col cols="6" md="4" v-for="(utilizacao, index) in this.utilizacoes" :key="utilizacao._id">
                     <b-card-group>
                         <b-card class="mb-4">
                             <b-card-img :src="utilizacao.foto" alt="Image"></b-card-img>
@@ -24,10 +24,10 @@
                                 <b-row>
                                     <b-col cols="6" class="text-left">
                                         <b-button pill class="bntApagar"
-                                            @click="deleteUtilizacoesById(idRegistoUtilizacao)">Apagar</b-button>
+                                            @click="deleteUtilizacoesById(utilizacao._id)">Apagar</b-button>
                                     </b-col>
                                     <b-col cols="6" class="text-right">
-                                        <b-button pill class="bntValidar" @click="validateUtilizacoes(idRegistoUtilizacao)"
+                                        <b-button pill class="bntValidar" @click="validateUtilizacoes(utilizacao._id)"
                                             :disabled="areButtonsDisabled[index]">{{ txtBtns[index] }}</b-button>
                                     </b-col>
                                 </b-row>
@@ -89,34 +89,24 @@
 <script>
 import { ecopointStore } from '../stores/ecopoint'
 import { userStore } from '../stores/user'
-import { occurenceStore } from '../stores/occurence'
+import { utilizacaoStore } from '../stores/utilizacoes'
 export default {
     data() {
         return {
             store: ecopointStore(),
             storeUser: userStore(),
-            storeOccurence: occurenceStore(),
+            storeUtilizacao: utilizacaoStore(),
             utilizacoes: [],
             areButtonsDisabled: [],
             txtBtns: []
         }
     },
-
-    created() {
-        this.storeOccurence.getOccurences;
-        this.utilizacoes = this.storeOccurence.occurences;
-
-        //lista, cujos elementos terão string "Validar" se o elemento da lista utilizacoes tiver o campo isValidated a false
-        //ou "Validado" se o elemento da lista utilizacoes tiver o campo isValidated a true
-        this.txtBtns = this.utilizacoes.map(utilizacao => utilizacao.validacao ? "Validado" : "Validar");
-
-        this.areButtonsDisabled = this.utilizacoes.map(utilizacao => utilizacao.validacao);
-    },
+    
     methods: {
         async getAllUtilizacoes() {
             try {
-                await this.storeOccurence.getAllutilizacoes();
-                this.utilizacoes = this.storeOccurence.getOccurences;
+                await this.storeUtilizacao.getAllUtilizacoes();
+                this.utilizacoes = this.storeUtilizacao.getUtilizacoes
             } catch (error) {
                 console.log(error);
             }
@@ -124,10 +114,7 @@ export default {
 
         async validateUtilizacoes(idRegistoUtilizacao, indexBtn) {
             try {
-                await this.storeOccurence.validateUtilizacoes(idRegistoUtilizacao, {
-                    validacao: true
-                });
-                this.$swal({
+                const result = await this.$swal({
                     title: 'Tens a certeza que queres validar este registo?',
                     text: 'Não poderás reverter esta ação!',
                     icon: 'warning',
@@ -147,30 +134,34 @@ export default {
                             closeModal: true
                         }
                     }
-                }).then((result) => {
-                    if (result) {
+                })
+                if (result) {
 
-                        this.txtBtns[indexBtn] = 'Validado';
+                    await this.storeUtilizacao.validateUtilizacoes(idRegistoUtilizacao, {
+                        validacao: true
+                    });
 
-                        this.utilizacoes.forEach((utilizacao, index) => {
-                            if (utilizacao.validacao) {
-                                this.txtBtns[index] = 'Validado';
-                            }
-                        });
+                    this.txtBtns[indexBtn] = 'Validado';
+                    console.log(this.txtBtns[indexBtn]);
 
-                        //deixar o botão disabled se o registo ja tiver sido validado
-                        this.areButtonsDisabled[indexBtn] = true;
+                    this.utilizacoes.forEach((utilizacao, index) => {
+                        if (utilizacao.validacao) {
+                            this.txtBtns[index] = 'Validado';
+                        }
+                    });
 
-                        this.storeOccurence.validateOccurrence(indexBtn + 1);
+                    //deixar o botão disabled se o registo ja tiver sido validado
+                    this.areButtonsDisabled[indexBtn] = true;
 
-                        //chamar a função addPoints do userStore
-                        this.storeUser.addPoints(this.utilizacoes[indexBtn].idUtilizador);
+                    //chamar a função addPoints do userStore
+                    this.storeUser.addPoints(this.utilizacoes[indexBtn].idUtilizador);
 
-                        // contar o numero de ecopontos que o utilizador usou
-                        this.storeUser.countEcopontosUtilizados(this.utilizacoes[indexBtn].idUtilizador);
+                    // contar o numero de ecopontos que o utilizador usou
+                    this.storeUser.countEcopontosUtilizados(this.utilizacoes[indexBtn].idUtilizador);
 
-                    }
-                });
+
+                }
+                
             } catch (error) {
                 console.log(error);
             }
@@ -178,12 +169,12 @@ export default {
 
         async deleteUtilizacoesById(idRegistoUtilizacao) {
             try {
-                await this.storeOccurence.deleteUtilizacoesById(idRegistoUtilizacao, {
+                /* await this.storeUtilizacao.deleteUtilizacoesById(idRegistoUtilizacao, {
                     validacao: false
-                });
+                }); */
 
                 //swal message a perguntar se quer mesmo eliminar o registo
-                this.$swal({
+                const result = await this.$swal({
                     title: 'Tens a certeza que queres eliminar este registo?',
                     text: 'Não poderás reverter esta ação!',
                     icon: 'warning',
@@ -203,19 +194,41 @@ export default {
                             closeModal: true
                         }
                     }
-                }).then((result) => {
-                    if (result) {
-                        // se clicar em yes, remove o registo
-                        this.storeOccurence.removeOccurrence(id + 1);
+                })
+                if (result) {
+                    await this.storeUtilizacao.deleteUtilizacoesById(idRegistoUtilizacao);
+                    this.utilizacoes = this.utilizacoes.filter(utilizacao => utilizacao._id !== idRegistoUtilizacao);
 
-                        this.$router.go();
-                    }
-                });
+                    this.$router.go();
+                }
+                
             } catch (error) {
                 console.log(error);
             }
         },
+
+        
     },
+
+    async mounted() {
+        try {
+            await this.getAllUtilizacoes();
+
+            if (this.utilizacoes) {
+
+                this.txtBtns = this.utilizacoes.map(utilizacao =>
+                    utilizacao.validacao ? "Validado" : "Validar"
+                );
+
+                this.areButtonsDisabled = this.utilizacoes.map(utilizacao =>
+                    utilizacao.validacao
+                );
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    },
+
 }
 </script>
 

@@ -40,13 +40,11 @@ export const ecopointStore = defineStore('ecopoint', {
       }
     },
 
-    async createEcoponto(ecoponto) {
+    async createEcoponto(data) {
       try {
-        const response = await EcopontosService.createEcoponto(ecoponto);
-        if(response.token){
-          localStorage.setItem("ecoponto", JSON.stringify(response));
-        }
-        this.getLatitudeLongitude(ecoponto.morada, ecoponto.codigoPostal);
+        const response = await EcopontosService.createEcoponto(data);
+        return response;
+        
       } catch (error) {
         console.log(error);
       }
@@ -61,18 +59,18 @@ export const ecopointStore = defineStore('ecopoint', {
       }
     },
 
-    async useEcoponto(id) {
+    async useEcoponto(id, data) {
       try {
-        const response = await EcopontosService.useEcoponto(id);
+        const response = await EcopontosService.useEcoponto(id, data);
         return response;
       } catch (error) {
         console.log(error);
       }
     },
 
-    async validateEcoponto(id) {
+    async validateEcoponto(id, data) {
       try {
-        const response = await EcopontosService.validateEcoponto(id);
+        const response = await EcopontosService.validateEcoponto(id, data);
         return response;
       } catch (error) {
         console.log(error);
@@ -130,7 +128,7 @@ export const ecopointStore = defineStore('ecopoint', {
     },
 
     // VALIDAR ECOPONTO
-    validarEcoponto(id) {
+    /* validarEcoponto(id) {
       const index = this.ecopoints.findIndex((ecopoint) => ecopoint.id === id)
       this.ecopoints[index].validacao = true
       localStorage.setItem('ecopoints', JSON.stringify(this.ecopoints))
@@ -140,7 +138,7 @@ export const ecopointStore = defineStore('ecopoint', {
       const index = this.ecopoints.findIndex((ecopoint) => ecopoint.id === id);
       this.ecopoints.splice(index, 1);
       localStorage.setItem('ecopoints', JSON.stringify(this.ecopoints));
-    },
+    }, */
 
   }
 })

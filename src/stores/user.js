@@ -52,9 +52,9 @@ export const userStore = defineStore('user', {
       }
     },
 
-    async getTop10Users() {
+    async getTop10() {
       try {
-        const response = await UsersService.getTop10Users();
+        const response = await UsersService.getTop10();
         if (response) {
           return response;
         }
@@ -94,7 +94,7 @@ export const userStore = defineStore('user', {
 
     async getUserById(id) {
       try {
-        const response = await UsersService.getUserById(id);
+        const response = await UsersService.getUser(id);
         return response;
       } catch (error) {
         console.log(error);

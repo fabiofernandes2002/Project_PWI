@@ -13,7 +13,7 @@
                 <b-col cols="12 my-3" md="6" class="mt-5" style="text-align:center; padding-top: 5vh;">
                     <div class="ml-5">
                         <!-- Apresentar foto do user e se não tiver mostrar só o avatar -->
-                        <b-avatar v-if="this.store.getUserLogged().foto" :src="this.store.getUserLogged().foto"
+                        <b-avatar v-if="user.foto" :src="user.foto"
                             size="150px"></b-avatar>
                         <!-- else mostrar só o avatar -->
                         <b-avatar v-else size="150px"></b-avatar>
@@ -27,35 +27,35 @@
                     <!-- Nome de utilizador -->
                     <div>
                         <h3 id="NameUser">Nome de Utilizador: <span id="userLogged">{{
-                            this.store.getUserLogged().username
+                            user.username
                         }}</span></h3>
                     </div>
 
                     <!-- Email -->
                     <div>
                         <h3 id="EmailUser">Email: <span id="userLoggedEmail">{{
-                            this.store.getUserLogged().email
+                            user.email
                         }}</span></h3>
                     </div>
 
                     <!-- Data de Nascimento -->
                     <div>
                         <h3 id="dataNascimentoUser">Data de Nascimento: <span id="userLoggedData">{{
-                            this.store.getUserLogged().dataNascimento
+                            user.dataNascimento
                         }}</span></h3>
                     </div>
 
                     <!-- Morada -->
                     <div>
                         <h3 id="MoradaUser">Morada: <span id="userLoggedMorada">{{
-                            this.store.getUserLogged().morada
+                            user.morada
                         }}</span></h3>
                     </div>
 
                     <!-- Localidade -->
                     <div>
                         <h3 id="LocalidadeUser">Localidade: <span id="userLoggedLocalidade">{{
-                            this.store.getUserLogged().localidade
+                            user.localidade
                         }}</span></h3>
                     </div>
 
@@ -64,17 +64,11 @@
                 <b-col cols="12" md="6" class="mt-5" style="right: 7vw; text-align: center;">
                     <div class="divdata">
                         <div>
-                            <h3 id="pontos">Pontos: <span>{{ this.store.getUserLogged().pontos }} xp</span></h3>
+                            <h3 id="pontos">Pontos: <span>{{ user.pontos }} xp</span></h3>
                         </div>
                         <div>
                             <h3 id="ranking">Ocupação no Ranking: <span>{{ this.position }}º
                                     classificado</span></h3>
-                        </div>
-                        <div>
-                            <h3 id="semana">Dia de semana mais frequente: <span>{{
-                                this.store.getUserLogged().diaSemana
-                            }}</span>
-                            </h3>
                         </div>
                     </div>
 
@@ -123,8 +117,8 @@
 
                 <ul id="menu">
                     <a href="/perfil">
-                        <h1 v-if="this.store.getUserLogged()">
-                            Olá, {{ this.store.getUserLogged().username }}
+                        <h1 v-if="user">
+                            Olá, {{ user.username }}
                         </h1>
                         <br>
                         <hr>
@@ -169,6 +163,7 @@
 <script>
 import { userStore } from '../stores/user';
 import { medalsStore } from '../stores/medals'
+import jwtDecode from "jwt-decode";
 export default {
     name: 'PerfilView',
 
@@ -176,9 +171,10 @@ export default {
         return {
             store: userStore(),
             storemedals: medalsStore(),
-            users: [],
+            user: [],
             medals: [],
-            position: 0
+            position: 0,
+            userId: "",
         }
     },
 
@@ -192,9 +188,12 @@ export default {
         this.position += 1
     },
 
-    mounted() {
-        this.medals = this.mostrarMedalha();
-        console.log(this.medals.length)
+    async mounted() {
+        /* this.medals = this.mostrarMedalha();
+        console.log(this.medals.length) */
+
+        this.getUserId()
+        await this.getUser(this.userId)
     },
 
     methods: {
@@ -223,6 +222,27 @@ export default {
             // return the userMedals array
             return userMedals;
         },
+
+        getUserId() {
+            const user = JSON.parse(localStorage.getItem("user"));
+            const token = user.token;
+
+            if (token) {
+                const decoded = jwtDecode(token);
+                this.userId = decoded.id;
+            } 
+        },
+
+        async getUser(id) {
+            try {
+                const users = await this.store.getUserById(id);
+                this.user = users;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+
 
 
 

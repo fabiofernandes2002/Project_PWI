@@ -187,7 +187,7 @@
         <ul id="menu">
           <a href="#section-1">
             <h1 v-if="this.store.getUserLogged()">
-              Olá, {{ this.store.getUserLogged().username }}
+              Olá, {{ user.username }}
             </h1>
             <br>
             <hr>
@@ -253,6 +253,8 @@ export default {
       loggedUser: false,
       location: '',
       username: '',
+      userId: '',
+      user: [],
     }
   },
 
@@ -265,6 +267,25 @@ export default {
 
 
   methods: {
+
+    getUserId() {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const token = user.token;
+
+      if (token) {
+          const decoded = jwtDecode(token);
+          this.userId = decoded.id;
+      } 
+    },
+
+    async getUser(id) {
+      try {
+          const users = await this.store.getUserById(id);
+          this.user = users;
+      } catch (error) {
+          console.log(error);
+      }
+    },
 
     // logout do utilizador e remover os dados da session storage
     logout() {
@@ -306,6 +327,11 @@ export default {
     },
 
 
+  },
+
+  async mounted() {
+    this.getUserId();
+    await this.getUser(this.userId);
   },
 
   computed: {

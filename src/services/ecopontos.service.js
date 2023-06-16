@@ -42,31 +42,21 @@ export const EcopontosService = {
         }
     },
 
-    async createEcoponto(ecoponto) {
+    async createEcoponto(formData) {
         const user = JSON.parse(localStorage.getItem('user'));
         const token = user.token;
-        const { latitude, longitude } = await this.getLatitudeLongitude(ecoponto.morada, ecoponto.codigoPostal);
-        const validacao = user.tipo === 'admin' ? true : false;
-        const response = await fetch(`${API_URL}/ecopontos/adicaoEcoponto`, {
+        /* const { latitude, longitude } = await this.getLatitudeLongitude(ecoponto.morada, ecoponto.codigoPostal);
+        const currentDate = new Date();
+        const options = { timeZone: 'Europe/Lisbon' };
+        const formattedDate = currentDate.toLocaleString('pt-PT', options); */
+        //const validacao = user.tipo === 'admin' ? true : false;
+        const response = await fetch(`http://127.0.0.1:3000/ecopontos/adicaoEcoponto`, {
+        //const response = await fetch(`${API_URL}/ecopontos/adicaoEcoponto`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({
-                // criador do ecoponto é o utilizador que está logado
-                criador: user.id,
-                nome: ecoponto.nome,
-                foto: ecoponto.foto,
-                morada: ecoponto.morada,
-                localizacao: ecoponto.localizacao,
-                codigoPostal: ecoponto.codigoPostal,
-                dataCriacao: new Date(),
-                tipo: ecoponto.tipo,
-                latitude: latitude,
-                longitude: longitude,
-                validacao: validacao,
-            }),
+            body: formData
         });
         if (response.ok) {
             let data = await response.json();
@@ -76,26 +66,25 @@ export const EcopontosService = {
         }
     },
 
-    async useEcoponto(id) {
+    async useEcoponto(id, formData) {
         const user = JSON.parse(localStorage.getItem('user'));
         const token = user.token;
-        const response = await fetch(`${API_URL}/ecopontos/${id}/use`, {
+        /* const currentDate = new Date();
+        const options = { timeZone: 'Europe/Lisbon' };
+        const formattedDate = currentDate.toLocaleString('pt-PT', options); */
+
+        const response = await fetch(`${API_URL}/ecopontos/use/${id}`, {
+            //const response = await fetch(`http://127.0.0.1:3000/ecopontos/use/${id}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({
-                idUtilizador: user.id,
-                idEcoponto: ecoponto.id,
-                dataUtilizacao: Date.now(),
-                foto: ecoponto.foto
-            }),
+            body: formData
         });
         if (response.ok) {
             const data = await response.json();
             if (data) {
-                return data.ecopoint;
+                return data;
             } else {
                 throw Error(data.msg);
             }
@@ -104,17 +93,18 @@ export const EcopontosService = {
     },
 
     // validaar o ecoponto (admin) passando o parametro de validação a true
-    async validateEcoponto(id) {
+    async validateEcoponto(id, data) {
         const user = JSON.parse(localStorage.getItem('users'));
         const token = user.token;
-        const response = await fetch(`${API_URL}/ecopontos/validacao/${id}`, {
-            method: 'PATCH',
+        const response = await fetch(`http://127.0.0.1:3000/ecopontos/validacao/${id}`, {
+        //const response = await fetch(`${API_URL}/ecopontos/validacao/${id}`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
-                validacao: true,
+                validacao: data.validacao,
             }),
         });
         if (response.ok) {

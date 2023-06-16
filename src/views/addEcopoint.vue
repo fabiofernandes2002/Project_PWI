@@ -8,7 +8,7 @@
             <b-form @submit.prevent="createEcoponto">
                 <div class="display-img">
                     <img v-if="imageUrl === null" src="https://dummyimage.com/640x360/fff/aaa" />
-                    <img v-if="imageUrl" :src="imageUrl" />
+                    <img v-if="imageUrl" :src="fotoPreview" />
                 </div>
 
                 <div class="image-submit">
@@ -55,8 +55,8 @@
 
                     <ul id="menu">
                         <a href="/perfil">
-                            <h1 v-if="this.storeUser.getUserLogged()">
-                                Olá, {{ this.storeUser.getUserLogged().username }}
+                            <h1 v-if="user">
+                                Olá, {{ user.username }}
                             </h1>
                             <br>
                             <hr>
@@ -105,6 +105,7 @@
 
 import { ecopointStore } from '../stores/ecopoint';
 import { userStore } from '../stores/user';
+import jwtDecode from "jwt-decode";
 
 export default {
     data() {
@@ -113,7 +114,11 @@ export default {
             storeUser: userStore(),
             ecopoints: [],
             users: [],
+            fileInput: null,
             imageUrl: null,
+            userId: '',
+            user: [],
+            fotoPreview: null,
             form: {
                 nome: '',
                 tipo: '',
@@ -127,20 +132,54 @@ export default {
 
     methods: {
 
-        async createEcoponto(event){
+        getUserId() {
+            const user = JSON.parse(localStorage.getItem("user"));
+            const token = user.token;
+
+            if (token) {
+                const decoded = jwtDecode(token);
+                this.userId = decoded.id;
+            } 
+        },
+
+        async getUser(id) {
             try {
+                const users = await this.storeUser.getUserById(id);
+                this.user = users;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        uploadImage() {
+            this.imageUrl = this.$refs.fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                this.fotoPreview = e.target.result;
+            };
+            reader.readAsDataURL(this.imageUrl);
+        },
+
+        async createEcoponto(event){
+            
                 event.preventDefault();
                 const { latitude, longitude } = await this.store.getLatitudeLongitude(this.form.localizacao, this.form.codigoPostal);
-                await this.store.createEcoponto({
-                    nome: this.form.nome,
-                    tipo: this.form.tipo,
-                    localizacao: this.form.localizacao,
-                    morada: this.form.morada,
-                    codigoPostal: this.form.codigoPostal,
-                    latitude: latitude,
-                    longitude: longitude,
-                })
-
+                const currentDate = new Date();
+                const options = { timeZone: 'Europe/Lisbon' };
+                const formattedDate = currentDate.toLocaleString('pt-PT', options);
+                const formData = new FormData();
+                formData.append('nome', this.form.nome);
+                formData.append('tipo', this.form.tipo);
+                formData.append('localizacao', this.form.localizacao);
+                formData.append('criador', this.userId);
+                formData.append('morada', this.form.morada);
+                formData.append('image', this.imageUrl);
+                formData.append('codigoPostal', this.form.codigoPostal);
+                formData.append('latitude', latitude);
+                formData.append('longitude', longitude);
+                formData.append('dataCriacao', formattedDate);
+            try {
+                await this.store.createEcoponto(formData);
                 this.$swal({
                     title: 'Novo ecoponto criado com sucesso!',
                     icon: 'success',
@@ -168,59 +207,6 @@ export default {
             }
         },
 
-        /* async onSubmit(evt) {
-            evt.preventDefault()
-
-            if (this.imageUrl != null) {
-                // adicionar o ecoponto na store dos ecopontos
-                const { latitude, longitude } = await this.store.getLatitudeLongitude(this.form.localizacao, this.form.codigoPostal);
-                const latestEcopoint = this.store.ecopoints[this.store.ecopoints.length - 1];
-                const dataCriacao = latestEcopoint.dataCriacao;
-
-                // pegar validacao do ecoponto e adicionar na store dos ecopontos
-                const validacao = latestEcopoint.validacao;
-
-                this.store.addEcopoint(this.imageUrl, this.form.nome, this.storeUser.getUserLogged().id, this.form.localizacao, this.form.morada, this.form.codigoPostal, this.form.tipo, latitude, longitude, dataCriacao, validacao);
-
-                //this.store.addEcopoint(this.form.nomeEcoponto, this.form.localizacao, this.form.morada, latitude, longitude ,this.form.tipoEcoponto, this.storeUser.getUserLogged().id, dataCriacao, validacao, this.imageUrl);
-                
-                // sweet alert para mostrar que a imagem foi submetida com sucesso
-                this.$swal({
-                    title: 'Ecoponto submetido com sucesso!',
-                    icon: 'success',
-                    confirmButtonText: 'Ok',
-                    confirmButtonColor: '#f39c12',
-                });
-            }
-            else {
-                // sweet alert para mostrar que a imagem não foi submetida
-                this.$swal({
-                    title: 'Ecoponto não submetido!',
-                    icon: 'error',
-                    confirmButtonText: 'Ok',
-                    confirmButtonColor: '#f39c12',
-                });
-            }
-
-            // limpar o formulário e a imagem do ecoponto depois de submetido
-            this.form.nome = '';
-            this.form.tipo = '';
-            this.form.localizacao = '';
-            this.form.morada = '';
-            this.form.codigoPostal = '';
-            this.imageUrl = null;
-
-        }, */
-
-        uploadImage(event) {
-            let file = event.target.files[0];
-            let reader = new FileReader();
-            reader.onload = (e) => {
-                this.imageUrl = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        },
-
         getUserLogged() {
             const user = JSON.parse(sessionStorage.getItem('user'));
             return user;
@@ -231,7 +217,13 @@ export default {
             this.$router.push('/login');
         },
 
-    }
+    },
+
+    async mounted() {
+        this.getUserId();
+        this.fileInput = this.$refs.fileInput;
+        await this.getUser(this.userId);
+    },
 }
 </script>
   

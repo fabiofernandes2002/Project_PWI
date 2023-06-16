@@ -10,26 +10,27 @@
 
             <b-row>
                 <!-- Apresentar cards com imagem do utilização, nome de utilizador que submeteu para cada utilização do ecopontos -->
-                <b-col cols="6" md="4" v-for="(adicao, index) in adicoes" :key="adicao.id">
+                <b-col cols="6" md="4" v-for="(ecoponto, index) in this.ecopontos" :key="ecoponto._id">
                     <b-card-group>
                         <b-card class="mb-4">
-                            <b-card-img :src="adicao.foto" alt="Image"></b-card-img>
+                            <b-card-img :src="ecoponto.foto" alt="Image"></b-card-img>
                             <b-card-body>
-                                <b-card-text>Id do Utilizador: {{ adicao.criador }}</b-card-text>
-                                <b-card-text>Nome do Ecoponto: {{ adicao.nome }}</b-card-text>
-                                <b-card-text>Tipo de Ecoponto: {{ adicao.tipo }}</b-card-text>
-                                <b-card-text>Localização: {{ adicao.localizacao }}</b-card-text>
-                                <b-card-text>Data de Criação: {{ adicao.dataCriacao }}</b-card-text>
+                                <b-card-text>Id do Utilizador: {{ ecoponto.criador }}</b-card-text>
+                                <b-card-text>Nome do Ecoponto: {{ ecoponto.nome }}</b-card-text>
+                                <b-card-text>Tipo de Ecoponto: {{ ecoponto.tipo }}</b-card-text>
+                                <b-card-text>Morada: {{ ecoponto.morada }}</b-card-text>
+                                <b-card-text>Localização: {{ ecoponto.localizacao }}</b-card-text>
+                                <b-card-text>Data de criação: {{ ecoponto.dataCriacao }}</b-card-text>
                             </b-card-body>
                             <!-- buuton para validar a utilização e apagar um fica a esquerda e outro a direita -->
                             <b-card-footer>
                                 <b-row>
                                     <b-col cols="6" class="text-left">
                                         <b-button pill class="bntApagar"
-                                            @click="removeAdicaoEcoponto(index)">Apagar</b-button>
+                                            @click="deleteEcopontoById(ecoponto._id)">Apagar</b-button>
                                     </b-col>
                                     <b-col cols="6" class="text-right">
-                                        <b-button pill class="bntValidar" @click="validateAdicaoEcoponto(index)"
+                                        <b-button pill class="bntValidar" @click="validateEcoponto(ecoponto._id)"
                                             :disabled="areButtonsDisabled[index]">{{ txtBtns[index] }}</b-button>
                                     </b-col>
                                 </b-row>
@@ -96,97 +97,136 @@ export default {
         return {
             store: ecopointStore(),
             storeUser: userStore(),
-            adicoes: [],
+            ecopontos: [],
             areButtonsDisabled: [],
             txtBtns: [],
         }
     },
 
-    created() {
-        this.store.getEcopoints;
-        this.adicoes = this.store.ecopoints;
-
-        //lista, cujos elementos terão string "Validar" se o elemento da lista utilizacoes tiver o campo isValidated a false
-        //ou "Validado" se o elemento da lista utilizacoes tiver o campo isValidated a true
-        this.txtBtns = this.adicoes.map(adicao => adicao.validacao ? "Validado" : "Validar");
-
-        this.areButtonsDisabled = this.adicoes.map(adicao => adicao.validacao);
-
-
-
-    },
     methods: {
-        removeAdicaoEcoponto(id) {
-            //swal message a perguntar se quer mesmo eliminar o registo
-            this.$swal({
-                title: 'Tens a certeza que queres eliminar este ecoponto?',
-                text: 'Não poderás reverter esta ação!',
-                icon: 'warning',
-                buttons: {
-                    cancel: {
-                        text: "Não",
-                        value: false,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    },
-                    confirm: {
-                        text: "Sim",
-                        value: true,
-                        visible: true,
-                        className: "",
-                        closeModal: true
-                    }
-                }
-            }).then((result) => {
-                if (result) {
-                    // se clicar em yes, remove o registo
-                    this.store.deleteEcopontoById(id);
-
-                    this.$router.go();
-                }
-            });
+        async getAllEcopontos(){
+            try {
+                await this.store.getAllEcopontos();
+                const allEcopontos = this.store.getEcopoints;
+                this.ecopontos = allEcopontos.filter(ecoponto => ecoponto.validacao === false);
+                console.log(this.ecopontos);
+                
+            } catch (error) {
+                console.log(error);
+            }
         },
 
-        validateAdicaoEcoponto(id) {
-            //swal message a perguntar se quer mesmo validar o registo
-            this.$swal({
-                title: 'Tens a certeza que queres validar este ecoponto?',
-                text: 'Não poderás reverter esta ação!',
-                icon: 'warning',
-                buttons: {
-                    cancel: {
-                        text: "Não",
-                        value: false,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    },
-                    confirm: {
-                        text: "Sim",
-                        value: true,
-                        visible: true,
-                        className: "",
-                        closeModal: true
+        async validateEcoponto(id, indexBtn) {
+            try {
+                const result = await this.$swal({
+                    title: 'Tens a certeza que queres validar este ecoponto?',
+                    text: 'Não poderás reverter esta ação!',
+                    icon: 'warning',
+                    buttons: {
+                        cancel: {
+                            text: "Não",
+                            value: false,
+                            visible: true,
+                            className: "",
+                            closeModal: true,
+                        },
+                        confirm: {
+                            text: "Sim",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: true
+                        }
                     }
-                }
-            }).then((result) => {
+                })
                 if (result) {
-                    // se clicar em yes, valida o registo
-                    this.store.validateEcoponto(id + 1);
-                }
-            });
-        },
 
-        async validateEcoponto(id) {
-            await this.store.validateEcoponto(id);
-            this.$router.go();
+                    await this.store.validateEcoponto(id, {
+                        validacao: true
+                    });
+
+                    this.txtBtns[indexBtn] = 'Validado';
+                    console.log(this.txtBtns[indexBtn]);
+
+                    this.ecopontos.forEach((ecoponto, index) => {
+                        if (ecoponto.validacao) {
+                            this.txtBtns[index] = 'Validado';
+                        }
+                    });
+
+                    //deixar o botão disabled se o registo ja tiver sido validado
+                    this.areButtonsDisabled[indexBtn] = true;
+
+                    if (this.ecopontos[indexBtn] && this.ecopontos[indexBtn].criador) {
+                        this.storeUser.addPointsForAddEcopoints(this.ecopontos[indexBtn].criador);
+                        // contar o número de ecopontos que o utilizador tem registados
+                        this.storeUser.countEcopontosRegistados(this.ecopontos[indexBtn].criador);
+                    }
+
+
+                }
+                
+            } catch (error) {
+                console.log(error);
+            }
         },
 
         async deleteEcopontoById(id) {
-            await this.store.deleteEcopontoById(id);
-            this.$router.go();
+            try {
+                //swal message a perguntar se quer mesmo eliminar o registo
+                const result = await this.$swal({
+                    title: 'Tens a certeza que queres eliminar este registo?',
+                    text: 'Não poderás reverter esta ação!',
+                    icon: 'warning',
+                    buttons: {
+                        cancel: {
+                            text: "Não",
+                            value: false,
+                            visible: true,
+                            className: "",
+                            closeModal: true,
+                        },
+                        confirm: {
+                            text: "Sim",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: true
+                        }
+                    }
+                })
+                if (result) {
+                    await this.store.deleteEcopontoById(id);
+                    this.ecopontos = this.ecopontos.filter(ecoponto => ecoponto._id !== id);
+
+                    this.$router.go();
+                }
+                
+            } catch (error) {
+                console.log(error);
+            }
         },
+
+        
+    },
+
+    async mounted() {
+        try {
+            await this.getAllEcopontos();
+
+            if (this.ecopontos) {
+
+                this.txtBtns = this.ecopontos.map(ecoponto =>
+                    ecoponto.validacao ? "Validado" : "Validar"
+                );
+
+                this.areButtonsDisabled = this.ecopontos.map(ecoponto =>
+                    ecoponto.validacao
+                );
+            }
+        } catch (error) {
+            console.log(error);
+        }
     },
 }
 </script>

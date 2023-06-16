@@ -10,7 +10,7 @@
                     <div id="divImagem" v-if="mostrarDivImagem"> <!-- v-if="mostrarDivImagem" -->
                         <div class="display-img">
                             <img v-if="imageUrl === null" src="https://dummyimage.com/640x360/fff/aaa" />
-                            <img v-if="imageUrl" :src="imageUrl" />
+                            <img v-if="imageUrl" :src="fotoPreview" />
                         </div>
 
                         <div class="image-submit">
@@ -19,7 +19,7 @@
 
                         <!-- botão de submeter imagem -->
                         <div class="mb-5 mt-3 text-center">
-                            <b-button @click="submitImage" class="submitButton" variant="primary">Submeter
+                            <b-button @click="useEcoponto" class="submitButton" variant="primary">Submeter
                                 Imagem</b-button>
                         </div>
                     </div>
@@ -38,8 +38,8 @@
 
                     <ul id="menu">
                         <a href="/perfil">
-                            <h1 v-if="this.storeUser.getUserLogged()">
-                                Olá, {{ this.storeUser.getUserLogged().username }}
+                            <h1 v-if="user">
+                                Olá, {{ user.username }}
                             </h1>
                             <br>
                             <hr>
@@ -84,7 +84,8 @@
 <script>
 import { ecopointStore } from '../stores/ecopoint';
 import { userStore } from '../stores/user';
-import { occurenceStore } from '../stores/occurence';
+import { utilizacaoStore } from '../stores/utilizacoes';
+import jwtDecode from 'jwt-decode';
 
 
 export default {
@@ -93,17 +94,21 @@ export default {
             mostrarDivImagem: false,
             store: ecopointStore(),
             storeUser: userStore(),
-            storeOccurence: occurenceStore(),
+            storeUtilizacao: utilizacaoStore(),
             ecopoints: [],
             users: [],
             imageUrl: null,
+            fotoPreview: null,
             idSelectedEcopoint: null,
+            userId: '',
+            user: [],
         }
     },
 
     async mounted() {
         await this.getAllEcopontos();
-        await this.getAllUsers();
+        this.getUserId();
+        await this.getUser(this.userId);
 
         let map = new google.maps.Map(document.getElementById("map"), {
             zoom: 18,
@@ -127,7 +132,8 @@ export default {
         };
 
         // for of para iterar sobre o array de ecopoints e criar um marker para cada um
-        for (const ecopoint of this.ecopoints) {
+        const ecopontosValidados = this.ecopoints.filter(ecopoint => ecopoint.validacao === true);
+        for (const ecopoint of ecopontosValidados) {
             //console.log(ecopoint.latitude);
             //console.log(typeof ecopoint.latitude)
             const marker = new google.maps.Marker({
@@ -155,7 +161,7 @@ export default {
                 infoWindow.open(map, marker);
                 this.$nextTick(() => {
                     google.maps.event.addDomListener(document.getElementById('btn-utilizar-ecoponto'), 'click', this.mostrarDiv);
-                    this.idSelectedEcopoint = ecopoint.id;
+                    this.idSelectedEcopoint = ecopoint._id;
                 });
 
 
@@ -233,18 +239,37 @@ export default {
 
     methods: {
 
+        getUserId() {
+            const user = JSON.parse(localStorage.getItem("user"));
+            const token = user.token;
+
+            if (token) {
+                const decoded = jwtDecode(token);
+                this.userId = decoded.id;
+            } 
+        },
+
+        async getUser(id) {
+            try {
+                const users = await this.storeUser.getUserById(id);
+                this.user = users;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
         logout() {
             localStorage.removeItem('user');
             this.$router.push('/login');
         },
 
-        uploadImage(event) {
-            let file = event.target.files[0];
-            let reader = new FileReader();
+        uploadImage() {
+            this.imageUrl = this.$refs.fileInput.files[0];
+            const reader = new FileReader();
             reader.onload = (e) => {
-                this.imageUrl = e.target.result;
+                this.fotoPreview = e.target.result;
             };
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(this.imageUrl);
         },
 
         /* ao clicar no botão "bntUtilizarEcoponto", a div, que contem a imagem do lugar do ecoponto, o botão "Escolher o ficheiro" e o botão "Submeter Imagem, aparece" */
@@ -291,28 +316,48 @@ export default {
             }
         },
 
-        async getAllUsers() {
-            try {
-                await this.storeUser.getAllUsers();
-                this.users = this.storeUser.getUsers;
-            } catch (error) {
-                console.log(error);
-            }
-        },
+        async useEcoponto(){
+            const currentDate = new Date();
+            const options = { timeZone: 'Europe/Lisbon' };
+            const formattedDate = currentDate.toLocaleString('pt-PT', options);
+            const formData = new FormData();
+            formData.append('idEcoponto', this.idSelectedEcopoint);
+            formData.append('idUtilizador', this.userId);
+            formData.append('image', this.imageUrl);
+            formData.append('dataUtilizacao', formattedDate);
 
-        async useEcoponto(idEcoponto) {
             try {
-                await this.storeOccurence.addOccurrence(idEcoponto, this.storeUser.getUserLogged().id, this.imageUrl);
+                await this.store.useEcoponto(this.idSelectedEcopoint,formData);
                 this.$swal({
                     title: 'Utilização feita com sucesso!',
                     icon: 'success',
                     confirmButtonText: 'Ok',
                     confirmButtonColor: '#f39c12',
                 });
+                this.mostrarDivImagem = false;
             } catch (error) {
                 console.log(error);
             }
-        },
+
+            /* try {
+                await this.store.useEcoponto(this.idSelectedEcopoint,{
+                    idEcoponto: this.idSelectedEcopoint,
+                    idUtilizador: this.userId,
+                    foto: this.imageUrl,
+                    dataUtilizacao: formattedDate,
+                });
+                // guardar a utilização do ecoponto na store de utilização
+                await this.storeUtilizacao.createUtilizacao({
+                    idEcoponto: this.idSelectedEcopoint,
+                    idUtilizador: this.userId,
+                    foto: this.imageUrl,
+                    dataUtilizacao: formattedDate,
+                });
+                console.log(this.imageUrl, this.idSelectedEcopoint, this.userId, formattedDate);
+            } catch (error) {
+                console.log(error);
+            } */
+        }
     },
 
 }

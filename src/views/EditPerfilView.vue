@@ -73,7 +73,7 @@
                         <!-- Botões de atualizar perfil e cancelar -->
                         <b-row class="mt-5 mb-5">
                             <b-col>
-                                <b-button type="submit" pill class="mx-1" id="atualizarPerfil" @click="updateUser">Atualizar Perfil</b-button>
+                                <b-button pill class="mx-1" id="atualizarPerfil" @click="updateUser(userId, username, email, password)">Atualizar Perfil</b-button>
                             </b-col>
                             <b-col class="text-right">
                                 <b-button type="reset" pill id="cancelar" @click="onReset">Cancelar</b-button>
@@ -106,74 +106,17 @@ export default {
                 imageUrl: null,
             },
             userId: '',
+            user: [],
         }
     },
 
     created() {
         this.usersS = this.store.users;
 
-        // carregar o array de users na local storage
-        //localStorage.setItem('users', JSON.stringify(this.users));
-
     },
 
 
     methods: {
-/*         onSubmit(evt) {
-            evt.preventDefault()
-
-            const data = {
-                id: this.store.getUserLogged().id,
-                email: this.form.emailChange,
-                username: this.form.usernameChange,
-                password: this.form.passwordChange,
-                confirmPassword: this.form.confirmPasswordChange,
-                foto: this.form.imageUrl,
-            }
-
-
-
-            // fazer atualização dos dados do utilizador
-
-
-            try {
-                const user = this.store.users.find(user => user.username === data.username || user.email === data.email);
-
-                if (user) {
-                    this.$swal({
-                        title: 'Username ou email já existe!',
-                        icon: 'error',
-                        confirmButtonText: 'Ok',
-                    })
-                } else if (data.password !== data.confirmPassword) {
-                    this.$swal({
-                        title: 'Password não corresponde!',
-                        icon: 'error',
-                        confirmButtonText: 'Ok',
-                    })
-                } else {
-                    // substituir os novos dados do utilizador
-                    // atualizar os dados do utilizador na store, e depois atualizar os dados na local storage e na session storage só os dados editados e manter os outros
-
-
-                    this.store.updateUser(data);
-                    //sessionStorage.setItem('user', updateUser(data));
-                    // atualizar os dados do utilizador na session storage só os dados editados e manter os outros
-                    //sessionStorage.setItem('user', JSON.stringify(data));
-
-                    this.$swal({
-                        title: 'Dados atualizados com sucesso!',
-                        icon: 'success',
-                        confirmButtonText: 'Ok',
-                    })
-                    this.$router.push('/perfil');
-                }
-            } catch (error) {
-                console.error('Erro ao atualizar dados do utilizador: ', error);
-
-            }
-        },
- */
         getUserId() {
             const user = JSON.parse(localStorage.getItem("user"));
             const token = user.token;
@@ -181,19 +124,28 @@ export default {
             if (token) {
                 const decoded = jwtDecode(token);
                 this.userId = decoded.id;
+            } 
+        },
+
+        async getUser(id) {
+            try {
+                const users = await this.store.getUserById(id);
+                this.user = users;
+            } catch (error) {
+                console.log(error);
             }
         },
 
-        async updateUser(event) {
-            event.preventDefault();
+        async updateUser(id) {
+            
             try {
-                await this.store.updateUser(this.userId, {
+                await this.store.updateUser(id, {
                     username: this.form.usernameChange,
                     password: this.form.passwordChange,
                     confirmPassword: this.form.confirmPasswordChange,
                     email: this.form.emailChange,
                 });
-
+                
                 this.$swal({
                     title: `Perfil atualizado com sucesso!`,
                     icon: 'success',
@@ -203,9 +155,9 @@ export default {
                 }).then(() => {
                     this.$router.push('/perfil');
                 });
-            } catch (Error) {
+            } catch (err) {
                 this.$swal({
-                    title: Error,
+                    title: err,
                     icon: 'error',
                     confirmButtonText: 'Ok',
                     confirmButtonColor: '#F39C12',
@@ -242,9 +194,10 @@ export default {
         },
     },
 
-    mounted(){
+    async mounted(){
         this.getUserId();
-        console.log(this.userId)
+        await this.getUser(this.userId);
+        
     },
 }
 </script>
