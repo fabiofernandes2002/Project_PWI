@@ -104,13 +104,13 @@ export default {
     },
 
     methods: {
-        async getAllEcopontos(){
+        async getAllEcopontos() {
             try {
                 await this.store.getAllEcopontos();
                 const allEcopontos = this.store.getEcopoints;
                 this.ecopontos = allEcopontos.filter(ecoponto => ecoponto.validacao === false);
                 console.log(this.ecopontos);
-                
+
             } catch (error) {
                 console.log(error);
             }
@@ -165,7 +165,7 @@ export default {
 
 
                 }
-                
+
             } catch (error) {
                 console.log(error);
             }
@@ -173,60 +173,13 @@ export default {
 
         async deleteEcopontoById(id) {
             try {
-                //swal message a perguntar se quer mesmo eliminar o registo
-                const result = await this.$swal({
-                    title: 'Tens a certeza que queres eliminar este registo?',
-                    text: 'Não poderás reverter esta ação!',
-                    icon: 'warning',
-                    buttons: {
-                        cancel: {
-                            text: "Não",
-                            value: false,
-                            visible: true,
-                            className: "",
-                            closeModal: true,
-                        },
-                        confirm: {
-                            text: "Sim",
-                            value: true,
-                            visible: true,
-                            className: "",
-                            closeModal: true
-                        }
-                    }
-                })
-                if (result) {
-                    await this.store.deleteEcopontoById(id);
-                    this.ecopontos = this.ecopontos.filter(ecoponto => ecoponto._id !== id);
-
-                    this.$router.go();
-                }
-                
+                const response = await EcopontosService.deleteEcopontoById(id);
+                return response;
             } catch (error) {
                 console.log(error);
             }
-        },
-
-        
-    },
-
-    async mounted() {
-        try {
-            await this.getAllEcopontos();
-
-            if (this.ecopontos) {
-
-                this.txtBtns = this.ecopontos.map(ecoponto =>
-                    ecoponto.validacao ? "Validado" : "Validar"
-                );
-
-                this.areButtonsDisabled = this.ecopontos.map(ecoponto =>
-                    ecoponto.validacao
-                );
-            }
-        } catch (error) {
-            console.log(error);
         }
+
     },
 }
 </script>

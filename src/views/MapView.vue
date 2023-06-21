@@ -246,7 +246,7 @@ export default {
             if (token) {
                 const decoded = jwtDecode(token);
                 this.userId = decoded.id;
-            } 
+            }
         },
 
         async getUser(id) {
@@ -316,7 +316,7 @@ export default {
             }
         },
 
-        async useEcoponto(){
+        async useEcoponto() {
             const currentDate = new Date();
             const options = { timeZone: 'Europe/Lisbon' };
             const formattedDate = currentDate.toLocaleString('pt-PT', options);
@@ -327,7 +327,7 @@ export default {
             formData.append('dataUtilizacao', formattedDate);
 
             try {
-                await this.store.useEcoponto(this.idSelectedEcopoint,formData);
+                await this.store.useEcoponto(this.idSelectedEcopoint, formData);
                 this.$swal({
                     title: 'Utilização feita com sucesso!',
                     icon: 'success',
@@ -372,9 +372,10 @@ export default {
 .mapView {
     background-image: url("../assets/imgs/mainbg.svg");
     background-size: 1920px 1080px;
-    background-position: center;
+    background-position: fill;
     animation: gradient 70s ease infinite;
 }
+
 
 @keyframes gradient {
     100% {
