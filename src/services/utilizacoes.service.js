@@ -84,8 +84,8 @@ export const UtilizacoesService = {
         /* const currentDate = new Date();
         const options = { timeZone: 'Europe/Lisbon' };
         const formattedDate = currentDate.toLocaleString('pt-PT', options); */
-        //const response = await fetch(`http://127.0.0.1:3000/utilizacoes`, {
-        const response = await fetch(`${API_URL}/utilizacoes`, {
+        const response = await fetch(`http://127.0.0.1:3000/utilizacoes`, {
+        //const response = await fetch(`${API_URL}/utilizacoes`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

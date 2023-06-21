@@ -15,7 +15,7 @@ export const EcopontosService = {
             let data = await response.json();
             return data.ecopontos;
           } else {
-            throw Error(response.msg);
+            throw Error(data.msg);
         }
     },
 
@@ -62,7 +62,7 @@ export const EcopontosService = {
             let data = await response.json();
             return data;
           } else {
-            throw Error(response.msg);
+            throw Error(data.msg);
         }
     },
 
@@ -73,8 +73,8 @@ export const EcopontosService = {
         const options = { timeZone: 'Europe/Lisbon' };
         const formattedDate = currentDate.toLocaleString('pt-PT', options); */
 
-        const response = await fetch(`${API_URL}/ecopontos/use/${id}`, {
-            //const response = await fetch(`http://127.0.0.1:3000/ecopontos/use/${id}`, {
+        //const response = await fetch(`${API_URL}/ecopontos/use/${id}`, {
+        const response = await fetch(`http://127.0.0.1:3000/ecopontos/use/${id}`, {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -131,7 +131,7 @@ export const EcopontosService = {
             let data = await response.json();
             return data;
           } else {
-            throw Error(response.msg);
+            throw Error(data.msg);
             
           }
     },

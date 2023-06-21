@@ -173,7 +173,6 @@ export default {
 
         async deleteEcopontoById(id) {
             try {
-<<<<<<< HEAD
                 //swal message a perguntar se quer mesmo eliminar o registo
                 const result = await this.$swal({
                     title: 'Tens a certeza que queres eliminar este registo?',
@@ -228,15 +227,6 @@ export default {
         } catch (error) {
             console.log(error);
         }
-=======
-                const response = await EcopontosService.deleteEcopontoById(id);
-                return response;
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
->>>>>>> dcb45eaa8201513bea67dcccc62e83a3fdd75be0
     },
 }
 </script>

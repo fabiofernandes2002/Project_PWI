@@ -54,7 +54,7 @@
                         <a href="/admin">
                             <li>Página Principal Admin</li>
                         </a>
-                        <a href="/addEcopoint">
+                        <a href="/gerirEcopontos">
                             <li>Gerir Ecopontos</li>
                         </a>
                         <a href="/gerirUtilizadores">
@@ -63,7 +63,7 @@
                         <a href="/desafios">
                             <li>Gerir Recompensas</li>
                         </a>
-                        <a href="/ranking">
+                        <a href="/gerirUtilizadores">
                             <li>Gerir Utilizadores</li>
                         </a>
                         <br>

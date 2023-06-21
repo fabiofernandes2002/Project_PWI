@@ -10,14 +10,17 @@
                 <b-row>
                     <b-col cols="12">
                         <div class="tabela-desafios">
-                            <b-table striped :items="desafios.desafios" :fields="fields">
+                            <b-table striped :items="this.desafios" :fields="fields">
                                 <!-- adiciona o nome do desafio -->
-                                <template #cell(name)="row">
-                                    <span>{{ row.item.name }}</span>
+                                <template #cell(nome)="row">
+                                    <span>{{ row.item.nome }}</span>
                                 </template>
                                 <!-- adiciona a descrição do desafio -->
-                                <template #cell(description)="row">
-                                    <span>{{ row.item.description }}</span>
+                                <template #cell(descricao)="row">
+                                    <span>{{ row.item.descricao }}</span>
+                                </template>
+                                <template #cell(recompensa)="row">
+                                    <span>{{ row.item.recompensa }}</span>
                                 </template>
                             </b-table>
 
@@ -88,13 +91,31 @@ export default {
     data() {
         return {
             store: userStore(),
-            desafios: desafiosStore(),
+            desafiosStore: desafiosStore(),
             fields: [
-                { key: 'name', label: 'Nome' },
-                { key: 'description', label: 'Descrição' },
+                { key: 'nome', label: 'Nome' },
+                { key: 'descricao', label: 'Descrição' },
+                {key: 'recompensa', label: 'Recompensa'}
             ],
+            desafios: [],
         }
-    }
+    },
+
+    async mounted () {
+        await this.getDesafios();
+    },
+
+    methods: {
+        async getDesafios(){
+            try {
+                const desafios = await this.desafiosStore.getAllDesafios();
+                this.desafios = desafios;
+                
+            } catch (error) {
+                console.log(error);
+            }
+        },
+    },
 
 }
 </script>
